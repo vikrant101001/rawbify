@@ -1,0 +1,20 @@
+{
+  "name": "Rawbify - Raw Data In. BI Ready Out.",
+  "short_name": "Rawbify",
+  "description": "Transform messy business data into clean, analysis-ready datasets for Power BI and Tableau in minutes, not hours.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/rawbify_logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "business", "utilities"],
+  "lang": "en",
+  "dir": "ltr"
+} 

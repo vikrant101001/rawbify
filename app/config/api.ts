@@ -1,7 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
   // Base URL for API calls
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://rawbify-backend-production.up.railway.app/',
   
   // API version
   API_VERSION: 'v1',

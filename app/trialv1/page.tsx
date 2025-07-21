@@ -94,17 +94,15 @@ export default function TrialV1() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3">
-                <img src="/rawbify_logo.svg" alt="Rawbify" className="h-8 w-auto" />
-                <h1 className="text-2xl font-bold text-gray-900">Rawbify</h1>
-              </div>
-              <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                Trial v1
-              </span>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center space-x-3 w-full sm:w-auto justify-center sm:justify-start">
+              <img src="/rawbify_logo.svg" alt="Rawbify" className="h-8 w-auto" />
+              <h1 className="text-2xl font-bold text-gray-900">Rawbify</h1>
             </div>
-            <div className="text-sm text-gray-500">
+            <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full w-full sm:w-auto text-center">
+              Trial v1
+            </span>
+            <div className="text-sm text-gray-500 w-full sm:w-auto text-center sm:text-right">
               Welcome, Waitlist User! 👋
             </div>
           </div>
@@ -112,18 +110,18 @@ export default function TrialV1() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+      <main className="max-w-2xl sm:max-w-4xl mx-auto px-2 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">
             Experience Rawbify in Action
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
             Upload your Excel or CSV file, tell us what you want, and get clean, analysis-ready data.
           </p>
         </div>
 
         {/* Demo Steps */}
-        <div className="bg-white rounded-lg shadow-lg p-8">
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-8">
           {/* Step 0: User Validation */}
           <UserValidation
             onValidationSuccess={handleValidationSuccess}
@@ -141,7 +139,7 @@ export default function TrialV1() {
               <Button 
                 onClick={handleProceed} 
                 disabled={!canProceed()}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 Proceed to Step 2
               </Button>
@@ -159,7 +157,7 @@ export default function TrialV1() {
               <Button 
                 onClick={handleProceed} 
                 disabled={!canProceed()}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 Process Data
               </Button>
@@ -177,15 +175,15 @@ export default function TrialV1() {
         </div>
 
         {/* CTA */}
-        <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-lg">
-            <h3 className="text-2xl font-bold mb-4">
+        <div className="mt-10 sm:mt-12 text-center">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 sm:p-8 rounded-lg">
+            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
               Stay Tuned for Trial V2
             </h3>
-            <p className="text-lg mb-6 opacity-90">
+            <p className="text-base sm:text-lg mb-4 sm:mb-6 opacity-90">
               Get unlimited data processing, advanced AI features, and priority support.
             </p>
-            <Button variant="outline" className="bg-white text-blue-600 hover:bg-gray-100">
+            <Button variant="outline" className="bg-white text-blue-600 hover:bg-gray-100 w-full sm:w-auto">
               Get in Touch
             </Button>
           </div>

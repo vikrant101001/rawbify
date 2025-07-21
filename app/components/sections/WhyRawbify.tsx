@@ -8,29 +8,29 @@ export default function WhyRawbify() {
   const [rightRef, rightVisible] = useIntersectionObserver<HTMLDivElement>()
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section className="py-14 px-2 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <div 
           ref={titleRef}
-          className={`text-center mb-16 fade-in-on-scroll ${titleVisible ? 'visible' : ''}`}
+          className={`text-center mb-10 sm:mb-16 fade-in-on-scroll ${titleVisible ? 'visible' : ''}`}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
             Why Rawbify?
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Business data is messy. Cleaning it manually takes hours and kills productivity.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div 
             ref={leftRef}
             className={`fade-in-on-scroll ${leftVisible ? 'visible' : ''}`}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <h3 className="text-lg sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
             The problem with existing methods
             </h3>
-            <ul className="space-y-4 text-gray-600">
+            <ul className="space-y-3 sm:space-y-4 text-gray-600 text-base sm:text-lg">
               <li className="flex items-start">
                 <span className="text-red-500 font-bold mr-2">•</span>
                 Time Factor: Manual processing takes time and Resources
@@ -52,12 +52,12 @@ export default function WhyRawbify() {
 
           <div 
             ref={rightRef}
-            className={`bg-white p-8 rounded-lg shadow-lg fade-in-on-scroll ${rightVisible ? 'visible' : ''}`}
+            className={`bg-white p-6 sm:p-8 rounded-lg shadow-lg fade-in-on-scroll ${rightVisible ? 'visible' : ''}`}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <h3 className="text-lg sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
               The Rawbify Solution
             </h3>
-            <ul className="space-y-4 text-gray-600">
+            <ul className="space-y-3 sm:space-y-4 text-gray-600 text-base sm:text-lg">
               <li className="flex items-start">
                 <span className="text-green-500 font-bold mr-2">✓</span>
                 AI-powered data cleaning and standardization

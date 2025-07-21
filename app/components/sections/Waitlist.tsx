@@ -33,19 +33,19 @@ export default function Waitlist() {
   }
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section className="py-14 px-2 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-4xl mx-auto text-center">
         <div 
           ref={titleRef}
           className={`fade-in-on-scroll ${titleVisible ? 'visible' : ''}`}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">
             Join the Waitlist
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto">
             Be among the first to experience the future of data cleaning. Get early access and exclusive updates.
           </p>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto">
             Trial V1 is here as of now(20th July 2025). Join the waitlist to get access to the trial directly through your emails.
           </p>
 
@@ -66,12 +66,12 @@ export default function Waitlist() {
                     placeholder="Enter your email address"
                     required
                     disabled={isSubmitting}
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100"
+                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 w-full"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed w-full sm:w-auto"
                   >
                     {isSubmitting ? 'Joining...' : 'Join Waitlist'}
                   </button>
@@ -95,7 +95,7 @@ export default function Waitlist() {
             )}
           </div>
 
-          <div className="mt-12 text-sm text-gray-500">
+          <div className="mt-10 sm:mt-12 text-sm text-gray-500">
             <p>Join 2,000+ data analysts already on the waitlist</p>
           </div>
         </div>

@@ -27,6 +27,28 @@ export default function TrialV1() {
 
   const handleFileUpload = (file: File) => {
     setUploadedFile(file)
+    
+    // Store the original file data for the view page
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const text = e.target?.result as string
+      const lines = text.split('\n')
+      const headers = lines[0].split(',')
+      const data = lines.slice(1).filter(line => line.trim()).map((line, index) => {
+        const values = line.split(',')
+        const row: any = { id: index + 1 }
+        headers.forEach((header, i) => {
+          row[header.trim()] = values[i]?.trim() || ''
+        })
+        return row
+      })
+      localStorage.setItem('rawbify_original_data', JSON.stringify({
+        filename: file.name,
+        data: data,
+        headers: headers
+      }))
+    }
+    reader.readAsText(file)
   }
 
   const handlePromptChange = (newPrompt: string) => {
@@ -51,22 +73,95 @@ export default function TrialV1() {
         if (result.success && result.data) {
           setProcessedData(result.data)
           // Use API processing summary if available
-          if (result.processingSummary) {
-            setProcessingSummary(result.processingSummary)
-          } else {
-            setProcessingSummary(getDefaultProcessingSummary())
+          const summary = result.processingSummary || getDefaultProcessingSummary()
+          setProcessingSummary(summary)
+          
+          // Store processed data for view page
+          const reader = new FileReader()
+          reader.onload = (e) => {
+            const text = e.target?.result as string
+            const lines = text.split('\n')
+            const headers = lines[0].split(',')
+            const data = lines.slice(1).filter(line => line.trim()).map((line, index) => {
+              const values = line.split(',')
+              const row: any = { id: index + 1 }
+              headers.forEach((header, i) => {
+                row[header.trim()] = values[i]?.trim() || ''
+              })
+              return row
+            })
+            localStorage.setItem('rawbify_processed_data', JSON.stringify({
+              filename: 'processed_' + (uploadedFile?.name || 'data.csv'),
+              data: data,
+              headers: headers,
+              summary: summary,
+              prompt: prompt
+            }))
           }
+          reader.readAsText(result.data)
         } else {
           // Fallback to dummy data on API error
           console.log('API Error, using dummy data:', result.error)
-          setProcessedData(generateDummyExcelData())
-          setProcessingSummary(getDefaultProcessingSummary())
+          const dummyData = generateDummyExcelData()
+          const summary = getDefaultProcessingSummary()
+          setProcessedData(dummyData)
+          setProcessingSummary(summary)
+          
+          // Store fallback processed data for view page
+          const reader = new FileReader()
+          reader.onload = (e) => {
+            const text = e.target?.result as string
+            const lines = text.split('\n')
+            const headers = lines[0].split(',')
+            const data = lines.slice(1).filter(line => line.trim()).map((line, index) => {
+              const values = line.split(',')
+              const row: any = { id: index + 1 }
+              headers.forEach((header, i) => {
+                row[header.trim()] = values[i]?.trim() || ''
+              })
+              return row
+            })
+            localStorage.setItem('rawbify_processed_data', JSON.stringify({
+              filename: 'processed_' + (uploadedFile?.name || 'data.csv'),
+              data: data,
+              headers: headers,
+              summary: summary,
+              prompt: prompt
+            }))
+          }
+          reader.readAsText(dummyData)
         }
       } catch (error) {
         console.error('Processing error:', error)
         // Fallback to dummy data
-        setProcessedData(generateDummyExcelData())
-        setProcessingSummary(getDefaultProcessingSummary())
+        const dummyData = generateDummyExcelData()
+        const summary = getDefaultProcessingSummary()
+        setProcessedData(dummyData)
+        setProcessingSummary(summary)
+        
+        // Store fallback data for view page
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const text = e.target?.result as string
+          const lines = text.split('\n')
+          const headers = lines[0].split(',')
+          const data = lines.slice(1).filter(line => line.trim()).map((line, index) => {
+            const values = line.split(',')
+            const row: any = { id: index + 1 }
+            headers.forEach((header, i) => {
+              row[header.trim()] = values[i]?.trim() || ''
+            })
+            return row
+          })
+          localStorage.setItem('rawbify_processed_data', JSON.stringify({
+            filename: 'processed_' + (uploadedFile?.name || 'data.csv'),
+            data: data,
+            headers: headers,
+            summary: summary,
+            prompt: prompt
+          }))
+        }
+        reader.readAsText(dummyData)
       } finally {
         setProcessing(false)
         setProcessed(true)

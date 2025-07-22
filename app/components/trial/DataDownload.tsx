@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Download, CheckCircle, Brain, Loader, FileText, Sparkles, Star, TrendingUp, Code, Play, FileCheck } from 'lucide-react'
+import { Download, CheckCircle, Brain, Loader, FileText, Sparkles, Star, TrendingUp, Code, Play, FileCheck, Eye } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 interface DataDownloadProps {
   isActive: boolean
@@ -19,6 +20,7 @@ export default function DataDownload({
   processingSummary, 
   onDownload 
 }: DataDownloadProps) {
+  const router = useRouter()
   const [currentStep, setCurrentStep] = useState(0)
   
   const processingSteps = [
@@ -68,6 +70,10 @@ export default function DataDownload({
   ]
 
   const summary = processingSummary || defaultSummary
+
+  const handleViewResults = () => {
+    router.push('/trialv1/view')
+  }
 
   return (
     <motion.div 
@@ -335,36 +341,54 @@ export default function DataDownload({
                 </div>
               </motion.div>
 
-              {/* Download Button */}
+              {/* Action Buttons */}
               <motion.div
                 className="text-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.0 }}
               >
-                <motion.button 
-                  onClick={onDownload}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 text-white text-xl font-bold rounded-2xl hover:shadow-xl transition-all duration-300 space-x-3"
-                >
-                  <Download className="w-6 h-6" />
-                  <span>Download Processed File</span>
-                  <motion.div
-                    animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                  <motion.button 
+                    onClick={handleViewResults}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white text-lg font-bold rounded-2xl hover:shadow-xl transition-all duration-300 space-x-3"
                   >
-                    ⬇️
-                  </motion.div>
-                </motion.button>
+                    <Eye className="w-5 h-5" />
+                    <span>View Results</span>
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      👁️
+                    </motion.div>
+                  </motion.button>
+
+                  <motion.button 
+                    onClick={onDownload}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-blue-600 text-white text-lg font-bold rounded-2xl hover:shadow-xl transition-all duration-300 space-x-3"
+                  >
+                    <Download className="w-5 h-5" />
+                    <span>Download File</span>
+                    <motion.div
+                      animate={{ y: [0, -3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      ⬇️
+                    </motion.div>
+                  </motion.button>
+                </div>
                 
                 <motion.p
-                  className="text-sm text-gray-500 mt-4"
+                  className="text-sm text-gray-500"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1.2 }}
                 >
-                  Your file will be downloaded as CSV format, ready for import into Power BI or Tableau
+                  Preview your data in Excel-like format or download as CSV for Power BI/Tableau
                 </motion.p>
               </motion.div>
             </motion.div>

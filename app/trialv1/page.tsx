@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '../components/ui/button'
 import UserValidation from '../components/trial/UserValidation'
 import FileUpload from '../components/trial/FileUpload'
 import PromptInput from '../components/trial/PromptInput'
 import DataDownload from '../components/trial/DataDownload'
 import { processData, generateDummyExcelData, getDefaultProcessingSummary } from '../services/api'
+import { ArrowRight, CheckCircle, Sparkles, Database, Brain, Download } from 'lucide-react'
 
 export default function TrialV1() {
   const [currentStep, setCurrentStep] = useState(0)
@@ -89,105 +91,298 @@ export default function TrialV1() {
     return false
   }
 
+  const steps = [
+    { icon: CheckCircle, title: 'Validate Access', color: 'from-blue-500 to-purple-600' },
+    { icon: Database, title: 'Upload Data', color: 'from-purple-500 to-pink-600' },
+    { icon: Brain, title: 'AI Prompt', color: 'from-pink-500 to-red-600' },
+    { icon: Download, title: 'Download', color: 'from-green-500 to-blue-600' }
+  ]
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"></div>
+      <div className="absolute inset-0 wave-pattern opacity-20"></div>
+      
+      {/* Floating Elements */}
+      <div className="absolute top-20 left-10 opacity-10">
+        <motion.div
+          animate={{ 
+            y: [0, -20, 0],
+            rotate: [0, 10, 0]
+          }}
+          transition={{ 
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <Sparkles className="w-12 h-12 text-purple-500" />
+        </motion.div>
+      </div>
+      
+      <div className="absolute bottom-20 right-10 opacity-10">
+        <motion.div
+          animate={{ 
+            y: [0, 15, 0],
+            rotate: [0, -5, 0]
+          }}
+          transition={{ 
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        >
+          <Database className="w-10 h-10 text-blue-500" />
+        </motion.div>
+      </div>
+
+      {/* Modern Header */}
+      <header className="relative glass border-b border-white/20 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center space-x-3 w-full sm:w-auto justify-center sm:justify-start">
-              <img src="/rawbify_logo.svg" alt="Rawbify" className="h-8 w-auto" />
-              <h1 className="text-2xl font-bold text-gray-900">Rawbify</h1>
-            </div>
-            <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full w-full sm:w-auto text-center">
-              Trial v1
-            </span>
-            <div className="text-sm text-gray-500 w-full sm:w-auto text-center sm:text-right">
-              Welcome, Waitlist User! 👋
-            </div>
+            <motion.div 
+              className="flex items-center space-x-3 w-full sm:w-auto justify-center sm:justify-start"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <motion.img 
+                src="/rawbify_logo.svg" 
+                alt="Rawbify" 
+                className="h-10 w-auto"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.3 }}
+              />
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Rawbify
+              </h1>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex items-center space-x-4"
+            >
+              <span className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg">
+                Trial v1
+              </span>
+              <div className="text-sm text-gray-600 font-medium">
+                Welcome, Waitlist User! 👋
+              </div>
+            </motion.div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-2xl sm:max-w-4xl mx-auto px-2 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Experience Rawbify in Action
+      <main className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 z-10">
+        {/* Hero Section */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+            <span className="text-gray-900">Experience </span>
+            <span className="gradient-text">Rawbify</span>
+            <span className="text-gray-900"> in Action</span>
           </h2>
-          <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Upload your Excel or CSV file, tell us what you want, and get clean, analysis-ready data.
           </p>
-        </div>
+        </motion.div>
+
+        {/* Progress Indicator */}
+        <motion.div 
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <div className="flex items-center justify-center space-x-4 mb-8">
+            {steps.map((step, index) => {
+              const Icon = step.icon
+              const isActive = index <= currentStep
+              const isCompleted = index < currentStep
+              
+              return (
+                <motion.div
+                  key={index}
+                  className="flex items-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="flex flex-col items-center">
+                    <motion.div
+                      className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
+                        isCompleted 
+                          ? 'bg-green-500' 
+                          : isActive 
+                            ? `bg-gradient-to-r ${step.color}` 
+                            : 'bg-gray-300'
+                      }`}
+                      whileHover={{ scale: 1.1 }}
+                      animate={isActive && !isCompleted ? { scale: [1, 1.1, 1] } : {}}
+                      transition={{ duration: 2, repeat: isActive && !isCompleted ? Infinity : 0 }}
+                    >
+                      <Icon className={`w-8 h-8 ${isActive || isCompleted ? 'text-white' : 'text-gray-500'}`} />
+                    </motion.div>
+                    <span className={`text-sm font-medium mt-2 ${isActive ? 'text-gray-900' : 'text-gray-500'}`}>
+                      {step.title}
+                    </span>
+                  </div>
+                  
+                  {index < steps.length - 1 && (
+                    <motion.div 
+                      className={`w-16 h-1 mx-4 rounded-full ${
+                        index < currentStep ? 'bg-green-500' : 'bg-gray-300'
+                      }`}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: index < currentStep ? 1 : 0 }}
+                      transition={{ duration: 0.8, delay: 0.5 }}
+                    />
+                  )}
+                </motion.div>
+              )
+            })}
+          </div>
+        </motion.div>
 
         {/* Demo Steps */}
-        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-8">
-          {/* Step 0: User Validation */}
-          <UserValidation
-            onValidationSuccess={handleValidationSuccess}
-            isActive={currentStep === 0}
-          />
+        <motion.div 
+          className="modern-card p-8 lg:p-12 mb-12"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Step 0: User Validation */}
+              <UserValidation
+                onValidationSuccess={handleValidationSuccess}
+                isActive={currentStep === 0}
+              />
 
-          {/* Step 1: Upload Data File */}
-          <FileUpload
-            uploadedFile={uploadedFile}
-            onFileUpload={handleFileUpload}
-            isActive={currentStep >= 1}
-          />
-          {currentStep === 1 && (
-            <div className="text-center mt-4">
-              <Button 
-                onClick={handleProceed} 
-                disabled={!canProceed()}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed w-full sm:w-auto"
-              >
-                Proceed to Step 2
-              </Button>
-            </div>
-          )}
+              {/* Step 1: Upload Data File */}
+              <FileUpload
+                uploadedFile={uploadedFile}
+                onFileUpload={handleFileUpload}
+                isActive={currentStep >= 1}
+              />
+              {currentStep === 1 && (
+                <motion.div 
+                  className="text-center mt-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Button 
+                    onClick={handleProceed} 
+                    disabled={!canProceed()}
+                    className="btn-gradient text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Proceed to Step 2
+                    <motion.span
+                      className="inline-block ml-2"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <ArrowRight className="w-5 h-5" />
+                    </motion.span>
+                  </Button>
+                </motion.div>
+              )}
 
-          {/* Step 2: Enter Prompt */}
-          <PromptInput
-            prompt={prompt}
-            onPromptChange={handlePromptChange}
-            isActive={currentStep >= 2}
-          />
-          {currentStep === 2 && (
-            <div className="text-center mt-4">
-              <Button 
-                onClick={handleProceed} 
-                disabled={!canProceed()}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed w-full sm:w-auto"
-              >
-                Process Data
-              </Button>
-            </div>
-          )}
+              {/* Step 2: Enter Prompt */}
+              <PromptInput
+                prompt={prompt}
+                onPromptChange={handlePromptChange}
+                isActive={currentStep >= 2}
+              />
+              {currentStep === 2 && (
+                <motion.div 
+                  className="text-center mt-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Button 
+                    onClick={handleProceed} 
+                    disabled={!canProceed()}
+                    className="btn-gradient text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Process Data
+                    <motion.span
+                      className="inline-block ml-2"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <ArrowRight className="w-5 h-5" />
+                    </motion.span>
+                  </Button>
+                </motion.div>
+              )}
 
-          {/* Step 3: Download */}
-          <DataDownload
-            isActive={currentStep >= 3}
-            processing={processing}
-            processed={processed}
-            processingSummary={processingSummary}
-            onDownload={handleDownload}
-          />
-        </div>
+              {/* Step 3: Download */}
+              <DataDownload
+                isActive={currentStep >= 3}
+                processing={processing}
+                processed={processed}
+                processingSummary={processingSummary}
+                onDownload={handleDownload}
+              />
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
 
         {/* CTA */}
-        <div className="mt-10 sm:mt-12 text-center">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 sm:p-8 rounded-lg">
-            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
-              Stay Tuned for Trial V2
-            </h3>
-            <p className="text-base sm:text-lg mb-4 sm:mb-6 opacity-90">
-              Get unlimited data processing, advanced AI features, and priority support.
-            </p>
-            <Button variant="outline" className="bg-white text-blue-600 hover:bg-gray-100 w-full sm:w-auto">
-              Get in Touch
-            </Button>
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <div className="modern-card p-8 lg:p-12 bg-gradient-to-r from-blue-50 to-purple-50">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+            >
+              <h3 className="text-2xl sm:text-3xl font-bold mb-6">
+                <span className="gradient-text">Stay Tuned for Trial V2</span>
+              </h3>
+              <p className="text-lg sm:text-xl mb-8 text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Get unlimited data processing, advanced AI features, and priority support.
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white text-purple-600 border-2 border-purple-200 hover:border-purple-400 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300"
+              >
+                Get in Touch
+              </motion.button>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </main>
     </div>
   )

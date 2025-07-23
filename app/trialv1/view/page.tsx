@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Download, Eye, FileText, Table, MoreHorizontal, MessageSquare, Send, ChevronRight, ChevronDown, File, Database, Sparkles, Bot, User, Loader } from 'lucide-react'
+import { ArrowLeft, Download, Eye, FileText, Table, MoreHorizontal, MessageSquare, Send, ChevronRight, ChevronDown, File, Database, Sparkles, Bot, User, Loader, ChevronUp } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 // Helper function to load real data from localStorage
@@ -56,6 +56,64 @@ const getInitialChatMessages = (processingSummary: string[], prompt: string) => 
   }
 ]
 
+// Export format configurations
+const exportFormats = [
+  {
+    key: 'csv',
+    name: 'CSV',
+    description: 'Universal format - works everywhere',
+    icon: '📄',
+    extension: 'csv',
+    mimeType: 'text/csv',
+    recommended: false
+  },
+  {
+    key: 'xlsx',
+    name: 'Excel',
+    description: 'Best for business analysis & reporting',
+    icon: '📊',
+    extension: 'xlsx',
+    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    recommended: true
+  },
+  {
+    key: 'json',
+    name: 'JSON',
+    description: 'Modern data pipelines & APIs',
+    icon: '🔗',
+    extension: 'json',
+    mimeType: 'application/json',
+    recommended: false
+  },
+  {
+    key: 'powerbi',
+    name: 'Power BI',
+    description: 'Direct dashboard integration',
+    icon: '⚡',
+    extension: 'pbix',
+    mimeType: 'application/octet-stream',
+    recommended: false
+  },
+  {
+    key: 'parquet',
+    name: 'Parquet',
+    description: 'High-performance columnar format',
+    icon: '🚀',
+    extension: 'parquet',
+    mimeType: 'application/octet-stream',
+    recommended: false
+  },
+  {
+    key: 'tableau',
+    name: 'Tableau',
+    description: 'Hyper file for Tableau Desktop',
+    icon: '📈',
+    extension: 'hyper',
+    mimeType: 'application/octet-stream',
+    recommended: false
+  }
+]
+
 export default function ViewProcessedData() {
   const router = useRouter()
   const [activeFile, setActiveFile] = useState<'input' | 'output'>('output')
@@ -68,6 +126,8 @@ export default function ViewProcessedData() {
   const [chatMessages, setChatMessages] = useState<any[]>([])
   const [chatInput, setChatInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [showDownloadDropdown, setShowDownloadDropdown] = useState(false)
+  const [selectedFormat, setSelectedFormat] = useState(exportFormats[1]) // Default to Excel
   const [dataState, setDataState] = useState({
     inputData: [] as any[],
     outputData: [] as any[],
@@ -96,19 +156,125 @@ export default function ViewProcessedData() {
     setIsLoading(false)
   }, [router])
 
-  const handleDownload = () => {
-    const csvContent = [
+  const generateCSV = () => {
+    return [
       columns.join(','),
       ...currentData.map(row => columns.map(col => row[col as keyof typeof row]).join(','))
     ].join('\n')
+  }
 
-    const blob = new Blob([csvContent], { type: 'text/csv' })
+  const generateJSON = () => {
+    return JSON.stringify(currentData, null, 2)
+  }
+
+  const generateExcel = () => {
+    // For demo purposes, we'll create a simple HTML table that Excel can read
+    // In production, you'd use libraries like xlsx or exceljs
+    const htmlTable = `
+      <table>
+        <thead>
+          <tr>${columns.map(col => `<th>${col}</th>`).join('')}</tr>
+        </thead>
+        <tbody>
+          ${currentData.map(row => 
+            `<tr>${columns.map(col => `<td>${row[col as keyof typeof row] || ''}</td>`).join('')}</tr>`
+          ).join('')}
+        </tbody>
+      </table>
+    `
+    return htmlTable
+  }
+
+  const generatePowerBI = () => {
+    // For demo - in production, you'd generate actual .pbix files
+    const powerBITemplate = {
+      version: "1.0",
+      dataModel: {
+        tables: [{
+          name: activeFile === 'input' ? dataState.inputFilename : dataState.outputFilename,
+          columns: columns.map(col => ({ name: col, dataType: "string" })),
+          data: currentData
+        }]
+      },
+      reports: [{
+        name: "Data Analysis",
+        pages: [{
+          name: "Overview",
+          visualizations: []
+        }]
+      }]
+    }
+    return JSON.stringify(powerBITemplate, null, 2)
+  }
+
+  const generateParquet = () => {
+    // For demo - in production, you'd use parquet libraries
+    const parquetMeta = {
+      schema: columns.map(col => ({ name: col, type: "UTF8" })),
+      data: currentData,
+      compression: "SNAPPY",
+      format: "PARQUET_1_0"
+    }
+    return JSON.stringify(parquetMeta, null, 2)
+  }
+
+  const generateTableau = () => {
+    // For demo - in production, you'd generate actual .hyper files
+    const tableauHyper = {
+      database: "rawbify_data",
+      schema: "Extract",
+      table: activeFile === 'input' ? dataState.inputFilename : dataState.outputFilename,
+      columns: columns.map(col => ({ name: col, type: "text" })),
+      data: currentData,
+      metadata: {
+        created: new Date().toISOString(),
+        source: "Rawbify Data Processing"
+      }
+    }
+    return JSON.stringify(tableauHyper, null, 2)
+  }
+
+  const handleDownload = (format = selectedFormat) => {
+    let content = ''
+    let mimeType = format.mimeType
+    let filename = `${activeFile}_data.${format.extension}`
+
+    switch (format.key) {
+      case 'csv':
+        content = generateCSV()
+        break
+      case 'xlsx':
+        content = generateExcel()
+        mimeType = 'application/vnd.ms-excel' // For HTML table that Excel can read
+        break
+      case 'json':
+        content = generateJSON()
+        break
+      case 'powerbi':
+        content = generatePowerBI()
+        filename = `${activeFile}_data_powerbi.json` // Demo format
+        break
+      case 'parquet':
+        content = generateParquet()
+        filename = `${activeFile}_data_parquet.json` // Demo format
+        break
+      case 'tableau':
+        content = generateTableau()
+        filename = `${activeFile}_data_tableau.json` // Demo format
+        break
+      default:
+        content = generateCSV()
+    }
+
+    const blob = new Blob([content], { type: mimeType })
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `${activeFile}_data.csv`
+    a.download = filename
     a.click()
     window.URL.revokeObjectURL(url)
+    
+    setShowDownloadDropdown(false)
   }
 
   const handleCellClick = (rowIndex: number, colIndex: number) => {
@@ -190,21 +356,98 @@ export default function ViewProcessedData() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex items-center space-x-3"
+              className="flex items-center space-x-4"
             >
               <span className="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
                 <Sparkles className="w-3 h-3 mr-1" />
                 Trial V2 Preview
               </span>
-              <motion.button
-                onClick={handleDownload}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="btn-gradient text-white px-4 py-2 rounded-lg font-medium flex items-center space-x-2 text-sm"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download</span>
-              </motion.button>
+              
+              {/* Enhanced Download Button with Dropdown */}
+              <div className="relative">
+                <motion.button
+                  onClick={() => setShowDownloadDropdown(!showDownloadDropdown)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl font-bold flex items-center space-x-3 text-base shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <Download className="w-5 h-5" />
+                  <span>Download</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-xs opacity-90">{selectedFormat.name}</span>
+                    <span className="text-xs opacity-75">{selectedFormat.icon}</span>
+                  </div>
+                  <motion.div
+                    animate={{ rotate: showDownloadDropdown ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ChevronDown className="w-4 h-4" />
+                  </motion.div>
+                </motion.button>
+
+                {/* Download Dropdown */}
+                {showDownloadDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50"
+                  >
+                    <div className="p-4">
+                      <div className="text-sm font-semibold text-gray-800 mb-3 flex items-center">
+                        <Download className="w-4 h-4 mr-2" />
+                        Choose Export Format
+                      </div>
+                      
+                      <div className="space-y-2 max-h-64 overflow-y-auto">
+                        {exportFormats.map((format) => (
+                          <motion.button
+                            key={format.key}
+                            onClick={() => {
+                              setSelectedFormat(format)
+                              handleDownload(format)
+                            }}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className={`w-full text-left p-3 rounded-lg border transition-all duration-200 ${
+                              selectedFormat.key === format.key
+                                ? 'border-blue-500 bg-blue-50'
+                                : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                <span className="text-lg">{format.icon}</span>
+                                <div>
+                                  <div className="font-medium text-gray-900 flex items-center">
+                                    {format.name}
+                                    {format.recommended && (
+                                      <span className="ml-2 bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
+                                        Recommended
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="text-sm text-gray-600">{format.description}</div>
+                                </div>
+                              </div>
+                              <div className="text-xs text-gray-500 font-mono">
+                                .{format.extension}
+                              </div>
+                            </div>
+                          </motion.button>
+                        ))}
+                      </div>
+                      
+                      <div className="mt-4 pt-3 border-t border-gray-200">
+                        <div className="text-xs text-gray-500 text-center">
+                          💡 Pro tip: Excel format is perfect for business analysis
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
             </motion.div>
           </div>
         </div>

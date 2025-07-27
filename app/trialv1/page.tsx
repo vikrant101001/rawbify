@@ -2,26 +2,18 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '../components/ui/button'
 import UserValidation from '../components/trial/UserValidation'
 import FileUpload from '../components/trial/FileUpload'
-import PromptInput from '../components/trial/PromptInput'
-import DataDownload from '../components/trial/DataDownload'
-import { processData, generateDummyExcelData, getDefaultProcessingSummary } from '../services/api'
-import { ArrowRight, ArrowLeft, CheckCircle, Sparkles, Database, Brain, Download, Shield, Lock, Monitor, Award, Eye } from 'lucide-react'
+import { CheckCircle, Sparkles, Database, Shield, Lock, Monitor, Award, Eye } from 'lucide-react'
 import React from 'react'
 
 export default function TrialV1() {
   const [currentStep, setCurrentStep] = useState(0)
   const [validatedUserId, setValidatedUserId] = useState<string>('')
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
-  const [prompt, setPrompt] = useState('')
-  const [processing, setProcessing] = useState(false)
-  const [processed, setProcessed] = useState(false)
-  const [processedData, setProcessedData] = useState<Blob | null>(null)
-  const [processingSummary, setProcessingSummary] = useState<string[] | undefined>(undefined)
   const [showingPrivacyReassurance, setShowingPrivacyReassurance] = useState(false)
   const [privacyStep, setPrivacyStep] = useState(0)
+  const [redirectingToStudio, setRedirectingToStudio] = useState(false)
 
   const privacyMessages = [
     {
@@ -70,7 +62,7 @@ export default function TrialV1() {
   const handleFileUpload = (file: File) => {
     setUploadedFile(file)
     
-    // Store the original file data for the view page
+    // Store ONLY the original file data for the view page
     const reader = new FileReader()
     reader.onload = (e) => {
       const text = e.target?.result as string
@@ -84,131 +76,25 @@ export default function TrialV1() {
         })
         return row
       })
+      
+      // ONLY store original data - no processed data yet
       localStorage.setItem('rawbify_original_data', JSON.stringify({
         filename: file.name,
         data: data,
-        headers: headers
+        headers: headers,
+        userId: validatedUserId
       }))
+      
+      // Clear any existing processed data from previous sessions
+      localStorage.removeItem('rawbify_processed_data')
+      
+      // Automatically redirect to Data Studio after file upload
+      setRedirectingToStudio(true)
+      setTimeout(() => {
+        window.location.href = '/trialv1/view'
+      }, 2000) // 2 second transition to Data Studio
     }
     reader.readAsText(file)
-  }
-
-  const handlePromptChange = (newPrompt: string) => {
-    setPrompt(newPrompt)
-  }
-
-  const handleNext = async () => {
-    if (currentStep === 1 && uploadedFile) {
-      setCurrentStep(2)
-    } else if (currentStep === 2 && prompt.trim()) {
-      setCurrentStep(3)
-      setProcessing(true)
-      
-      try {
-        // Call the API with validated user ID
-        const result = await processData({
-          file: uploadedFile!,
-          prompt: prompt,
-          userId: validatedUserId
-        })
-
-        if (result.success && result.data) {
-          setProcessedData(result.data)
-          // Use API processing summary if available
-          const summary = result.processingSummary || getDefaultProcessingSummary()
-          setProcessingSummary(summary)
-          
-          // Store processed data for view page
-          const reader = new FileReader()
-          reader.onload = (e) => {
-            const text = e.target?.result as string
-            const lines = text.split('\n')
-            const headers = lines[0].split(',')
-            const data = lines.slice(1).filter(line => line.trim()).map((line, index) => {
-              const values = line.split(',')
-              const row: any = { id: index + 1 }
-              headers.forEach((header, i) => {
-                row[header.trim()] = values[i]?.trim() || ''
-              })
-              return row
-            })
-            localStorage.setItem('rawbify_processed_data', JSON.stringify({
-              filename: 'processed_' + (uploadedFile?.name || 'data.csv'),
-              data: data,
-              headers: headers,
-              summary: summary,
-              prompt: prompt
-            }))
-          }
-          reader.readAsText(result.data)
-        } else {
-          // Fallback to dummy data on API error
-          console.log('API Error, using dummy data:', result.error)
-          const dummyData = generateDummyExcelData()
-          const summary = getDefaultProcessingSummary()
-          setProcessedData(dummyData)
-          setProcessingSummary(summary)
-          
-          // Store fallback processed data for view page
-          const reader = new FileReader()
-          reader.onload = (e) => {
-            const text = e.target?.result as string
-            const lines = text.split('\n')
-            const headers = lines[0].split(',')
-            const data = lines.slice(1).filter(line => line.trim()).map((line, index) => {
-              const values = line.split(',')
-              const row: any = { id: index + 1 }
-              headers.forEach((header, i) => {
-                row[header.trim()] = values[i]?.trim() || ''
-              })
-              return row
-            })
-            localStorage.setItem('rawbify_processed_data', JSON.stringify({
-              filename: 'processed_' + (uploadedFile?.name || 'data.csv'),
-              data: data,
-              headers: headers,
-              summary: summary,
-              prompt: prompt
-            }))
-          }
-          reader.readAsText(dummyData)
-        }
-      } catch (error) {
-        console.error('Processing error:', error)
-        // Fallback to dummy data
-        const dummyData = generateDummyExcelData()
-        const summary = getDefaultProcessingSummary()
-        setProcessedData(dummyData)
-        setProcessingSummary(summary)
-        
-        // Store fallback data for view page
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          const text = e.target?.result as string
-          const lines = text.split('\n')
-          const headers = lines[0].split(',')
-          const data = lines.slice(1).filter(line => line.trim()).map((line, index) => {
-            const values = line.split(',')
-            const row: any = { id: index + 1 }
-            headers.forEach((header, i) => {
-              row[header.trim()] = values[i]?.trim() || ''
-            })
-            return row
-          })
-          localStorage.setItem('rawbify_processed_data', JSON.stringify({
-            filename: 'processed_' + (uploadedFile?.name || 'data.csv'),
-            data: data,
-            headers: headers,
-            summary: summary,
-            prompt: prompt
-          }))
-        }
-        reader.readAsText(dummyData)
-      } finally {
-        setProcessing(false)
-        setProcessed(true)
-      }
-    }
   }
 
   const handleBack = () => {
@@ -217,28 +103,9 @@ export default function TrialV1() {
     }
   }
 
-  const handleDownload = () => {
-    if (processedData) {
-      const url = window.URL.createObjectURL(processedData)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = 'processed_data.csv'
-      a.click()
-      window.URL.revokeObjectURL(url)
-    }
-  }
-
-  const canProceed = () => {
-    if (currentStep === 1) return uploadedFile !== null
-    if (currentStep === 2) return prompt.trim().length > 0
-    return false
-  }
-
   const steps = [
     { icon: CheckCircle, title: 'Validate Access', color: 'from-blue-500 to-purple-600' },
-    { icon: Database, title: 'Upload Data', color: 'from-purple-500 to-pink-600' },
-    { icon: Brain, title: 'AI Prompt', color: 'from-pink-500 to-red-600' },
-    { icon: Download, title: 'Download', color: 'from-green-500 to-blue-600' }
+    { icon: Database, title: 'Upload Data', color: 'from-purple-500 to-pink-600' }
   ]
 
   const renderCurrentStep = () => {
@@ -395,6 +262,65 @@ export default function TrialV1() {
       )
     }
 
+    if (redirectingToStudio) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.1 }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <div className="modern-card p-12 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50">
+            <div className="relative mb-8">
+              <motion.div
+                className="w-24 h-24 mx-auto bg-gradient-to-r from-blue-500 via-purple-500 to-pink-600 rounded-full flex items-center justify-center relative overflow-hidden"
+                animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Eye className="w-12 h-12 text-white z-10" />
+              </motion.div>
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <h4 className="text-2xl font-bold text-gray-800 mb-4">
+                🚀 Launching Data Studio
+              </h4>
+              <p className="text-lg text-gray-600 mb-8">
+                Your professional data workspace is loading...
+              </p>
+              
+              <div className="max-w-lg mx-auto">
+                <div className="modern-card p-6 bg-white/90 backdrop-blur-sm border-2 border-blue-200">
+                  <div className="flex items-center space-x-4">
+                    <motion.div
+                      className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600"
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      <Database className="w-6 h-6 text-white" />
+                    </motion.div>
+                    <div className="flex-1 text-left">
+                      <h5 className="text-lg font-bold text-gray-800 mb-1">
+                        Enterprise-Grade Workspace
+                      </h5>
+                      <p className="text-gray-600">
+                        Where analysts transform data with AI precision
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      )
+    }
+
     switch (currentStep) {
       case 0:
         return (
@@ -409,24 +335,6 @@ export default function TrialV1() {
             uploadedFile={uploadedFile}
             onFileUpload={handleFileUpload}
             isActive={true}
-          />
-        )
-      case 2:
-        return (
-          <PromptInput
-            prompt={prompt}
-            onPromptChange={handlePromptChange}
-            isActive={true}
-          />
-        )
-      case 3:
-        return (
-          <DataDownload
-            isActive={true}
-            processing={processing}
-            processed={processed}
-            processingSummary={processingSummary}
-            onDownload={handleDownload}
           />
         )
       default:
@@ -611,44 +519,6 @@ export default function TrialV1() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Navigation Controls */}
-        {!showingPrivacyReassurance && currentStep > 0 && currentStep < 3 && (
-          <motion.div 
-            className="flex justify-between items-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Button 
-              onClick={handleBack}
-              variant="outline"
-              className="px-6 py-3 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300 group"
-            >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back
-            </Button>
-
-            <Button 
-              onClick={handleNext} 
-              disabled={!canProceed()}
-              className="btn-gradient text-white px-8 py-3 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300 group disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {currentStep === 2 ? 'Process Data' : 'Next Step'}
-              <motion.span
-                className="inline-block ml-2"
-                animate={{ x: [0, 5, 0] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <ArrowRight className="w-5 h-5" />
-              </motion.span>
-            </Button>
-          </motion.div>
-        )}
-
         {/* CTA */}
         <motion.div 
           className="text-center"
@@ -663,17 +533,17 @@ export default function TrialV1() {
               transition={{ duration: 0.6, delay: 0.8 }}
             >
               <h3 className="text-2xl sm:text-3xl font-bold mb-6">
-                <span className="gradient-text">Stay Tuned for Trial V2</span>
+                <span className="gradient-text">Professional Data Workspace</span>
               </h3>
               <p className="text-lg sm:text-xl mb-8 text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Get unlimited data processing, advanced AI features, and priority support.
+                Experience enterprise-grade data transformation with AI-powered insights, designed for analysts and consulting teams.
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white text-purple-600 border-2 border-purple-200 hover:border-purple-400 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300"
               >
-                Get in Touch
+                Enterprise Demo
               </motion.button>
             </motion.div>
           </div>

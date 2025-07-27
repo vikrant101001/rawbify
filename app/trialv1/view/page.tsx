@@ -1,9 +1,428 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowLeft, Download, Eye, FileText, Table, MoreHorizontal, MessageSquare, Send, ChevronRight, ChevronDown, File, Database, Sparkles, Bot, User, Loader, ChevronUp } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { 
+  FileText, 
+  Download, 
+  ChevronDown, 
+  File, 
+  Database, 
+  Bot, 
+  Send, 
+  User, 
+  Loader, 
+  Brain, 
+  Zap,
+  ChevronRight,
+  Menu,
+  X,
+  Eye
+} from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { processData } from '../../services/api'
+
+// Chat Sidebar Component
+const ChatSidebar = ({ 
+  isOpen, 
+  onToggle, 
+  chatMessages, 
+  chatInput, 
+  setChatInput, 
+  handleSendMessage, 
+  isTyping, 
+  isProcessing, 
+  hasProcessedData 
+}: any) => {
+  return (
+    <div className={`bg-white border-l border-gray-200 transition-all duration-300 ease-in-out ${
+      isOpen ? 'w-80 lg:w-96' : 'w-12'
+    } flex-shrink-0`}>
+      <div className="h-full flex flex-col">
+        {/* Chat Header */}
+        <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+          {isOpen && (
+            <div className="flex items-center space-x-2">
+              <Bot className="w-5 h-5 text-purple-600" />
+              <h3 className="font-semibold text-gray-800 text-sm">Data Assistant</h3>
+              {!hasProcessedData && (
+                <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-medium">
+                  Ready
+                </span>
+              )}
+            </div>
+          )}
+          <button
+            onClick={onToggle}
+            className="p-1 hover:bg-gray-100 rounded transition-colors"
+          >
+            {isOpen ? (
+              <ChevronRight className="w-4 h-4 text-gray-600" />
+            ) : (
+              <Bot className="w-4 h-4 text-purple-600" />
+            )}
+          </button>
+        </div>
+
+        {isOpen && (
+          <>
+            {/* Chat Messages */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {chatMessages.length === 0 && (
+                <div className="text-center py-8">
+                  <Bot className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500 text-sm">
+                    {hasProcessedData ? "Ask me about your data!" : "Ready to process your data!"}
+                  </p>
+                </div>
+              )}
+              
+              {chatMessages.map((message: any) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                    message.type === 'user'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 text-gray-900'
+                  }`}>
+                    <p className="text-sm whitespace-pre-line leading-relaxed">{message.content}</p>
+                    <p className={`text-xs mt-1 ${
+                      message.type === 'user' ? 'text-blue-100' : 'text-gray-500'
+                    }`}>
+                      {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 rounded-2xl px-4 py-3">
+                    <div className="flex items-center space-x-2">
+                      <Bot className="w-4 h-4 text-purple-600" />
+                      <Loader className="w-4 h-4 animate-spin text-gray-500" />
+                      <span className="text-sm text-gray-500">
+                        {isProcessing ? 'Processing data...' : 'Analyzing...'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Chat Input */}
+            <div className={`p-4 border-t border-gray-200 ${
+              !hasProcessedData ? 'bg-gradient-to-r from-blue-50 to-purple-50' : ''
+            }`}>
+              {!hasProcessedData && (
+                <div className="mb-4 text-center">
+                  <div className="flex items-center justify-center space-x-2 mb-2">
+                    <Brain className="w-5 h-5 text-blue-600" />
+                    <h4 className="font-semibold text-gray-800 text-sm">Transform Your Data</h4>
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    Tell me what you'd like me to do with your dataset
+                  </p>
+                </div>
+              )}
+              
+              <div className="flex space-x-2">
+                <textarea
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey && !isProcessing) {
+                      e.preventDefault()
+                      handleSendMessage()
+                    }
+                  }}
+                  placeholder={
+                    !hasProcessedData 
+                      ? "e.g., Clean this data and remove duplicates..." 
+                      : "Ask about your data..."
+                  }
+                  disabled={isProcessing}
+                  rows={2}
+                  className={`flex-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm transition-all resize-none ${
+                    !hasProcessedData 
+                      ? 'border-blue-300 focus:ring-blue-500 font-medium' 
+                      : 'border-gray-300 focus:ring-purple-500'
+                  } ${isProcessing ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                />
+                <motion.button
+                  onClick={handleSendMessage}
+                  disabled={isProcessing || !chatInput.trim()}
+                  whileHover={{ scale: isProcessing ? 1 : 1.05 }}
+                  whileTap={{ scale: isProcessing ? 1 : 0.95 }}
+                  className={`px-4 py-3 text-white rounded-lg transition-colors flex items-center space-x-2 ${
+                    !hasProcessedData 
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700' 
+                      : 'bg-purple-600 hover:bg-purple-700'
+                  } ${(isProcessing || !chatInput.trim()) ? 'opacity-50 cursor-not-allowed' : ''}`}
+                >
+                  {isProcessing ? (
+                    <Loader className="w-4 h-4 animate-spin" />
+                  ) : !hasProcessedData ? (
+                    <Zap className="w-4 h-4" />
+                  ) : (
+                    <Send className="w-4 h-4" />
+                  )}
+                </motion.button>
+              </div>
+              
+              {/* Quick suggestions */}
+              {!hasProcessedData && (
+                <div className="mt-3">
+                  <span className="text-xs text-gray-600 mb-2 block">Quick suggestions:</span>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "Clean column names",
+                      "Remove duplicates", 
+                      "Create summary stats"
+                    ].map((suggestion, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setChatInput(suggestion)}
+                        className="text-xs bg-white border border-blue-200 hover:border-blue-400 text-blue-600 px-2 py-1 rounded transition-colors"
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// File Explorer Component
+const FileExplorer = ({ 
+  isOpen, 
+  onToggle, 
+  activeFile, 
+  setActiveFile, 
+  dataState, 
+  hasProcessedData 
+}: any) => {
+  const [inputExpanded, setInputExpanded] = useState(true)
+  const [outputExpanded, setOutputExpanded] = useState(true)
+
+  return (
+    <div className={`bg-white/80 backdrop-blur-sm border-r border-gray-200 transition-all duration-300 ease-in-out ${
+      isOpen ? 'w-64' : 'w-12'
+    } flex-shrink-0`}>
+      <div className="h-full flex flex-col">
+        <div className="p-4 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            {isOpen && (
+              <h3 className="font-semibold text-gray-800 text-sm">Files</h3>
+            )}
+            <button
+              onClick={onToggle}
+              className="p-1 hover:bg-gray-100 rounded transition-colors"
+            >
+              {isOpen ? (
+                <ChevronRight className="w-4 h-4 text-gray-600 rotate-180" />
+              ) : (
+                <File className="w-4 h-4 text-gray-600" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {isOpen && (
+          <div className="flex-1 overflow-y-auto p-2 space-y-2">
+            {/* Input Section */}
+            <div>
+              <button
+                onClick={() => setInputExpanded(!inputExpanded)}
+                className="flex items-center space-x-2 w-full p-2 hover:bg-gray-100 rounded text-left text-sm"
+              >
+                <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${inputExpanded ? '' : '-rotate-90'}`} />
+                <span className="font-medium text-gray-700">Input</span>
+              </button>
+              {inputExpanded && (
+                <div className="ml-6 mt-1">
+                  <button
+                    onClick={() => setActiveFile('input')}
+                    className={`flex items-center space-x-2 w-full p-2 rounded text-left text-sm transition-colors ${
+                      activeFile === 'input' ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-50 text-gray-600'
+                    }`}
+                  >
+                    <File className="w-4 h-4" />
+                    <span>{dataState.inputFilename}</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Output Section */}
+            <div>
+              <button
+                onClick={() => hasProcessedData && setOutputExpanded(!outputExpanded)}
+                className={`flex items-center space-x-2 w-full p-2 rounded text-left text-sm transition-colors ${
+                  hasProcessedData 
+                    ? 'hover:bg-gray-100' 
+                    : 'cursor-not-allowed opacity-50'
+                }`}
+                disabled={!hasProcessedData}
+              >
+                <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${outputExpanded && hasProcessedData ? '' : '-rotate-90'}`} />
+                <span className="font-medium text-gray-700">Output</span>
+                {!hasProcessedData && (
+                  <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
+                    Empty
+                  </span>
+                )}
+              </button>
+              {outputExpanded && hasProcessedData && (
+                <div className="ml-6 mt-1">
+                  <button
+                    onClick={() => setActiveFile('output')}
+                    className={`flex items-center space-x-2 w-full p-2 rounded text-left text-sm transition-colors ${
+                      activeFile === 'output' ? 'bg-green-100 text-green-700' : 'hover:bg-gray-50 text-gray-600'
+                    }`}
+                  >
+                    <Database className="w-4 h-4" />
+                    <span>{dataState.outputFilename}</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// Mobile Menu Component
+const MobileMenu = ({ 
+  isOpen, 
+  onClose, 
+  activeFile, 
+  setActiveFile, 
+  dataState, 
+  hasProcessedData,
+  onChatToggle
+}: any) => {
+  if (!isOpen) return null
+
+  return (
+    <div className="fixed inset-0 z-50 lg:hidden">
+      <div className="fixed inset-0 bg-black/50" onClick={onClose} />
+      <motion.div
+        initial={{ x: -300 }}
+        animate={{ x: 0 }}
+        exit={{ x: -300 }}
+        className="relative w-80 h-full bg-white shadow-xl"
+      >
+        <div className="p-4 border-b border-gray-200">
+          <div className="flex justify-between items-center">
+            <h3 className="font-semibold text-gray-800">Menu</h3>
+            <button
+              onClick={onClose}
+              className="p-1 hover:bg-gray-100 rounded"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+        
+        <div className="p-4 space-y-4">
+          <div>
+            <h4 className="font-medium text-gray-700 mb-2">Files</h4>
+            <button
+              onClick={() => {
+                setActiveFile('input')
+                onClose()
+              }}
+              className={`w-full p-3 rounded-lg text-left flex items-center space-x-2 ${
+                activeFile === 'input' ? 'bg-blue-100 text-blue-700' : 'bg-gray-50'
+              }`}
+            >
+              <File className="w-4 h-4" />
+              <span className="text-sm">{dataState.inputFilename}</span>
+            </button>
+            
+            {hasProcessedData && (
+              <button
+                onClick={() => {
+                  setActiveFile('output')
+                  onClose()
+                }}
+                className={`w-full p-3 rounded-lg text-left flex items-center space-x-2 mt-2 ${
+                  activeFile === 'output' ? 'bg-green-100 text-green-700' : 'bg-gray-50'
+                }`}
+              >
+                <Database className="w-4 h-4" />
+                <span className="text-sm">{dataState.outputFilename}</span>
+              </button>
+            )}
+          </div>
+          
+          <div>
+            <button
+              onClick={() => {
+                onChatToggle()
+                onClose()
+              }}
+              className="w-full p-3 bg-purple-100 text-purple-700 rounded-lg text-left flex items-center space-x-2"
+            >
+              <Bot className="w-4 h-4" />
+              <span className="text-sm">Data Assistant</span>
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+// Helper function to convert data array back to CSV File
+const dataArrayToFile = (data: any[], filename: string): File => {
+  if (data.length === 0) {
+    const blob = new Blob([''], { type: 'text/csv' })
+    return new (window as any).File([blob], filename, { type: 'text/csv' })
+  }
+  
+  const headers = Object.keys(data[0])
+  const csvContent = [
+    headers.join(','),
+    ...data.map(row => 
+      headers.map(header => `"${(row[header] || '').toString().replace(/"/g, '""')}"`).join(',')
+    )
+  ].join('\n')
+  
+  const blob = new Blob([csvContent], { type: 'text/csv' })
+  return new (window as any).File([blob], filename, { type: 'text/csv' })
+}
+
+// Helper function to parse CSV blob back to data array
+const parseCsvBlob = async (blob: Blob): Promise<any[]> => {
+  const text = await blob.text()
+  const lines = text.split('\n').filter(line => line.trim())
+  
+  if (lines.length === 0) return []
+  
+  const headers = lines[0].split(',').map(h => h.replace(/"/g, ''))
+  const data = lines.slice(1).map((line, index) => {
+    const values = line.split(',').map(v => v.replace(/"/g, ''))
+    const row: any = { id: index + 1 }
+    headers.forEach((header, i) => {
+      row[header.trim()] = values[i]?.trim() || ''
+    })
+    return row
+  })
+  
+  return data
+}
 
 // Helper function to load real data from localStorage
 const loadDataFromStorage = () => {
@@ -17,7 +436,8 @@ const loadDataFromStorage = () => {
       inputFilename: originalData?.filename || 'uploaded_file.csv',
       outputFilename: processedData?.filename || 'processed_file.csv',
       processingSummary: processedData?.summary || [],
-      prompt: processedData?.prompt || ''
+      prompt: processedData?.prompt || '',
+      userId: originalData?.userId || ''
     }
   } catch (error) {
     console.error('Error loading data from storage:', error)
@@ -27,516 +447,304 @@ const loadDataFromStorage = () => {
       inputFilename: 'uploaded_file.csv',
       outputFilename: 'processed_file.csv',
       processingSummary: [],
-      prompt: ''
+      prompt: '',
+      userId: ''
     }
   }
 }
 
-// Generate initial chat messages based on real data
-const getInitialChatMessages = (processingSummary: string[], prompt: string) => [
-  {
-    id: 1,
-    type: 'assistant' as const,
-    content: "Hi! I'm your data assistant. I can see you've processed your data successfully. Here's what I accomplished:\n\n" + 
-             processingSummary.map(item => `• ${item}`).join('\n') + 
-             "\n\nWhat would you like to know about your dataset?",
-    timestamp: new Date(Date.now() - 120000)
-  },
-  {
-    id: 2,
-    type: 'user' as const,
-    content: prompt || "What did you do to clean my data?",
-    timestamp: new Date(Date.now() - 60000)
-  },
-  {
-    id: 3,
-    type: 'assistant' as const,
-    content: "I processed your data based on your instructions. The transformations are now complete and your data is ready for analysis in Power BI or Tableau. In Trial V2, I'll be able to provide more detailed insights and perform additional analysis!",
-    timestamp: new Date(Date.now() - 30000)
-  }
-]
-
-// Export format configurations
-const exportFormats = [
-  {
-    key: 'csv',
-    name: 'CSV',
-    description: 'Universal format - works everywhere',
-    icon: '📄',
-    extension: 'csv',
-    mimeType: 'text/csv',
-    recommended: false
-  },
-  {
-    key: 'xlsx',
-    name: 'Excel',
-    description: 'Best for business analysis & reporting',
-    icon: '📊',
-    extension: 'xlsx',
-    mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    recommended: true
-  },
-  {
-    key: 'json',
-    name: 'JSON',
-    description: 'Modern data pipelines & APIs',
-    icon: '🔗',
-    extension: 'json',
-    mimeType: 'application/json',
-    recommended: false
-  },
-  {
-    key: 'powerbi',
-    name: 'Power BI',
-    description: 'Direct dashboard integration',
-    icon: '⚡',
-    extension: 'pbix',
-    mimeType: 'application/octet-stream',
-    recommended: false
-  },
-  {
-    key: 'parquet',
-    name: 'Parquet',
-    description: 'High-performance columnar format',
-    icon: '🚀',
-    extension: 'parquet',
-    mimeType: 'application/octet-stream',
-    recommended: false
-  },
-  {
-    key: 'tableau',
-    name: 'Tableau',
-    description: 'Hyper file for Tableau Desktop',
-    icon: '📈',
-    extension: 'hyper',
-    mimeType: 'application/octet-stream',
-    recommended: false
-  }
-]
-
-export default function ViewProcessedData() {
+export default function DataStudioView() {
   const router = useRouter()
-  const [activeFile, setActiveFile] = useState<'input' | 'output'>('output')
+  const [activeFile, setActiveFile] = useState<'input' | 'output'>('input')
   const [selectedCells, setSelectedCells] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(true)
   const [rightSidebarOpen, setRightSidebarOpen] = useState(true)
-  const [inputExpanded, setInputExpanded] = useState(true)
-  const [outputExpanded, setOutputExpanded] = useState(true)
   const [chatMessages, setChatMessages] = useState<any[]>([])
   const [chatInput, setChatInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [showDownloadDropdown, setShowDownloadDropdown] = useState(false)
-  const [selectedFormat, setSelectedFormat] = useState(exportFormats[1]) // Default to Excel
+  const [selectedFormat, setSelectedFormat] = useState({ name: 'Excel', extension: 'xlsx' })
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [dataState, setDataState] = useState({
     inputData: [] as any[],
     outputData: [] as any[],
     inputFilename: 'uploaded_file.csv',
     outputFilename: 'processed_file.csv',
     processingSummary: [] as string[],
-    prompt: ''
+    prompt: '',
+    userId: ''
   })
 
   const currentData = activeFile === 'input' ? dataState.inputData : dataState.outputData
   const columns = Object.keys(currentData[0] || {})
+  const hasProcessedData = dataState.outputData.length > 0
 
-  // Load real data from localStorage
+  // Export formats
+  const exportFormats = [
+    { name: 'CSV', extension: 'csv', description: 'Comma-separated values', icon: FileText },
+    { name: 'Excel', extension: 'xlsx', description: 'Microsoft Excel format', icon: Download, recommended: true },
+    { name: 'TSV', extension: 'tsv', description: 'Tab-separated values', icon: FileText }
+  ]
+
+  // Load data on component mount
   useEffect(() => {
     const loadedData = loadDataFromStorage()
     
-    // If no data found, redirect back to trial
-    if (loadedData.inputData.length === 0 && loadedData.outputData.length === 0) {
-      console.log('No data found in localStorage, redirecting to trial')
+    if (loadedData.inputData.length === 0) {
+      // If no data found, redirect back to upload
       router.push('/trialv1')
       return
     }
     
     setDataState(loadedData)
-    setChatMessages(getInitialChatMessages(loadedData.processingSummary, loadedData.prompt))
     setIsLoading(false)
   }, [router])
 
-  const generateCSV = () => {
-    return [
-      columns.join(','),
-      ...currentData.map(row => columns.map(col => row[col as keyof typeof row]).join(','))
-    ].join('\n')
-  }
+  // Process data function
+  const handleSendMessage = async () => {
+    if (!chatInput.trim() || isProcessing) return
 
-  const generateJSON = () => {
-    return JSON.stringify(currentData, null, 2)
-  }
-
-  const generateExcel = () => {
-    // For demo purposes, we'll create a simple HTML table that Excel can read
-    // In production, you'd use libraries like xlsx or exceljs
-    const htmlTable = `
-      <table>
-        <thead>
-          <tr>${columns.map(col => `<th>${col}</th>`).join('')}</tr>
-        </thead>
-        <tbody>
-          ${currentData.map(row => 
-            `<tr>${columns.map(col => `<td>${row[col as keyof typeof row] || ''}</td>`).join('')}</tr>`
-          ).join('')}
-        </tbody>
-      </table>
-    `
-    return htmlTable
-  }
-
-  const generatePowerBI = () => {
-    // For demo - in production, you'd generate actual .pbix files
-    const powerBITemplate = {
-      version: "1.0",
-      dataModel: {
-        tables: [{
-          name: activeFile === 'input' ? dataState.inputFilename : dataState.outputFilename,
-          columns: columns.map(col => ({ name: col, dataType: "string" })),
-          data: currentData
-        }]
-      },
-      reports: [{
-        name: "Data Analysis",
-        pages: [{
-          name: "Overview",
-          visualizations: []
-        }]
-      }]
+    const userMessage = {
+      id: Date.now(),
+      type: 'user',
+      content: chatInput.trim(),
+      timestamp: new Date()
     }
-    return JSON.stringify(powerBITemplate, null, 2)
-  }
 
-  const generateParquet = () => {
-    // For demo - in production, you'd use parquet libraries
-    const parquetMeta = {
-      schema: columns.map(col => ({ name: col, type: "UTF8" })),
-      data: currentData,
-      compression: "SNAPPY",
-      format: "PARQUET_1_0"
-    }
-    return JSON.stringify(parquetMeta, null, 2)
-  }
+    setChatMessages(prev => [...prev, userMessage])
+    setChatInput('')
+    setIsTyping(true)
+    setIsProcessing(true)
 
-  const generateTableau = () => {
-    // For demo - in production, you'd generate actual .hyper files
-    const tableauHyper = {
-      database: "rawbify_data",
-      schema: "Extract",
-      table: activeFile === 'input' ? dataState.inputFilename : dataState.outputFilename,
-      columns: columns.map(col => ({ name: col, type: "text" })),
-      data: currentData,
-      metadata: {
-        created: new Date().toISOString(),
-        source: "Rawbify Data Processing"
+    try {
+      if (!hasProcessedData) {
+        // First processing - call the real API
+        const inputFile = dataArrayToFile(dataState.inputData, dataState.inputFilename)
+        const apiResult = await processData({ 
+          file: inputFile, 
+          prompt: userMessage.content, 
+          userId: dataState.userId 
+        })
+        
+        if (apiResult.success && apiResult.data) {
+          // Parse the returned CSV blob back to data array
+          const processedData = await parseCsvBlob(apiResult.data)
+          
+          const processedDataStorage = {
+            data: processedData,
+            filename: `processed_${dataState.inputFilename}`,
+            summary: apiResult.processingSummary || ['Data processed successfully'],
+            prompt: userMessage.content,
+            userId: dataState.userId
+          }
+          
+          localStorage.setItem('rawbify_processed_data', JSON.stringify(processedDataStorage))
+          
+          setDataState(prev => ({
+            ...prev,
+            outputData: processedData,
+            outputFilename: `processed_${prev.inputFilename}`,
+            processingSummary: apiResult.processingSummary || ['Data processed successfully'],
+            prompt: userMessage.content
+          }))
+
+          // Auto-switch to output view
+          setActiveFile('output')
+
+          const assistantMessage = {
+            id: Date.now() + 1,
+            type: 'assistant',
+            content: `Great! I've successfully processed your data based on your request: "${userMessage.content}"\n\nHere's what I accomplished:\n${(apiResult.processingSummary || ['Data processed successfully']).map((item: string) => `• ${item}`).join('\n')}\n\nYour processed data is now ready for download or further analysis. What would you like to explore next?`,
+            timestamp: new Date()
+          }
+          
+          setChatMessages(prev => [...prev, assistantMessage])
+        } else {
+          // Handle API error
+          const errorMessage = {
+            id: Date.now() + 1,
+            type: 'assistant',
+            content: `I apologize, but I encountered an error while processing your data: ${apiResult.error || 'Unknown error'}. Please try again with a different approach.`,
+            timestamp: new Date()
+          }
+          setChatMessages(prev => [...prev, errorMessage])
+        }
+      } else {
+        // Subsequent questions about the data
+        const assistantMessage = {
+          id: Date.now() + 1,
+          type: 'assistant',
+          content: `The Current Version TrialV1 doesnt support multi-output, multi-changes. Stay Tuned for TrialV2. Till then, enjoy the demo.`,
+          timestamp: new Date()
+        }
+        
+        setChatMessages(prev => [...prev, assistantMessage])
       }
+    } catch (error) {
+      console.error('Processing error:', error)
+      const errorMessage = {
+        id: Date.now() + 1,
+        type: 'assistant',
+        content: 'I apologize, but I encountered an error while processing your request. Please try again with a different approach.',
+        timestamp: new Date()
+      }
+      setChatMessages(prev => [...prev, errorMessage])
+    } finally {
+      setIsTyping(false)
+      setIsProcessing(false)
     }
-    return JSON.stringify(tableauHyper, null, 2)
   }
 
-  const handleDownload = (format = selectedFormat) => {
+  // Download function
+  const handleDownload = () => {
+    if (currentData.length === 0) return
+
     let content = ''
-    let mimeType = format.mimeType
-    let filename = `${activeFile}_data.${format.extension}`
-
-    switch (format.key) {
-      case 'csv':
-        content = generateCSV()
-        break
-      case 'xlsx':
-        content = generateExcel()
-        mimeType = 'application/vnd.ms-excel' // For HTML table that Excel can read
-        break
-      case 'json':
-        content = generateJSON()
-        break
-      case 'powerbi':
-        content = generatePowerBI()
-        filename = `${activeFile}_data_powerbi.json` // Demo format
-        break
-      case 'parquet':
-        content = generateParquet()
-        filename = `${activeFile}_data_parquet.json` // Demo format
-        break
-      case 'tableau':
-        content = generateTableau()
-        filename = `${activeFile}_data_tableau.json` // Demo format
-        break
-      default:
-        content = generateCSV()
+    const headers = columns.join(',')
+    const rows = currentData.map(row => 
+      columns.map(col => `"${row[col] || ''}"`).join(',')
+    ).join('\n')
+    
+    content = `${headers}\n${rows}`
+    
+    const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' })
+    const link = document.createElement('a')
+    
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob)
+      link.setAttribute('href', url)
+      link.setAttribute('download', `${activeFile === 'input' ? dataState.inputFilename : dataState.outputFilename}`)
+      link.style.visibility = 'hidden'
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     }
-
-    const blob = new Blob([content], { type: mimeType })
-    const url = window.URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = filename
-    a.click()
-    window.URL.revokeObjectURL(url)
     
     setShowDownloadDropdown(false)
   }
 
-  const handleCellClick = (rowIndex: number, colIndex: number) => {
-    const cellId = `${rowIndex}-${colIndex}`
-    setSelectedCells(prev => 
-      prev.includes(cellId) 
-        ? prev.filter(id => id !== cellId)
-        : [...prev, cellId]
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader className="w-12 h-12 animate-spin text-purple-600 mx-auto mb-4" />
+          <p className="text-lg text-gray-600">Loading Data Studio...</p>
+        </div>
+      </div>
     )
   }
 
-  const handleSendMessage = async () => {
-    if (!chatInput.trim()) return
-
-    const userMessage = {
-      id: chatMessages.length + 1,
-      type: 'user' as const,
-      content: chatInput,
-      timestamp: new Date()
-    }
-
-    setChatMessages((prev: any[]) => [...prev, userMessage])
-    setChatInput('')
-    setIsTyping(true)
-
-    // Simulate AI response
-    setTimeout(() => {
-      const aiMessage = {
-        id: chatMessages.length + 2,
-        type: 'assistant' as const,
-        content: "I understand you want to analyze that data. In Trial V2, I'll be able to perform real-time data analysis, create visualizations, and suggest optimizations. For now, this is a preview of the chat interface!",
-        timestamp: new Date()
-      }
-             setChatMessages((prev: any[]) => [...prev, aiMessage])
-      setIsTyping(false)
-    }, 2000)
-  }
-
   return (
-    <div className="h-screen flex flex-col relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50"></div>
-      <div className="absolute inset-0 wave-pattern opacity-5"></div>
-
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
       {/* Header */}
-      <header className="relative glass border-b border-white/20 z-50 flex-shrink-0">
-        <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-40">
+        <div className="px-4 lg:px-6 py-4">
           <div className="flex items-center justify-between">
-            <motion.div 
-              className="flex items-center space-x-4"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <motion.button
-                onClick={() => router.back()}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300"
-              >
-                <ArrowLeft className="w-5 h-5 text-gray-600" />
-              </motion.button>
-              
+            <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3">
-                <motion.img 
-                  src="/rawbify_logo.svg" 
-                  alt="Rawbify" 
-                  className="h-6 w-auto"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                />
-                <h1 className="text-lg font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <img src="/rawbify_logo.svg" alt="Rawbify" className="h-8 w-auto" />
+                <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   Rawbify Data Studio
                 </h1>
               </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex items-center space-x-4"
-            >
-              <span className="bg-purple-100 text-purple-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
-                <Sparkles className="w-3 h-3 mr-1" />
-                Trial V2 Preview
-              </span>
               
-              {/* Enhanced Download Button with Dropdown */}
-              <div className="relative">
-                <motion.button
-                  onClick={() => setShowDownloadDropdown(!showDownloadDropdown)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="bg-gradient-to-r from-green-500 to-blue-600 text-white px-6 py-3 rounded-xl font-bold flex items-center space-x-3 text-base shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <Download className="w-5 h-5" />
-                  <span>Download</span>
-                  <div className="flex flex-col items-center">
-                    <span className="text-xs opacity-90">{selectedFormat.name}</span>
-                    <span className="text-xs opacity-75">{selectedFormat.icon}</span>
-                  </div>
-                  <motion.div
-                    animate={{ rotate: showDownloadDropdown ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </motion.div>
-                </motion.button>
+              {/* Mobile menu button */}
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+            </div>
 
-                {/* Download Dropdown */}
+            {/* Desktop Actions */}
+            <div className="hidden lg:flex items-center space-x-4">
+              <span className="text-sm text-gray-600">Trial v1 Preview</span>
+              <div className="relative">
+                <button
+                  onClick={() => setShowDownloadDropdown(!showDownloadDropdown)}
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Excel • xlsx</span>
+                </button>
+                
                 {showDownloadDropdown && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
                   >
-                    <div className="p-4">
-                      <div className="text-sm font-semibold text-gray-800 mb-3 flex items-center">
-                        <Download className="w-4 h-4 mr-2" />
-                        Choose Export Format
-                      </div>
-                      
-                      <div className="space-y-2 max-h-64 overflow-y-auto">
-                        {exportFormats.map((format) => (
-                          <motion.button
-                            key={format.key}
-                            onClick={() => {
-                              setSelectedFormat(format)
-                              handleDownload(format)
-                            }}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className={`w-full text-left p-3 rounded-lg border transition-all duration-200 ${
-                              selectedFormat.key === format.key
-                                ? 'border-blue-500 bg-blue-50'
-                                : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center space-x-3">
-                                <span className="text-lg">{format.icon}</span>
-                                <div>
-                                  <div className="font-medium text-gray-900 flex items-center">
-                                    {format.name}
-                                    {format.recommended && (
-                                      <span className="ml-2 bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded-full">
-                                        Recommended
-                                      </span>
-                                    )}
-                                  </div>
-                                  <div className="text-sm text-gray-600">{format.description}</div>
-                                </div>
+                    <div className="p-3">
+                      <h4 className="font-semibold text-gray-800 mb-3">Download Format</h4>
+                      {exportFormats.map((format) => (
+                        <button
+                          key={format.extension}
+                          onClick={() => {
+                            setSelectedFormat(format)
+                            handleDownload()
+                          }}
+                          className="w-full p-3 text-left hover:bg-gray-50 rounded-lg transition-colors flex items-center justify-between"
+                        >
+                          <div className="flex items-center space-x-3">
+                            <format.icon className="w-5 h-5 text-gray-500" />
+                            <div>
+                              <div className="font-medium text-gray-900 flex items-center space-x-2">
+                                <span>{format.name}</span>
+                                {format.recommended && (
+                                  <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium">
+                                    RECOMMENDED
+                                  </span>
+                                )}
                               </div>
-                              <div className="text-xs text-gray-500 font-mono">
-                                .{format.extension}
-                              </div>
+                              <div className="text-sm text-gray-600">{format.description}</div>
                             </div>
-                          </motion.button>
-                        ))}
-                      </div>
-                      
-                      <div className="mt-4 pt-3 border-t border-gray-200">
-                        <div className="text-xs text-gray-500 text-center">
-                          💡 Pro tip: Excel format is perfect for business analysis
-                        </div>
-                      </div>
+                          </div>
+                          <div className="text-xs text-gray-500 font-mono">
+                            .{format.extension}
+                          </div>
+                        </button>
+                      ))}
                     </div>
                   </motion.div>
                 )}
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <div className="flex flex-1 relative min-h-0">
-        {/* Left Sidebar - File Explorer */}
-        <motion.div
-          className={`bg-white/80 backdrop-blur-sm border-r border-gray-200 flex-shrink-0 transition-all duration-300 ${
-            leftSidebarOpen ? 'w-64' : 'w-12'
-          }`}
-          initial={{ x: -20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="h-full flex flex-col">
-            <div className="p-4 border-b border-gray-200 flex-shrink-0">
-              <div className="flex items-center justify-between">
-                {leftSidebarOpen && (
-                  <h3 className="font-semibold text-gray-800 text-sm">Files</h3>
-                )}
-                <button
-                  onClick={() => setLeftSidebarOpen(!leftSidebarOpen)}
-                  className="p-1 hover:bg-gray-100 rounded transition-colors"
-                >
-                  <ChevronRight className={`w-4 h-4 text-gray-600 transition-transform ${leftSidebarOpen ? 'rotate-180' : ''}`} />
-                </button>
-              </div>
-            </div>
+      {/* Mobile Menu */}
+      <MobileMenu
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        activeFile={activeFile}
+        setActiveFile={setActiveFile}
+        dataState={dataState}
+        hasProcessedData={hasProcessedData}
+        onChatToggle={() => setRightSidebarOpen(!rightSidebarOpen)}
+      />
 
-            {leftSidebarOpen && (
-              <div className="flex-1 overflow-y-auto p-2 space-y-2">
-              {/* Input Section */}
-              <div>
-                <button
-                  onClick={() => setInputExpanded(!inputExpanded)}
-                  className="flex items-center space-x-2 w-full p-2 hover:bg-gray-100 rounded text-left text-sm"
-                >
-                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${inputExpanded ? '' : '-rotate-90'}`} />
-                  <span className="font-medium text-gray-700">Input</span>
-                </button>
-                {inputExpanded && (
-                  <div className="ml-6 mt-1">
-                                         <button
-                       onClick={() => setActiveFile('input')}
-                       className={`flex items-center space-x-2 w-full p-2 rounded text-left text-sm transition-colors ${
-                         activeFile === 'input' ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-50 text-gray-600'
-                       }`}
-                     >
-                       <File className="w-4 h-4" />
-                       <span>{dataState.inputFilename}</span>
-                     </button>
-                  </div>
-                )}
-              </div>
+      {/* Main Layout */}
+      <div className="flex h-[calc(100vh-80px)]">
+        {/* File Explorer - Hidden on mobile */}
+        <div className="hidden lg:block">
+          <FileExplorer
+            isOpen={leftSidebarOpen}
+            onToggle={() => setLeftSidebarOpen(!leftSidebarOpen)}
+            activeFile={activeFile}
+            setActiveFile={setActiveFile}
+            dataState={dataState}
+            hasProcessedData={hasProcessedData}
+          />
+        </div>
 
-              {/* Output Section */}
-              <div>
-                <button
-                  onClick={() => setOutputExpanded(!outputExpanded)}
-                  className="flex items-center space-x-2 w-full p-2 hover:bg-gray-100 rounded text-left text-sm"
-                >
-                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${outputExpanded ? '' : '-rotate-90'}`} />
-                  <span className="font-medium text-gray-700">Output</span>
-                </button>
-                {outputExpanded && (
-                  <div className="ml-6 mt-1">
-                                         <button
-                       onClick={() => setActiveFile('output')}
-                       className={`flex items-center space-x-2 w-full p-2 rounded text-left text-sm transition-colors ${
-                         activeFile === 'output' ? 'bg-green-100 text-green-700' : 'hover:bg-gray-50 text-gray-600'
-                       }`}
-                     >
-                       <Database className="w-4 h-4" />
-                       <span>{dataState.outputFilename}</span>
-                     </button>
-                  </div>
-                )}
-              </div>
-                          </div>
-            )}
-          </div>
-        </motion.div>
-
-                {/* Main Content */}
-        <div className="flex-1 flex flex-col min-h-0">
-          {/* File Tab & Info */}
-          <div className="bg-white/60 backdrop-blur-sm border-b border-gray-200 px-6 py-3 flex items-center justify-between flex-shrink-0">
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col min-w-0">
+          {/* File Info Bar */}
+          <div className="bg-white/60 backdrop-blur-sm border-b border-gray-200 px-4 lg:px-6 py-3 flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
                 {activeFile === 'input' ? (
@@ -544,7 +752,7 @@ export default function ViewProcessedData() {
                 ) : (
                   <Database className="w-4 h-4 text-green-600" />
                 )}
-                <span className="font-medium text-gray-800">
+                <span className="font-medium text-gray-800 truncate">
                   {activeFile === 'input' ? dataState.inputFilename : dataState.outputFilename}
                 </span>
                 <span className={`text-xs px-2 py-1 rounded-full ${
@@ -557,7 +765,8 @@ export default function ViewProcessedData() {
               </div>
             </div>
             <div className="flex items-center space-x-4 text-sm text-gray-600">
-              <span>{currentData.length} rows × {columns.length} columns</span>
+              <span className="hidden sm:inline">{currentData.length} rows × {columns.length} columns</span>
+              <span className="sm:hidden">{currentData.length}×{columns.length}</span>
               {selectedCells.length > 0 && (
                 <span className="text-blue-600 font-medium">
                   {selectedCells.length} selected
@@ -566,182 +775,94 @@ export default function ViewProcessedData() {
             </div>
           </div>
 
-          {/* Excel-like Table */}
-                    <div className="flex-1 min-h-0 p-6">
-            <div className="modern-card h-full overflow-hidden flex flex-col">
-              {isLoading ? (
+          {/* Data Table */}
+          <div className="flex-1 p-4 lg:p-6 overflow-hidden">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full overflow-hidden flex flex-col">
+              {currentData.length === 0 ? (
                 <div className="flex items-center justify-center h-full">
                   <div className="text-center">
-                    <Loader className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
-                    <p className="text-gray-600">Loading your data...</p>
+                    <div className="w-24 h-24 mx-auto bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center mb-4">
+                      <Brain className="w-12 h-12 text-blue-600" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                      {activeFile === 'output' ? 'No Processed Data Yet' : 'No Data Available'}
+                    </h3>
+                    <p className="text-gray-600 mb-6">
+                      {activeFile === 'output' 
+                        ? 'Use the chat panel to process your data'
+                        : 'Upload a file to get started'
+                      }
+                    </p>
+                    {activeFile === 'output' && (
+                      <button
+                        onClick={() => setActiveFile('input')}
+                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        View Input Data
+                      </button>
+                    )}
                   </div>
                 </div>
               ) : (
                 <div className="flex-1 overflow-auto">
-                <table className="w-full">
-                  {/* Header Row */}
-                  <thead className="bg-gray-50 border-b border-gray-200">
-                    <tr>
-                      <th className="w-12 px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
-                        #
-                      </th>
-                      {columns.map((column, index) => (
-                        <th 
-                          key={column}
-                          className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0"
-                        >
-                          {column}
+                  <table className="w-full">
+                    {/* Header */}
+                    <thead className="bg-gray-50 border-b border-gray-200 sticky top-0">
+                      <tr>
+                        <th className="w-12 px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200">
+                          #
                         </th>
-                      ))}
-                    </tr>
-                  </thead>
-
-                  {/* Data Rows */}
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {currentData.map((row, rowIndex) => (
-                      <motion.tr 
-                        key={rowIndex}
-                        className="hover:bg-blue-50 transition-colors duration-200"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: rowIndex * 0.02 }}
-                      >
-                        {/* Row Number */}
-                        <td className="px-4 py-3 text-center text-sm font-medium text-gray-400 border-r border-gray-200 bg-gray-50">
-                          {rowIndex + 1}
-                        </td>
-                        
-                        {/* Data Cells */}
-                        {columns.map((column, colIndex) => {
-                          const cellId = `${rowIndex}-${colIndex}`
-                          const isSelected = selectedCells.includes(cellId)
-                          const value = row[column as keyof typeof row]
-                          
-                          return (
+                        {columns.map((column) => (
+                          <th 
+                            key={column}
+                            className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0"
+                          >
+                            {column}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    
+                    {/* Body */}
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {currentData.slice(0, 100).map((row, rowIndex) => (
+                        <tr 
+                          key={rowIndex}
+                          className="hover:bg-blue-50 transition-colors duration-200"
+                        >
+                          <td className="w-12 px-4 py-3 text-center text-sm text-gray-500 border-r border-gray-200 bg-gray-50">
+                            {rowIndex + 1}
+                          </td>
+                          {columns.map((column) => (
                             <td 
                               key={column}
-                              className={`px-4 py-3 text-sm border-r border-gray-200 last:border-r-0 cursor-pointer transition-all duration-200 ${
-                                isSelected ? 'bg-blue-100 ring-2 ring-blue-300' : ''
-                              }`}
-                              onClick={() => handleCellClick(rowIndex, colIndex)}
+                              className="px-4 py-3 text-sm text-gray-900 border-r border-gray-200 last:border-r-0"
                             >
-                              <div className={`${
-                                column === 'revenue' ? 'font-semibold text-green-600' :
-                                column === 'status' ? 'font-medium text-blue-600' :
-                                column === 'email' ? 'text-purple-600' :
-                                'text-gray-900'
-                              }`}>
-                                {value}
-                              </div>
+                              {row[column as keyof typeof row]}
                             </td>
-                          )
-                        })}
-                      </motion.tr>
-                    ))}
-                                      </tbody>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
                   </table>
                 </div>
-               )}
-              </div>
+              )}
             </div>
+          </div>
         </div>
 
-        {/* Right Sidebar - Chat */}
-        <motion.div
-          className={`bg-white/80 backdrop-blur-sm border-l border-gray-200 flex-shrink-0 transition-all duration-300 ${
-            rightSidebarOpen ? 'w-80' : 'w-12'
-          }`}
-          initial={{ x: 20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <div className="h-full flex flex-col min-h-0">
-            {/* Chat Header */}
-            <div className="p-4 border-b border-gray-200 flex-shrink-0">
-              <div className="flex items-center justify-between">
-                {rightSidebarOpen && (
-                  <div className="flex items-center space-x-2">
-                    <Bot className="w-5 h-5 text-purple-600" />
-                    <h3 className="font-semibold text-gray-800 text-sm">Data Assistant</h3>
-                  </div>
-                )}
-                <button
-                  onClick={() => setRightSidebarOpen(!rightSidebarOpen)}
-                  className="p-1 hover:bg-gray-100 rounded transition-colors"
-                >
-                  <MessageSquare className="w-4 h-4 text-gray-600" />
-                </button>
-              </div>
-            </div>
-
-            {rightSidebarOpen && (
-              <>
-                {/* Chat Messages */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
-                  {chatMessages.map((message) => (
-                    <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[80%] rounded-lg p-3 ${
-                        message.type === 'user' 
-                          ? 'bg-blue-500 text-white' 
-                          : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        <div className="flex items-start space-x-2">
-                          {message.type === 'assistant' && <Bot className="w-4 h-4 mt-0.5 text-purple-600" />}
-                          {message.type === 'user' && <User className="w-4 h-4 mt-0.5" />}
-                          <div className="flex-1">
-                            <p className="text-sm whitespace-pre-line">{message.content}</p>
-                            <p className={`text-xs mt-1 ${
-                              message.type === 'user' ? 'text-blue-100' : 'text-gray-500'
-                            }`}>
-                              {message.timestamp.toLocaleTimeString()}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  
-                  {isTyping && (
-                    <div className="flex justify-start">
-                      <div className="bg-gray-100 rounded-lg p-3">
-                        <div className="flex items-center space-x-2">
-                          <Bot className="w-4 h-4 text-purple-600" />
-                          <Loader className="w-4 h-4 animate-spin text-gray-500" />
-                          <span className="text-sm text-gray-500">Analyzing...</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Chat Input */}
-                <div className="p-4 border-t border-gray-200 flex-shrink-0">
-                  <div className="flex space-x-2">
-                    <input
-                      type="text"
-                      value={chatInput}
-                      onChange={(e) => setChatInput(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                      placeholder="Ask about your data..."
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
-                    />
-                    <motion.button
-                      onClick={handleSendMessage}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="p-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-                    >
-                      <Send className="w-4 h-4" />
-                    </motion.button>
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">
-                    Try: "What's the total revenue?" or "Clean phone numbers"
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
-        </motion.div>
+        {/* Chat Sidebar */}
+        <ChatSidebar
+          isOpen={rightSidebarOpen}
+          onToggle={() => setRightSidebarOpen(!rightSidebarOpen)}
+          chatMessages={chatMessages}
+          chatInput={chatInput}
+          setChatInput={setChatInput}
+          handleSendMessage={handleSendMessage}
+          isTyping={isTyping}
+          isProcessing={isProcessing}
+          hasProcessedData={hasProcessedData}
+        />
       </div>
     </div>
   )

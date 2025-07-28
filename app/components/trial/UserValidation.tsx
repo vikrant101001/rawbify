@@ -187,7 +187,7 @@ export default function UserValidation({ onValidationSuccess, isActive }: UserVa
               transition={{ delay: 0.6 }}
             >
               <p className="text-sm text-blue-700 font-medium text-center">
-                <span className="text-blue-600">💡 Test User IDs:</span> test123, demo456, trial789, user_admin
+                <span className="text-blue-600">💡 Test User IDs:</span> user_admin
               </p>
             </motion.div>
           </motion.div>

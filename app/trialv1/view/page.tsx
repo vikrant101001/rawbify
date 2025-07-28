@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
   FileText, 
@@ -17,10 +17,15 @@ import {
   ChevronRight,
   Menu,
   X,
-  Eye
+  Eye,
+  Maximize2,
+  ArrowRight
 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { processData } from '../../services/api'
+import ProcessingOverlay from '../../components/trial/ProcessingOverlay'
+import ExpandedTextEditor from '../../components/trial/ExpandedTextEditor'
+import RoadmapOverlay from '../../components/trial/RoadmapOverlay'
 
 // Chat Sidebar Component
 const ChatSidebar = ({ 
@@ -32,7 +37,8 @@ const ChatSidebar = ({
   handleSendMessage, 
   isTyping, 
   isProcessing, 
-  hasProcessedData 
+  hasProcessedData,
+  onExpandEditor
 }: any) => {
   return (
     <div className={`bg-white border-l border-gray-200 transition-all duration-300 ease-in-out ${
@@ -129,28 +135,40 @@ const ChatSidebar = ({
               )}
               
               <div className="flex space-x-2">
-                <textarea
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  onKeyPress={(e) => {
-                    if (e.key === 'Enter' && !e.shiftKey && !isProcessing) {
-                      e.preventDefault()
-                      handleSendMessage()
+                <div className="flex-1 relative">
+                  <textarea
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey && !isProcessing) {
+                        e.preventDefault()
+                        handleSendMessage()
+                      }
+                    }}
+                    placeholder={
+                      !hasProcessedData 
+                        ? "e.g., Clean this data and remove duplicates..." 
+                        : "Ask about your data..."
                     }
-                  }}
-                  placeholder={
-                    !hasProcessedData 
-                      ? "e.g., Clean this data and remove duplicates..." 
-                      : "Ask about your data..."
-                  }
-                  disabled={isProcessing}
-                  rows={2}
-                  className={`flex-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm transition-all resize-none ${
-                    !hasProcessedData 
-                      ? 'border-blue-300 focus:ring-blue-500 font-medium' 
-                      : 'border-gray-300 focus:ring-purple-500'
-                  } ${isProcessing ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-                />
+                    disabled={isProcessing}
+                    rows={2}
+                    className={`w-full pr-12 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm transition-all resize-none ${
+                      !hasProcessedData 
+                        ? 'border-blue-300 focus:ring-blue-500 font-medium' 
+                        : 'border-gray-300 focus:ring-purple-500'
+                    } ${isProcessing ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                  />
+                  {/* Expand Button */}
+                  <motion.button
+                    onClick={onExpandEditor}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-md flex items-center justify-center transition-colors"
+                    title="Open full editor"
+                  >
+                    <Maximize2 className="w-4 h-4 text-gray-600" />
+                  </motion.button>
+                </div>
                 <motion.button
                   onClick={handleSendMessage}
                   disabled={isProcessing || !chatInput.trim()}
@@ -201,7 +219,7 @@ const ChatSidebar = ({
   )
 }
 
-// File Explorer Component
+// Enhanced File Explorer Component
 const FileExplorer = ({ 
   isOpen, 
   onToggle, 
@@ -210,91 +228,240 @@ const FileExplorer = ({
   dataState, 
   hasProcessedData 
 }: any) => {
-  const [inputExpanded, setInputExpanded] = useState(true)
-  const [outputExpanded, setOutputExpanded] = useState(true)
+  const getFileStats = (fileType: 'input' | 'output') => {
+    const data = fileType === 'input' ? dataState.inputData : dataState.outputData
+    return {
+      rows: data.length,
+      columns: data.length > 0 ? Object.keys(data[0] || {}).length : 0,
+      size: data.length > 0 ? `${Math.round(JSON.stringify(data).length / 1024)} KB` : '0 KB'
+    }
+  }
+
+  const inputStats = getFileStats('input')
+  const outputStats = hasProcessedData ? getFileStats('output') : null
 
   return (
-    <div className={`bg-white/80 backdrop-blur-sm border-r border-gray-200 transition-all duration-300 ease-in-out ${
-      isOpen ? 'w-64' : 'w-12'
-    } flex-shrink-0`}>
+    <div className={`bg-gradient-to-b from-slate-50 to-white border-r border-slate-200 transition-all duration-300 ease-in-out ${
+      isOpen ? 'w-72' : 'w-12'
+    } flex-shrink-0 shadow-sm`}>
       <div className="h-full flex flex-col">
-        <div className="p-4 border-b border-gray-200">
+        {/* Header */}
+        <div className="p-4 border-b border-slate-200 bg-gradient-to-r from-blue-50 to-purple-50">
           <div className="flex items-center justify-between">
             {isOpen && (
-              <h3 className="font-semibold text-gray-800 text-sm">Files</h3>
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                  <File className="w-4 h-4 text-white" />
+                </div>
+                <h3 className="font-bold text-slate-800">Data Files</h3>
+              </div>
             )}
-            <button
+            <motion.button
               onClick={onToggle}
-              className="p-1 hover:bg-gray-100 rounded transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="p-2 hover:bg-white/70 rounded-lg transition-colors"
             >
               {isOpen ? (
-                <ChevronRight className="w-4 h-4 text-gray-600 rotate-180" />
+                <ChevronRight className="w-5 h-5 text-slate-600 rotate-180" />
               ) : (
-                <File className="w-4 h-4 text-gray-600" />
+                <File className="w-5 h-5 text-slate-600" />
               )}
-            </button>
+            </motion.button>
           </div>
         </div>
 
         {isOpen && (
-          <div className="flex-1 overflow-y-auto p-2 space-y-2">
-            {/* Input Section */}
-            <div>
-              <button
-                onClick={() => setInputExpanded(!inputExpanded)}
-                className="flex items-center space-x-2 w-full p-2 hover:bg-gray-100 rounded text-left text-sm"
-              >
-                <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${inputExpanded ? '' : '-rotate-90'}`} />
-                <span className="font-medium text-gray-700">Input</span>
-              </button>
-              {inputExpanded && (
-                <div className="ml-6 mt-1">
-                  <button
-                    onClick={() => setActiveFile('input')}
-                    className={`flex items-center space-x-2 w-full p-2 rounded text-left text-sm transition-colors ${
-                      activeFile === 'input' ? 'bg-blue-100 text-blue-700' : 'hover:bg-gray-50 text-gray-600'
-                    }`}
-                  >
-                    <File className="w-4 h-4" />
-                    <span>{dataState.inputFilename}</span>
-                  </button>
-                </div>
-              )}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {/* Tab-style Toggle */}
+            <div className="bg-slate-100 p-1 rounded-lg">
+              <div className="grid grid-cols-2 gap-1">
+                <motion.button
+                  onClick={() => setActiveFile('input')}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all ${
+                    activeFile === 'input'
+                      ? 'bg-white text-blue-700 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-800'
+                  }`}
+                >
+                  Input
+                </motion.button>
+                <motion.button
+                  onClick={() => hasProcessedData && setActiveFile('output')}
+                  whileHover={hasProcessedData ? { scale: 1.02 } : {}}
+                  whileTap={hasProcessedData ? { scale: 0.98 } : {}}
+                  disabled={!hasProcessedData}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all ${
+                    activeFile === 'output' && hasProcessedData
+                      ? 'bg-white text-green-700 shadow-sm'
+                      : hasProcessedData
+                      ? 'text-slate-600 hover:text-slate-800'
+                      : 'text-slate-400 cursor-not-allowed'
+                  }`}
+                >
+                  Output
+                </motion.button>
+              </div>
             </div>
 
-            {/* Output Section */}
-            <div>
-              <button
-                onClick={() => hasProcessedData && setOutputExpanded(!outputExpanded)}
-                className={`flex items-center space-x-2 w-full p-2 rounded text-left text-sm transition-colors ${
-                  hasProcessedData 
-                    ? 'hover:bg-gray-100' 
-                    : 'cursor-not-allowed opacity-50'
-                }`}
-                disabled={!hasProcessedData}
+            {/* Input File Card */}
+            {activeFile === 'input' && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 space-y-3"
               >
-                <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${outputExpanded && hasProcessedData ? '' : '-rotate-90'}`} />
-                <span className="font-medium text-gray-700">Output</span>
-                {!hasProcessedData && (
-                  <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">
-                    Empty
-                  </span>
-                )}
-              </button>
-              {outputExpanded && hasProcessedData && (
-                <div className="ml-6 mt-1">
-                  <button
-                    onClick={() => setActiveFile('output')}
-                    className={`flex items-center space-x-2 w-full p-2 rounded text-left text-sm transition-colors ${
-                      activeFile === 'output' ? 'bg-green-100 text-green-700' : 'hover:bg-gray-50 text-gray-600'
-                    }`}
-                  >
-                    <Database className="w-4 h-4" />
-                    <span>{dataState.outputFilename}</span>
-                  </button>
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                    <File className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-blue-800 text-sm truncate">
+                      {dataState.inputFilename}
+                    </h4>
+                    <p className="text-xs text-blue-600">Original Dataset</p>
+                  </div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" title="Active" />
                 </div>
-              )}
-            </div>
+
+                {/* File Stats */}
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="bg-white/70 rounded-lg p-2">
+                    <div className="text-lg font-bold text-blue-700">{inputStats.rows}</div>
+                    <div className="text-xs text-blue-600">Rows</div>
+                  </div>
+                  <div className="bg-white/70 rounded-lg p-2">
+                    <div className="text-lg font-bold text-blue-700">{inputStats.columns}</div>
+                    <div className="text-xs text-blue-600">Columns</div>
+                  </div>
+                  <div className="bg-white/70 rounded-lg p-2">
+                    <div className="text-lg font-bold text-blue-700">{inputStats.size}</div>
+                    <div className="text-xs text-blue-600">Size</div>
+                  </div>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="pt-2 border-t border-blue-200">
+                  <div className="flex items-center space-x-2 text-xs text-blue-600">
+                    <Eye className="w-3 h-3" />
+                    <span>Viewing original data</span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Output File Card */}
+            {activeFile === 'output' && hasProcessedData && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-xl p-4 space-y-3"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                    <Database className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-green-800 text-sm truncate">
+                      {dataState.outputFilename}
+                    </h4>
+                    <p className="text-xs text-green-600">Processed Dataset</p>
+                  </div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" title="Active" />
+                </div>
+
+                {/* File Stats */}
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="bg-white/70 rounded-lg p-2">
+                    <div className="text-lg font-bold text-green-700">{outputStats?.rows}</div>
+                    <div className="text-xs text-green-600">Rows</div>
+                  </div>
+                  <div className="bg-white/70 rounded-lg p-2">
+                    <div className="text-lg font-bold text-green-700">{outputStats?.columns}</div>
+                    <div className="text-xs text-green-600">Columns</div>
+                  </div>
+                  <div className="bg-white/70 rounded-lg p-2">
+                    <div className="text-lg font-bold text-green-700">{outputStats?.size}</div>
+                    <div className="text-xs text-green-600">Size</div>
+                  </div>
+                </div>
+
+                {/* Processing Summary */}
+                {dataState.processingSummary.length > 0 && (
+                  <div className="pt-2 border-t border-green-200">
+                    <div className="text-xs text-green-700 font-medium mb-1">Recent Changes:</div>
+                    <div className="text-xs text-green-600 space-y-1">
+                      {dataState.processingSummary.slice(0, 2).map((summary: string, index: number) => (
+                        <div key={index} className="flex items-start space-x-1">
+                          <div className="w-1 h-1 bg-green-500 rounded-full mt-1.5 flex-shrink-0" />
+                          <span className="line-clamp-2">{summary}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Quick Actions */}
+                <div className="pt-2 border-t border-green-200">
+                  <div className="flex items-center space-x-2 text-xs text-green-600">
+                    <Eye className="w-3 h-3" />
+                    <span>Viewing processed data</span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Empty Output State */}
+            {activeFile === 'output' && !hasProcessedData && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-gradient-to-br from-slate-50 to-gray-50 border border-slate-200 rounded-xl p-6 text-center space-y-3"
+              >
+                <div className="w-12 h-12 bg-slate-200 rounded-xl flex items-center justify-center mx-auto">
+                  <Database className="w-6 h-6 text-slate-400" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-slate-700 text-sm">No Output Yet</h4>
+                  <p className="text-xs text-slate-500 mt-1">Process your data to see results here</p>
+                </div>
+                <div className="text-xs text-slate-400">
+                  Use the chat panel to transform your data
+                </div>
+              </motion.div>
+            )}
+
+            {/* File Comparison (when both exist) */}
+            {hasProcessedData && (
+              <div className="bg-white border border-slate-200 rounded-xl p-4">
+                <h4 className="font-semibold text-slate-700 text-sm mb-3 flex items-center">
+                  <ArrowRight className="w-4 h-4 mr-2 text-slate-500" />
+                  Quick Compare
+                </h4>
+                <div className="space-y-2 text-xs">
+                  <div className="flex justify-between">
+                    <span className="text-slate-600">Rows:</span>
+                    <span className="font-medium">
+                      {inputStats.rows} → {outputStats?.rows} 
+                      <span className={`ml-1 ${(outputStats?.rows || 0) >= inputStats.rows ? 'text-green-600' : 'text-orange-600'}`}>
+                        ({(outputStats?.rows || 0) >= inputStats.rows ? '+' : ''}{((outputStats?.rows || 0) - inputStats.rows)})
+                      </span>
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-600">Columns:</span>
+                    <span className="font-medium">
+                      {inputStats.columns} → {outputStats?.columns}
+                      <span className={`ml-1 ${(outputStats?.columns || 0) >= inputStats.columns ? 'text-green-600' : 'text-orange-600'}`}>
+                        ({(outputStats?.columns || 0) >= inputStats.columns ? '+' : ''}{((outputStats?.columns || 0) - inputStats.columns)})
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -310,7 +477,8 @@ const MobileMenu = ({
   setActiveFile, 
   dataState, 
   hasProcessedData,
-  onChatToggle
+  onChatToggle,
+  onShowRoadmap
 }: any) => {
   if (!isOpen) return null
 
@@ -367,7 +535,7 @@ const MobileMenu = ({
             )}
           </div>
           
-          <div>
+          <div className="space-y-2">
             <button
               onClick={() => {
                 onChatToggle()
@@ -378,6 +546,20 @@ const MobileMenu = ({
               <Bot className="w-4 h-4" />
               <span className="text-sm">Data Assistant</span>
             </button>
+            
+            <motion.button
+              onClick={() => {
+                onShowRoadmap()
+                onClose()
+              }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full p-3 bg-gradient-to-r from-blue-100 to-purple-100 text-purple-700 rounded-lg text-left flex items-center space-x-2"
+            >
+              <span className="text-purple-600">✨</span>
+              <span className="text-sm font-medium">RoadMap of Rawbify</span>
+              <span className="text-purple-600">🚀</span>
+            </motion.button>
           </div>
         </div>
       </motion.div>
@@ -467,6 +649,12 @@ export default function DataStudioView() {
   const [selectedFormat, setSelectedFormat] = useState({ name: 'Excel', extension: 'xlsx' })
   const [isProcessing, setIsProcessing] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showProcessingOverlay, setShowProcessingOverlay] = useState(false)
+  const [overlayEnabled, setOverlayEnabled] = useState(true) // Toggle to enable/disable overlay
+  const [currentPrompt, setCurrentPrompt] = useState('')
+  const [expandedEditorOpen, setExpandedEditorOpen] = useState(false)
+  const [showRoadmapOverlay, setShowRoadmapOverlay] = useState(false)
+  const pendingProcessResultsRef = useRef<(() => void) | null>(null)
   const [dataState, setDataState] = useState({
     inputData: [] as any[],
     outputData: [] as any[],
@@ -514,54 +702,102 @@ export default function DataStudioView() {
     }
 
     setChatMessages(prev => [...prev, userMessage])
+    setCurrentPrompt(chatInput.trim())
     setChatInput('')
-    setIsTyping(true)
     setIsProcessing(true)
+
+    // Show appropriate overlay based on whether this is first processing or subsequent question
+    if (!hasProcessedData) {
+      // First time processing - show processing overlay if enabled
+      if (overlayEnabled) {
+        setShowProcessingOverlay(true)
+      } else {
+        setIsTyping(true)
+      }
+    } else {
+      // Subsequent questions - show roadmap overlay
+      setShowRoadmapOverlay(true)
+      return // Early return for subsequent questions
+    }
+
+    // Store API results and timing
+    let apiResult: any = null
+    let apiError: any = null
+    const startTime = Date.now()
 
     try {
       if (!hasProcessedData) {
         // First processing - call the real API
         const inputFile = dataArrayToFile(dataState.inputData, dataState.inputFilename)
-        const apiResult = await processData({ 
+        apiResult = await processData({ 
           file: inputFile, 
           prompt: userMessage.content, 
           userId: dataState.userId 
         })
-        
-        if (apiResult.success && apiResult.data) {
-          // Parse the returned CSV blob back to data array
-          const processedData = await parseCsvBlob(apiResult.data)
-          
-          const processedDataStorage = {
-            data: processedData,
-            filename: `processed_${dataState.inputFilename}`,
-            summary: apiResult.processingSummary || ['Data processed successfully'],
-            prompt: userMessage.content,
-            userId: dataState.userId
-          }
-          
-          localStorage.setItem('rawbify_processed_data', JSON.stringify(processedDataStorage))
-          
-          setDataState(prev => ({
-            ...prev,
-            outputData: processedData,
-            outputFilename: `processed_${prev.inputFilename}`,
-            processingSummary: apiResult.processingSummary || ['Data processed successfully'],
-            prompt: userMessage.content
-          }))
+      } else {
+        // Subsequent questions about the data - simulate for timing
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        apiResult = { 
+          success: true, 
+          data: null, 
+          message: 'The Current Version TrialV1 doesnt support multi-output, multi-changes. Stay Tuned for TrialV2. Till then, enjoy the demo.' 
+        }
+      }
+    } catch (error) {
+      console.error('Processing error:', error)
+      apiError = error
+    }
 
-          // Auto-switch to output view
-          setActiveFile('output')
+    const apiDuration = Date.now() - startTime
+    const minimumDuration = 5000 // 5 seconds minimum
+    const remainingTime = Math.max(0, minimumDuration - apiDuration)
 
-          const assistantMessage = {
-            id: Date.now() + 1,
-            type: 'assistant',
-            content: `Great! I've successfully processed your data based on your request: "${userMessage.content}"\n\nHere's what I accomplished:\n${(apiResult.processingSummary || ['Data processed successfully']).map((item: string) => `• ${item}`).join('\n')}\n\nYour processed data is now ready for download or further analysis. What would you like to explore next?`,
-            timestamp: new Date()
-          }
-          
-          setChatMessages(prev => [...prev, assistantMessage])
-        } else {
+    // Wait for remaining time if needed
+    if (remainingTime > 0) {
+      await new Promise(resolve => setTimeout(resolve, remainingTime))
+    }
+
+    // Process results after overlay completes (if enabled)
+    const processResults = () => {
+      try {
+        if (apiError) {
+          throw apiError
+        }
+
+        if (!hasProcessedData && apiResult?.success && apiResult?.data) {
+          // Process the successful API result
+          parseCsvBlob(apiResult.data).then(processedData => {
+            const processedDataStorage = {
+              data: processedData,
+              filename: `processed_${dataState.inputFilename}`,
+              summary: apiResult.processingSummary || ['Data processed successfully'],
+              prompt: userMessage.content,
+              userId: dataState.userId
+            }
+            
+            localStorage.setItem('rawbify_processed_data', JSON.stringify(processedDataStorage))
+            
+            setDataState(prev => ({
+              ...prev,
+              outputData: processedData,
+              outputFilename: `processed_${prev.inputFilename}`,
+              processingSummary: apiResult.processingSummary || ['Data processed successfully'],
+              prompt: userMessage.content
+            }))
+
+            // Auto-switch to output view
+            setActiveFile('output')
+
+            const assistantMessage = {
+              id: Date.now() + 1,
+              type: 'assistant',
+              content: `Great! I've successfully processed your data based on your request: "${userMessage.content}"\n\nHere's what I accomplished:\n${(apiResult.processingSummary || ['Data processed successfully']).map((item: string) => `• ${item}`).join('\n')}\n\nYour processed data is now ready for download or further analysis. What would you like to explore next?`,
+              timestamp: new Date()
+            }
+            
+            setChatMessages(prev => [...prev, assistantMessage])
+          })
+        } else if (!hasProcessedData && apiResult && !apiResult.success) {
           // Handle API error
           const errorMessage = {
             id: Date.now() + 1,
@@ -570,31 +806,84 @@ export default function DataStudioView() {
             timestamp: new Date()
           }
           setChatMessages(prev => [...prev, errorMessage])
+        } else {
+          // Subsequent questions about the data
+          const assistantMessage = {
+            id: Date.now() + 1,
+            type: 'assistant',
+            content: apiResult?.message || `The Current Version TrialV1 doesnt support multi-output, multi-changes. Stay Tuned for TrialV2. Till then, enjoy the demo.`,
+            timestamp: new Date()
+          }
+          
+          setChatMessages(prev => [...prev, assistantMessage])
         }
-      } else {
-        // Subsequent questions about the data
-        const assistantMessage = {
+      } catch (error) {
+        console.error('Processing error:', error)
+        const errorMessage = {
           id: Date.now() + 1,
           type: 'assistant',
-          content: `The Current Version TrialV1 doesnt support multi-output, multi-changes. Stay Tuned for TrialV2. Till then, enjoy the demo.`,
+          content: 'I apologize, but I encountered an error while processing your request. Please try again with a different approach.',
           timestamp: new Date()
         }
-        
-        setChatMessages(prev => [...prev, assistantMessage])
+        setChatMessages(prev => [...prev, errorMessage])
+      } finally {
+        setIsTyping(false)
+        setIsProcessing(false)
       }
-    } catch (error) {
-      console.error('Processing error:', error)
-      const errorMessage = {
-        id: Date.now() + 1,
-        type: 'assistant',
-        content: 'I apologize, but I encountered an error while processing your request. Please try again with a different approach.',
-        timestamp: new Date()
-      }
-      setChatMessages(prev => [...prev, errorMessage])
-    } finally {
-      setIsTyping(false)
-      setIsProcessing(false)
     }
+
+    if (!hasProcessedData) {
+      // Only process results for first-time processing
+      if (overlayEnabled) {
+        // Results will be processed when overlay is closed
+        pendingProcessResultsRef.current = processResults
+      } else {
+        // Process results immediately if overlay is disabled
+        processResults()
+      }
+    }
+  }
+
+  // Handle overlay completion
+  const handleOverlayComplete = () => {
+    setShowProcessingOverlay(false)
+    // Process the pending results
+    if (pendingProcessResultsRef.current) {
+      pendingProcessResultsRef.current()
+      pendingProcessResultsRef.current = null
+    }
+  }
+
+  // Handle expanded editor
+  const handleExpandEditor = () => {
+    setExpandedEditorOpen(true)
+  }
+
+  const handleExpandedEditorSubmit = (text: string) => {
+    setChatInput(text)
+    // Automatically trigger the send message
+    setTimeout(() => {
+      const event = { key: 'Enter', shiftKey: false, preventDefault: () => {} }
+      if (text.trim() && !isProcessing) {
+        handleSendMessage()
+      }
+    }, 100)
+  }
+
+  // Handle roadmap overlay close
+  const handleRoadmapClose = () => {
+    setShowRoadmapOverlay(false)
+    setIsProcessing(false)
+    
+    // Add the "limitation" message to chat
+    const limitationMessage = {
+      id: Date.now() + 1,
+      type: 'assistant',
+      content: `TrialV1 supports only single input → single output processing. For additional transformations, please start a new session or wait for TrialV2! 🚀`,
+      timestamp: new Date()
+    }
+    
+    setChatMessages(prev => [...prev, limitationMessage])
   }
 
   // Download function
@@ -650,6 +939,20 @@ export default function DataStudioView() {
                 </h1>
               </div>
               
+              {/* Mobile Roadmap Button */}
+              <motion.button
+                onClick={() => setShowRoadmapOverlay(true)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="lg:hidden relative"
+              >
+                <div className="px-3 py-1.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs font-bold rounded-full flex items-center space-x-1 shadow-md">
+                  <span>✨</span>
+                  <span>RoadMap</span>
+                  <span>🚀</span>
+                </div>
+              </motion.button>
+
               {/* Mobile menu button */}
               <button
                 onClick={() => setMobileMenuOpen(true)}
@@ -659,9 +962,44 @@ export default function DataStudioView() {
               </button>
             </div>
 
+            {/* Center - Roadmap Button */}
+            <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2">
+              <motion.button
+                onClick={() => setShowRoadmapOverlay(true)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative group"
+              >
+                {/* Subtle glow */}
+                <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 opacity-20 blur-sm group-hover:opacity-30 transition-opacity" />
+                
+                {/* Main button */}
+                <div className="relative px-6 py-2.5 bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 text-white font-semibold rounded-full shadow-lg group-hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-center space-x-2">
+                    <span>✨</span>
+                    <span className="text-sm font-bold tracking-wide">RoadMap of Rawbify</span>
+                    <span>🚀</span>
+                  </div>
+                </div>
+              </motion.button>
+            </div>
+
             {/* Desktop Actions */}
             <div className="hidden lg:flex items-center space-x-4">
               <span className="text-sm text-gray-600">Trial v1 Preview</span>
+              
+              {/* Overlay Toggle */}
+              <button
+                onClick={() => setOverlayEnabled(!overlayEnabled)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  overlayEnabled 
+                    ? 'bg-purple-100 text-purple-700 hover:bg-purple-200' 
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+                title={`${overlayEnabled ? 'Disable' : 'Enable'} processing overlay`}
+              >
+                {overlayEnabled ? '✨ Overlay ON' : '⚡ Overlay OFF'}
+              </button>
               <div className="relative">
                 <button
                   onClick={() => setShowDownloadDropdown(!showDownloadDropdown)}
@@ -725,6 +1063,7 @@ export default function DataStudioView() {
         dataState={dataState}
         hasProcessedData={hasProcessedData}
         onChatToggle={() => setRightSidebarOpen(!rightSidebarOpen)}
+        onShowRoadmap={() => setShowRoadmapOverlay(true)}
       />
 
       {/* Main Layout */}
@@ -862,8 +1201,39 @@ export default function DataStudioView() {
           isTyping={isTyping}
           isProcessing={isProcessing}
           hasProcessedData={hasProcessedData}
+          onExpandEditor={handleExpandEditor}
         />
       </div>
+
+      {/* Processing Overlay */}
+      <ProcessingOverlay
+        isVisible={showProcessingOverlay}
+        onComplete={handleOverlayComplete}
+        prompt={currentPrompt}
+        enabled={overlayEnabled}
+      />
+
+      {/* Expanded Text Editor */}
+      <ExpandedTextEditor
+        isOpen={expandedEditorOpen}
+        onClose={() => setExpandedEditorOpen(false)}
+        onSubmit={handleExpandedEditorSubmit}
+        initialText={chatInput}
+        placeholder={
+          !hasProcessedData 
+            ? "Describe in detail how you want to transform your dataset..." 
+            : "Ask detailed questions about your data..."
+        }
+        isProcessing={isProcessing}
+        hasProcessedData={hasProcessedData}
+      />
+
+      {/* Roadmap Overlay */}
+      <RoadmapOverlay
+        isVisible={showRoadmapOverlay}
+        onClose={handleRoadmapClose}
+        enabled={true}
+      />
     </div>
   )
 } 

@@ -76,7 +76,7 @@ export default function Footer() {
                 variants={itemVariants}
                 className="text-sm text-gray-400 text-center md:text-left"
               >
-                © 2024 Rawbify. All rights reserved.
+                © 2025 Rawbify. All rights reserved.
               </motion.p>
             </motion.div>
             
@@ -87,12 +87,12 @@ export default function Footer() {
               </h3>
               <ul className="space-y-4 text-gray-300">
                 <motion.li whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
-                  <a href="#" className="hover:text-white transition-colors duration-300 text-lg hover:text-blue-400">
+                  <a href="/features" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 text-lg hover:text-blue-400">
                     Features
                   </a>
                 </motion.li>
                 <motion.li whileHover={{ x: 5 }} transition={{ duration: 0.2 }}>
-                  <a href="#" className="hover:text-white transition-colors duration-300 text-lg hover:text-blue-400">
+                  <a href="/pricing" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300 text-lg hover:text-blue-400">
                     Pricing
                   </a>
                 </motion.li>

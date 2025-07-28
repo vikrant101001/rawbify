@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import UserValidation from '../components/trial/UserValidation'
 import FileUpload from '../components/trial/FileUpload'
-import { CheckCircle, Sparkles, Database, Shield, Lock, Monitor, Award, Eye } from 'lucide-react'
+import RoadmapOverlay from '../components/trial/RoadmapOverlay'
+import { CheckCircle, Sparkles, Database, Shield, Lock, Monitor, Award, Eye, Map } from 'lucide-react'
 import React from 'react'
 
 export default function TrialV1() {
@@ -14,6 +15,7 @@ export default function TrialV1() {
   const [showingPrivacyReassurance, setShowingPrivacyReassurance] = useState(false)
   const [privacyStep, setPrivacyStep] = useState(0)
   const [redirectingToStudio, setRedirectingToStudio] = useState(false)
+  const [showRoadmapOverlay, setShowRoadmapOverlay] = useState(false)
 
   const privacyMessages = [
     {
@@ -519,7 +521,7 @@ export default function TrialV1() {
           </AnimatePresence>
         </motion.div>
 
-        {/* CTA */}
+        {/* Development Roadmap CTA */}
         <motion.div 
           className="text-center"
           initial={{ opacity: 0, y: 40 }}
@@ -532,23 +534,43 @@ export default function TrialV1() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
-              <h3 className="text-2xl sm:text-3xl font-bold mb-6">
-                <span className="gradient-text">Professional Data Workspace</span>
-              </h3>
-              <p className="text-lg sm:text-xl mb-8 text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Experience enterprise-grade data transformation with AI-powered insights, designed for analysts and consulting teams.
+              <div className="flex items-center justify-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mr-4">
+                  <Map className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold">
+                  <span className="gradient-text">Our Development Journey</span>
+                </h3>
+              </div>
+              <p className="text-lg sm:text-xl mb-8 text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                See what's coming next! From TrialV1's single-file processing to enterprise-grade team collaboration and API integrations. 
+                Discover the exciting features we're building for the future of data transformation.
               </p>
               <motion.button
+                onClick={() => setShowRoadmapOverlay(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-purple-600 border-2 border-purple-200 hover:border-purple-400 px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-300"
+                className="bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
               >
-                Enterprise Demo
+                <div className="relative z-10 flex items-center space-x-2">
+                  <span>✨</span>
+                  <span>View RoadMap</span>
+                  <span>🚀</span>
+                </div>
+                {/* Hover shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </motion.button>
             </motion.div>
           </div>
         </motion.div>
       </main>
+
+      {/* Roadmap Overlay */}
+      <RoadmapOverlay
+        isVisible={showRoadmapOverlay}
+        onClose={() => setShowRoadmapOverlay(false)}
+        enabled={true}
+      />
     </div>
   )
 } 

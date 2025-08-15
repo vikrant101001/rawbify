@@ -1,0 +1,794 @@
+sales_id,date,sales_rep_name,region,product_category,product_name,quantity_sold,unit_price,total_revenue,customer_type,deal_stage,close_date,sales_cycle_days,commission_rate
+S00512,01/04/2025,Alice Johnson,West,Software,Security Shield,43.0,4067.85,174917.55,SMB,Qualified,,73.0,5.68
+S00316,05/03/2025,Ian Thompson,North,Software,ERP Suite,47.0,526.68,24753.96,SMB,Proposal,,53.0,13.18
+S00570,01/14/2025,Hannah Wilson,West,Services,Network Audit,33.0,2850.87,94078.71,Mid-Market,Negotiation,,140.0,7.31
+S00623,07/09/2025,Charlie Davis,West,Hardware,PrinterJet 5000,20.0,2105.8,42116.0,Enterprise,Closed Won,08/09/2025,31.0,5.87
+,02/10/2025,Ian Thompson,East,Consulting,Cybersecurity Audit,46.0,1801.38,82863.48,SMB,Negotiation,,34.0,14.58
+S00355,03/13/2025,Ethan Brown,East,Services,Data Backup Service,2.0,858.56,1717.12,Enterprise,Closed Lost,08/19/2025,159.0,14.17
+S00375,12/11/2024,Charlie Davis,East,Hardware,Router Max,28.0,2534.76,70973.28,SMB,Closed Won,05/17/2025,157.0,7.34
+S00720,2024-09-12,Fiona Clark,South,Services,Data Backup Service,27.0,2987.3,80657.1,Enterprise,Closed Won,03/04/2025,173.0,10.75
+S00737,04/24/2025,Hannah Wilson,South,Services,IT Support Plan,4.0,3252.72,13010.88,Mid-Market,Closed Won,09/06/2025,135.0,12.81
+S00129,01/01/2025,Hannah Wilson,South,Software,ERP Suite,41.0,4532.57,185835.37,SMB,Qualified,,175.0,9.02
+S00647,08/25/2024,Fiona Clark,East,Services,Data Backup Service,16.0,1792.86,28685.76,Mid-Market,Closed Lost,01/13/2025,141.0,8.44
+S00255,05/19/2025,Alice Johnson,West,Consulting,Business Strategy,37.0,1080.62,39982.94,SMB,Qualified,,104.0,14.75
+S00349,04/01/2025,Alice Johnson,South,Software,CRM Pro,45.0,2088.64,93988.8,Enterprise,Closed Won,08/13/2025,134.0,8.38
+S00682,07/02/2025,Hannah Wilson,West,Consulting,Business Strategy,8.0,438.92,3511.36,SMB,Closed Won,10/01/2025,91.0,6.61
+S00401,02/20/2025,Bob Smith,West,Consulting,Cloud Readiness,2.0,1625.61,3251.22,Enterprise,Proposal,,143.0,7.65
+S00724,10/24/2024,George Miller,East,Hardware,Router Max,10.0,3522.53,35225.3,SMB,Negotiation,,112.0,6.35
+S00308,09/04/2024,Ethan Brown,North,Hardware,Workstation Elite,6.0,1374.5,8247.0,Enterprise,Negotiation,,69.0,13.73
+S00078,02/14/2025,Fiona Clark,North,Consulting,AI Roadmap,40.0,907.61,36304.4,Enterprise,Negotiation,,157.0,11.51
+S00344,07/24/2025,Ethan Brown,East,Consulting,Cloud Readiness,31.0,996.67,30896.77,SMB,Proposal,,93.0,9.59
+S00686,06/30/2025,Bob Smith,South,Hardware,PrinterJet 5000,9.0,3612.82,32515.38,Enterprise,Closed Lost,12/21/2025,174.0,5.08
+S00006,07/08/2025,Ian Thompson,East,Consulting,Cloud Readiness,29.0,2899.01,84071.29,SMB,Qualified,,51.0,9.69
+S00373,03/19/2025,Julia White,North,Software,Security Shield,9.0,2268.33,20414.97,Enterprise,Negotiation,,53.0,6.06
+S00033,08/08/2025,Ethan Brown,West,Hardware,Laptop Pro 15,49.0,2299.77,112688.73,Mid-Market,Proposal,,56.0,11.09
+S00322,11/12/2024,Alice Johnson,East,Consulting,Process Optimization,13.0,4357.4,56646.2,Enterprise,Proposal,,89.0,14.31
+S00022,08/08/2025,Julia White,South,Consulting,Cloud Readiness,3.0,176.1,528.3,SMB,Proposal,,170.0,11.89
+S00633,08/27/2024,George Miller,South,Software,Security Shield,8.0,2787.56,22300.48,SMB,Closed Won,10/04/2024,38.0,11.85
+S00589,2025-02-26,Diana Lee,South,Services,Network Audit,18.0,4321.63,77789.34,Enterprise,Negotiation,,69.0,11.27
+S00586,05/12/2025,Bob Smith,West,,Business Strategy,33.0,312.34,10307.22,Mid-Market,Proposal,,37.0,7.86
+S00176,2025-04-20,Hannah Wilson,North,Consulting,AI Roadmap,30.0,3176.9,95307.0,Mid-Market,Proposal,,32.0,7.84
+S00563,08/22/2024,Bob Smith,East,Software,Cloud Office,47.0,2430.33,114225.51,SMB,Qualified,,88.0,9.17
+S00466,09/08/2024,George Miller,West,Hardware,PrinterJet 5000,33.0,2676.17,88313.61,Mid-Market,Closed Won,11/02/2024,55.0,5.66
+S00337,09/17/2024,George Miller,East,Consulting,Business Strategy,24.0,4053.74,97289.76,Mid-Market,Negotiation,,130.0,13.52
+S00628,01/17/2025,Charlie Davis,North,Services,Training Program,33.0,189.45,6251.85,Enterprise,Proposal,,63.0,9.61
+S00382,12/24/2024,Bob Smith,North,Services,Data Backup Service,13.0,4744.56,61679.28,Enterprise,Closed Lost,04/20/2025,117.0,14.91
+S00042,2025-05-25,Fiona Clark,West,Software,Analytics Pro,27.0,4780.7,129078.9,Enterprise,Proposal,,116.0,10.81
+S00412,05/18/2025,Ethan Brown,East,Software,ERP Suite,17.0,2516.47,42779.99,SMB,Proposal,,32.0,9.27
+S00150,11/09/2024,Bob Smith,West,Services,Network Audit,42.0,3725.06,156452.52,SMB,Closed Won,03/21/2025,132.0,5.89
+S00544,06/20/2025,George Miller,South,Software,Cloud Office,36.0,257.87,9283.32,SMB,Qualified,,148.0,8.2
+S00626,07/03/2025,George Miller,North,Hardware,Server X100,21.0,4565.72,95880.12,SMB,Closed Won,10/20/2025,109.0,11.76
+S00175,02/03/2025,Ian Thompson,North,Software,Security Shield,10.0,3550.79,35507.9,Enterprise,Proposal,,146.0,9.82
+S00062,03/11/2025,Ethan Brown,North,Consulting,Cloud Readiness,44.0,1153.19,50740.36,Enterprise,Closed Lost,07/10/2025,121.0,5.53
+S00174,09/13/2024,Bob Smith,South,Consulting,Process Optimization,45.0,2079.83,93592.35,Enterprise,Negotiation,,150.0,9.57
+S00008,12/23/2024,Hannah Wilson,West,Consulting,Process Optimization,1.0,1204.31,1204.31,SMB,Closed Lost,04/16/2025,114.0,6.07
+S00241,08/21/2024,Julia White,East,Services,Training Program,36.0,3679.75,132471.0,Mid-Market,Proposal,,36.0,9.84
+S00331,04/10/2025,Hannah Wilson,East,Software,Analytics Pro,3.0,149.32,447.96,SMB,Closed Lost,05/18/2025,38.0,13.28
+S00295,05/11/2025,Bob Smith,South,Software,Analytics Pro,16.0,2653.33,42453.28,Enterprise,Closed Won,07/27/2025,77.0,11.44
+S00645,03/15/2025,Ethan Brown,North,Software,Security Shield,19.0,676.79,12859.01,Enterprise,Qualified,,146.0,13.8
+S00188,07/18/2025,George Miller,North,Software,Security Shield,5.0,2035.88,10179.4,Enterprise,Closed Lost,12/27/2025,162.0,7.02
+S00027,06/24/2025,Ethan Brown,South,Consulting,Cloud Readiness,22.0,3011.58,66254.76,Enterprise,Closed Won,08/23/2025,60.0,12.95
+S00511,06/01/2025,Hannah Wilson,North,Software,CRM Pro,32.0,2774.89,88796.48,SMB,Qualified,,130.0,6.56
+S00287,05/08/2025,Ian Thompson,South,Services,Network Audit,22.0,1049.49,23088.78,SMB,Negotiation,,87.0,8.52
+S00153,08/01/2025,Ethan Brown,South,Consulting,Process Optimization,24.0,1298.71,31169.04,SMB,Qualified,,33.0,14.66
+S00660,08/18/2024,Ethan Brown,North,Software,Analytics Pro,8.0,4850.97,38807.76,Enterprise,Proposal,,85.0,6.64
+S00002,08/16/2024,Julia White,North,Services,Network Audit,29.0,1329.41,38552.89,Mid-Market,Qualified,,176.0,11.14
+S00314,03/05/2025,Alice Johnson,West,Services,IT Support Plan,35.0,3299.3,115475.5,SMB,Negotiation,,86.0,7.79
+S00608,2025-07-27,Fiona Clark,North,Software,Security Shield,2.0,315.58,631.16,Enterprise,Negotiation,,37.0,10.17
+S00531,2024-11-17,Fiona Clark,East,Consulting,Cloud Readiness,5.0,3298.74,16493.7,Mid-Market,Closed Won,02/25/2025,100.0,7.6
+S00437,06/06/2025,Julia White,West,Consulting,Cloud Readiness,12.0,865.21,10382.52,Enterprise,Negotiation,,110.0,14.76
+S00110,03/23/2025,Hannah Wilson,West,Services,Data Backup Service,46.0,1434.03,65965.38,Mid-Market,Proposal,,32.0,13.01
+S00151,05/12/2025,Diana Lee,North,Software,Cloud Office,29.0,4151.31,120387.99,Mid-Market,Qualified,,116.0,13.43
+S00356,01/21/2025,Julia White,North,Services,Network Audit,44.0,2543.04,111893.76,Enterprise,Qualified,,163.0,6.75
+S00218,12/06/2024,Alice Johnson,North,Software,Cloud Office,34.0,2843.02,96662.68,Enterprise,Closed Lost,02/16/2025,72.0,5.99
+S00351,05/02/2025,George Miller,West,Hardware,Router Max,14.0,2521.55,35301.7,Enterprise,Closed Lost,09/24/2025,145.0,13.89
+S00251,04/29/2025,Diana Lee,North,Hardware,Workstation Elite,2.0,3519.28,7038.56,Mid-Market,Qualified,,87.0,8.06
+S00354,05/27/2025,George Miller,North,Services,Data Backup Service,14.0,2072.77,29018.78,Enterprise,Closed Won,10/29/2025,155.0,13.77
+S00138,05/24/2025,Alice Johnson,North,Services,Cloud Migration,3.0,4878.8,14636.4,SMB,Qualified,,165.0,11.04
+S00273,08/02/2025,Fiona Clark,South,Services,Network Audit,34.0,3049.26,103674.84,Enterprise,Closed Won,12/22/2025,142.0,11.04
+S00061,09/21/2024,Julia White,South,Hardware,Server X100,43.0,1577.38,67827.34,Enterprise,Closed Lost,12/23/2024,93.0,14.66
+S00170,07/16/2025,Diana Lee,South,Consulting,AI Roadmap,8.0,3890.45,31123.6,Mid-Market,Proposal,,77.0,12.42
+S00467,10/14/2024,Ethan Brown,East,Hardware,PrinterJet 5000,24.0,784.79,18834.96,SMB,Closed Won,11/21/2024,38.0,6.76
+S00455,05/24/2025,Fiona Clark,South,Hardware,Laptop Pro 15,6.0,4224.85,25349.1,SMB,Closed Won,08/13/2025,81.0,12.79
+S00695,06/23/2025,Diana Lee,North,Software,CRM Pro,1.0,3424.45,3424.45,Mid-Market,Negotiation,,139.0,8.48
+S00700,04/17/2025,Bob Smith,East,Software,Security Shield,18.0,2739.88,49317.84,Mid-Market,Closed Won,06/02/2025,46.0,6.19
+S00131,03/24/2025,Fiona Clark,South,Services,Data Backup Service,42.0,2905.21,122018.82,Enterprise,Closed Won,08/05/2025,134.0,12.17
+S00495,05/30/2025,George Miller,South,Hardware,Server X100,47.0,1681.05,79009.35,Mid-Market,Closed Lost,07/01/2025,32.0,13.37
+S00340,01/20/2025,Hannah Wilson,North,Services,Network Audit,24.0,1210.58,29053.92,Mid-Market,Negotiation,,131.0,10.24
+S00102,01/13/2025,Ian Thompson,South,Software,Analytics Pro,50.0,2915.11,145755.5,SMB,Closed Lost,07/09/2025,177.0,9.68
+S00605,12/02/2024,Charlie Davis,South,Hardware,Laptop Pro 15,38.0,189.98,7219.24,Enterprise,Closed Lost,04/24/2025,143.0,12.3
+S00036,03/31/2025,George Miller,East,Software,Analytics Pro,2.0,3172.15,6344.3,Mid-Market,Qualified,,106.0,13.64
+S00498,01/13/2025,George Miller,West,Software,Cloud Office,12.0,2337.17,28046.04,Mid-Market,Negotiation,,73.0,13.62
+S00328,12/02/2024,Diana Lee,East,Hardware,PrinterJet 5000,47.0,705.38,33152.86,SMB,Qualified,,70.0,7.49
+S00118,03/06/2025,Ethan Brown,South,Services,Network Audit,23.0,3598.47,82764.81,SMB,Qualified,,73.0,7.02
+S00320,07/28/2025,Julia White,South,Services,Network Audit,23.0,1731.77,39830.71,SMB,Closed Won,01/05/2026,161.0,7.99
+S00161,06/02/2025,Ian Thompson,South,Services,Network Audit,45.0,1474.06,66332.7,Enterprise,Negotiation,,72.0,13.15
+S00679,01/16/2025,Ethan Brown,South,Software,ERP Suite,5.0,105.37,526.85,SMB,Proposal,,160.0,7.91
+S00352,03/27/2025,Fiona Clark,North,Consulting,Business Strategy,35.0,3809.65,133337.75,Mid-Market,Closed Won,07/15/2025,110.0,13.56
+S00043,10/27/2024,Alice Johnson,West,Consulting,Cybersecurity Audit,4.0,3092.71,12370.84,Mid-Market,Qualified,,72.0,9.12
+S00716,05/09/2025,Bob Smith,East,Software,Security Shield,10.0,3866.02,38660.2,Mid-Market,Qualified,,47.0,14.32
+S00029,2024-11-30,Bob Smith,North,Consulting,Cloud Readiness,7.0,2262.55,15837.85,Enterprise,Proposal,,176.0,8.83
+S00478,01/28/2025,George Miller,East,Hardware,Laptop Pro 15,47.0,161.0,7567.0,Mid-Market,Qualified,,126.0,10.26
+S00229,02/22/2025,Diana Lee,West,Hardware,Laptop Pro 15,44.0,1385.79,60974.76,SMB,Negotiation,,59.0,5.67
+S00010,03/06/2025,Charlie Davis,South,Software,Security Shield,5.0,2010.65,10053.25,SMB,Proposal,,100.0,11.39
+S00704,09/10/2024,Bob Smith,East,Consulting,AI Roadmap,7.0,1040.29,7282.03,SMB,Proposal,,175.0,7.65
+S00728,12/17/2024,Diana Lee,North,Software,Analytics Pro,46.0,3697.5,170085.0,Enterprise,Proposal,,126.0,12.29
+S00462,12/24/2024,Bob Smith,South,Software,ERP Suite,23.0,759.0,17457.0,Mid-Market,Negotiation,,144.0,10.8
+S00098,08/14/2024,Julia White,South,Services,Network Audit,13.0,2297.33,29865.29,SMB,Negotiation,,140.0,8.36
+S00432,05/30/2025,Bob Smith,South,Hardware,Workstation Elite,29.0,856.07,24826.03,SMB,Qualified,,68.0,13.7
+S00691,08/16/2024,George Miller,North,Consulting,Business Strategy,24.0,2034.87,48836.88,Mid-Market,Qualified,,37.0,8.38
+S00530,03/09/2025,Ian Thompson,South,Software,ERP Suite,21.0,2722.34,57169.14,SMB,Qualified,,54.0,12.02
+S00409,06/01/2025,Bob Smith,East,Consulting,AI Roadmap,4.0,4396.31,17585.24,Mid-Market,Qualified,,119.0,5.53
+S00272,2025-02-01,Bob Smith,East,Hardware,Workstation Elite,32.0,2687.83,86010.56,Mid-Market,Closed Won,05/29/2025,117.0,14.52
+S00507,12/17/2024,Charlie Davis,West,Software,ERP Suite,8.0,4233.82,33870.56,Mid-Market,Proposal,,157.0,9.38
+S00559,10/07/2024,Diana Lee,North,Consulting,Process Optimization,34.0,4517.85,153606.9,Enterprise,Closed Lost,02/24/2025,140.0,11.23
+S00215,01/11/2025,Alice Johnson,West,Services,Data Backup Service,25.0,2945.2,73630.0,Mid-Market,Closed Won,05/03/2025,112.0,11.74
+S00676,08/07/2025,Ethan Brown,East,Software,ERP Suite,3.0,1784.6,5353.8,SMB,Qualified,,156.0,5.68
+S00342,05/10/2025,Alice Johnson,West,Consulting,Cloud Readiness,39.0,4549.82,177442.98,SMB,Closed Lost,10/31/2025,174.0,6.85
+S00014,05/10/2025,Alice Johnson,West,Software,Analytics Pro,45.0,2784.92,125321.4,Mid-Market,Qualified,,132.0,5.93
+S00649,01/26/2025,Diana Lee,North,Hardware,Workstation Elite,40.0,3654.29,146171.6,Enterprise,Negotiation,,147.0,13.98
+S00305,01/05/2025,Ian Thompson,West,Consulting,Business Strategy,15.0,2969.39,44540.85,Mid-Market,Closed Lost,02/18/2025,44.0,7.94
+S00561,06/10/2025,Charlie Davis,South,Consulting,Cloud Readiness,28.0,1828.52,51198.56,SMB,Proposal,,91.0,6.52
+S00399,06/22/2025,Bob Smith,South,Hardware,Router Max,41.0,1578.66,64725.06,Mid-Market,Proposal,,115.0,12.13
+S00544,06/20/2025,George Miller,South,Software,Cloud Office,36.0,257.87,9283.32,SMB,Qualified,,148.0,8.2
+S00642,04/02/2025,Fiona Clark,North,Services,Data Backup Service,1.0,1851.28,1851.28,Enterprise,Proposal,,149.0,9.95
+S00503,12/22/2024,Hannah Wilson,West,Consulting,AI Roadmap,24.0,1886.92,45286.08,Enterprise,Qualified,,124.0,11.17
+S00159,04/09/2025,Bob Smith,North,Services,IT Support Plan,31.0,1359.67,42149.77,Enterprise,Proposal,,44.0,10.28
+S00044,02/27/2025,Ethan Brown,South,Services,Training Program,7.0,1782.49,12477.43,Mid-Market,Qualified,,133.0,13.52
+S00414,11/16/2024,Alice Johnson,North,Consulting,Business Strategy,8.0,2597.92,20783.36,Enterprise,Negotiation,,162.0,11.39
+S00016,2025-03-12,Charlie Davis,North,Hardware,Laptop Pro 15,1.0,2713.81,2713.81,Mid-Market,Negotiation,,76.0,7.83
+S00346,08/28/2024,Julia White,North,Software,ERP Suite,24.0,3245.4,77889.6,Enterprise,Qualified,,113.0,9.06
+S00084,01/30/2025,Alice Johnson,South,Hardware,Workstation Elite,28.0,3950.39,110610.92,Mid-Market,Proposal,,145.0,13.26
+S00059,02/16/2025,Alice Johnson,North,Consulting,Cloud Readiness,41.0,4406.43,180663.63,SMB,Closed Lost,06/18/2025,122.0,8.33
+S00671,06/07/2025,Fiona Clark,East,Services,IT Support Plan,41.0,1032.83,42346.03,Enterprise,Proposal,,47.0,12.24
+S00473,08/17/2024,George Miller,East,Hardware,PrinterJet 5000,17.0,2533.77,43074.09,SMB,Negotiation,,115.0,7.39
+S00474,08/27/2024,Bob Smith,South,Software,ERP Suite,48.0,326.75,15684.0,SMB,Closed Lost,12/30/2024,125.0,10.81
+S00612,02/20/2025,Fiona Clark,South,Software,ERP Suite,22.0,931.76,20498.72,Enterprise,Closed Lost,07/04/2025,134.0,6.51
+S00660,08/18/2024,Ethan Brown,North,Software,Analytics Pro,8.0,4850.97,38807.76,Enterprise,Proposal,,85.0,6.64
+S00311,05/07/2025,Diana Lee,South,Consulting,Business Strategy,35.0,1463.4,51219.0,Mid-Market,Qualified,,48.0,6.39
+S00031,06/17/2025,Alice Johnson,West,Hardware,Laptop Pro 15,34.0,2728.78,92778.52,Mid-Market,Proposal,,32.0,7.24
+S00687,07/26/2025,Fiona Clark,North,Services,Cloud Migration,17.0,1959.12,33305.04,SMB,Negotiation,,180.0,8.58
+S00637,12/29/2024,Alice Johnson,South,Services,Cloud Migration,24.0,1934.54,46428.96,SMB,Qualified,,85.0,14.23
+S00493,06/16/2025,George Miller,South,Consulting,Cybersecurity Audit,4.0,4831.92,19327.68,SMB,Negotiation,,90.0,6.24
+S00699,10/30/2024,Julia White,South,Hardware,Laptop Pro 15,23.0,1719.98,39559.54,Mid-Market,Closed Won,03/10/2025,131.0,7.76
+S00243,01/04/2025,Ethan Brown,East,Hardware,Laptop Pro 15,28.0,192.84,5399.52,Enterprise,Qualified,,80.0,8.4
+S00070,01/29/2025,Diana Lee,South,Hardware,Workstation Elite,45.0,734.84,33067.8,SMB,Closed Lost,06/09/2025,131.0,8.83
+S00164,02/12/2025,Ian Thompson,South,Hardware,Router Max,7.0,1620.25,11341.75,Mid-Market,Qualified,,81.0,5.48
+S00601,12/06/2024,George Miller,North,Consulting,AI Roadmap,6.0,2247.45,13484.7,Mid-Market,Proposal,,118.0,10.1
+S00581,01/31/2025,Diana Lee,North,Hardware,PrinterJet 5000,47.0,273.67,12862.49,Enterprise,Proposal,,166.0,12.12
+S00075,01/15/2025,Julia White,East,Consulting,Cloud Readiness,20.0,4933.62,98672.4,Enterprise,Negotiation,,149.0,7.87
+S00606,04/05/2025,Fiona Clark,North,Services,Cloud Migration,21.0,3192.55,67043.55,Enterprise,Qualified,,94.0,7.22
+S00195,05/17/2025,Diana Lee,West,Hardware,Router Max,33.0,,111336.06,Mid-Market,Closed Lost,10/12/2025,148.0,7.43
+S00261,06/10/2025,Ian Thompson,South,Consulting,Cloud Readiness,44.0,3682.81,162043.64,SMB,Closed Won,10/27/2025,139.0,13.54
+S00713,03/25/2025,Diana Lee,East,Services,Data Backup Service,27.0,1362.72,36793.44,SMB,Qualified,,44.0,9.22
+S00430,08/28/2024,Charlie Davis,North,Consulting,AI Roadmap,16.0,2063.58,33017.28,SMB,Closed Lost,02/14/2025,170.0,14.05
+S00448,07/22/2025,Ian Thompson,West,Services,Cloud Migration,30.0,1608.07,48242.1,Enterprise,Proposal,,130.0,11.58
+S00100,06/12/2025,Fiona Clark,South,Consulting,AI Roadmap,10.0,591.57,5915.7,SMB,Proposal,,106.0,11.4
+S00112,09/15/2024,Diana Lee,South,Software,ERP Suite,44.0,2074.95,91297.8,Enterprise,Qualified,,146.0,10.2
+S00383,06/18/2025,Fiona Clark,North,Services,Data Backup Service,4.0,1821.0,7284.0,Mid-Market,Qualified,,47.0,6.5
+S00113,07/12/2025,Diana Lee,West,Hardware,PrinterJet 5000,27.0,2809.39,75853.53,Mid-Market,Qualified,,163.0,7.8
+S00165,08/18/2024,Hannah Wilson,West,Hardware,PrinterJet 5000,46.0,3105.57,142856.22,Enterprise,Closed Won,10/25/2024,68.0,14.21
+S00345,06/26/2025,George Miller,West,Consulting,AI Roadmap,17.0,4599.12,78185.04,SMB,Closed Lost,09/28/2025,94.0,13.16
+S00540,11/05/2024,George Miller,North,Consulting,Business Strategy,30.0,265.42,7962.6,Enterprise,Negotiation,,77.0,5.77
+S00681,09/19/2024,George Miller,East,Hardware,Workstation Elite,33.0,2788.56,92022.48,SMB,Negotiation,,75.0,13.88
+S00130,09/12/2024,Ian Thompson,West,Software,Cloud Office,13.0,1737.63,22589.19,Enterprise,Closed Lost,01/27/2025,137.0,14.92
+S00160,04/01/2025,Fiona Clark,East,Software,Analytics Pro,27.0,915.62,24721.74,SMB,Negotiation,,77.0,12.77
+S00005,06/08/2025,Julia White,East,Software,ERP Suite,10.0,266.2,2662.0,Mid-Market,Negotiation,,99.0,11.55
+S00244,01/19/2025,Ethan Brown,North,Software,ERP Suite,11.0,2381.58,26197.38,SMB,Closed Won,03/19/2025,59.0,7.74
+S00046,12/18/2024,Julia White,South,Consulting,Process Optimization,13.0,534.56,6949.28,Mid-Market,Closed Won,01/21/2025,34.0,9.07
+S00288,06/05/2025,Charlie Davis,South,Hardware,Laptop Pro 15,36.0,3631.06,130718.16,Enterprise,Negotiation,,62.0,9.98
+S00173,09/08/2024,Alice Johnson,East,Consulting,Business Strategy,10.0,544.54,5445.4,Mid-Market,Closed Won,02/06/2025,151.0,6.34
+S00001,12/21/2024,Ian Thompson,East,Services,Training Program,32.0,3319.54,106225.28,Enterprise,Qualified,,169.0,8.36
+S00020,09/11/2024,Diana Lee,South,Services,Cloud Migration,6.0,1623.6,9741.6,SMB,Closed Lost,11/12/2024,62.0,9.15
+S00021,11/22/2024,George Miller,West,Software,Cloud Office,25.0,460.73,11518.25,Mid-Market,Closed Won,03/17/2025,115.0,10.31
+S00231,03/19/2025,Charlie Davis,West,Software,Cloud Office,13.0,2767.75,35980.75,Mid-Market,Qualified,,134.0,8.45
+S00277,12/24/2024,Fiona Clark,South,Services,Training Program,6.0,4875.39,29252.34,Enterprise,Closed Won,03/25/2025,91.0,9.8
+S00350,12/06/2024,Bob Smith,East,Hardware,Router Max,34.0,1756.24,59712.16,Mid-Market,Qualified,,152.0,11.21
+S00067,04/08/2025,George Miller,South,Software,Analytics Pro,9.0,1534.38,13809.42,Mid-Market,Closed Lost,06/07/2025,60.0,6.55
+S00099,08/14/2024,Diana Lee,West,Hardware,Router Max,49.0,4071.52,199504.48,Mid-Market,Closed Lost,10/29/2024,76.0,6.33
+S00045,06/25/2025,Alice Johnson,West,Software,Cloud Office,20.0,970.86,19417.2,Enterprise,Proposal,,69.0,6.75
+S00144,10/24/2024,Charlie Davis,North,Hardware,Router Max,20.0,2046.76,40935.2,Enterprise,Closed Won,02/01/2025,100.0,14.6
+S00379,06/05/2025,Diana Lee,East,Hardware,Server X100,48.0,4057.97,194782.56,Mid-Market,Closed Won,12/01/2025,179.0,10.95
+S00540,11/05/2024,George Miller,North,Consulting,Business Strategy,30.0,265.42,7962.6,Enterprise,Negotiation,,77.0,5.77
+S00343,03/19/2025,Ian Thompson,South,Hardware,Router Max,46.0,4250.44,195520.24,SMB,Proposal,,132.0,10.86
+S00284,08/06/2025,Diana Lee,South,Software,ERP Suite,40.0,3088.77,123550.8,SMB,Closed Lost,10/19/2025,74.0,8.89
+S00447,2025-08-06,Julia White,West,Consulting,Cybersecurity Audit,17.0,4061.31,69042.27,Mid-Market,Closed Lost,10/22/2025,77.0,13.28
+S00259,06/07/2025,George Miller,East,Services,Training Program,24.0,3336.25,80070.0,SMB,Proposal,,152.0,9.34
+S00377,05/17/2025,Fiona Clark,North,Software,Cloud Office,5.0,358.67,1793.35,Enterprise,Proposal,,84.0,10.71
+S00029,2024-11-30,Bob Smith,North,Consulting,Cloud Readiness,7.0,2262.55,15837.85,Enterprise,Proposal,,176.0,8.83
+S00315,12/22/2024,Bob Smith,East,Software,Analytics Pro,29.0,3817.38,110704.02,SMB,Closed Lost,03/31/2025,99.0,8.57
+S00502,01/10/2025,Diana Lee,East,Hardware,Server X100,27.0,4767.69,128727.63,Mid-Market,Negotiation,,40.0,8.37
+S00235,05/14/2025,Alice Johnson,West,Hardware,Workstation Elite,32.0,3108.4,99468.8,Mid-Market,Closed Lost,09/12/2025,121.0,5.99
+S00234,04/10/2025,Bob Smith,South,Hardware,Server X100,47.0,2677.2,125828.4,Enterprise,Negotiation,,36.0,13.2
+S00212,09/25/2024,Hannah Wilson,East,Software,Security Shield,40.0,4776.25,191050.0,SMB,Negotiation,,87.0,5.48
+S00125,08/03/2025,Bob Smith,North,Services,Training Program,44.0,1155.36,50835.84,SMB,Negotiation,,55.0,10.71
+S00532,09/21/2024,Charlie Davis,West,Consulting,AI Roadmap,44.0,2394.78,105370.32,SMB,Proposal,,109.0,7.81
+S00501,04/25/2025,George Miller,South,Consulting,Cloud Readiness,39.0,4889.96,190708.44,Mid-Market,Negotiation,,97.0,10.5
+S00371,10/04/2024,Fiona Clark,North,Hardware,Laptop Pro 15,3.0,4612.49,13837.47,Enterprise,Negotiation,,114.0,8.93
+S00666,08/11/2025,Hannah Wilson,East,Hardware,Server X100,31.0,3548.11,109991.41,Mid-Market,Qualified,,57.0,5.17
+S00579,2025-02-17,Ethan Brown,South,Consulting,Business Strategy,10.0,1446.29,14462.9,Enterprise,Proposal,,106.0,5.28
+S00137,09/30/2024,Diana Lee,East,Software,ERP Suite,9.0,3106.89,27962.01,Enterprise,Closed Lost,03/16/2025,167.0,14.44
+S00733,09/24/2024,Diana Lee,North,Services,Cloud Migration,7.0,1967.67,13773.69,Mid-Market,Proposal,,86.0,11.74
+S00135,10/29/2024,Bob Smith,North,Services,Network Audit,42.0,351.19,14749.98,SMB,Qualified,,59.0,10.43
+S00597,11/13/2024,Fiona Clark,South,Services,Data Backup Service,12.0,2864.4,34372.8,Enterprise,Qualified,,165.0,12.76
+S00132,06/26/2025,Ian Thompson,East,Hardware,Laptop Pro 15,25.0,4085.61,102140.25,Enterprise,Qualified,,137.0,10.74
+S00550,02/05/2025,Ethan Brown,North,Hardware,Router Max,38.0,1108.68,42129.84,Mid-Market,Qualified,,32.0,8.44
+S00057,06/26/2025,Ethan Brown,West,Software,Cloud Office,46.0,2734.13,125769.98,Enterprise,Proposal,,95.0,12.12
+S00490,01/07/2025,Alice Johnson,South,Hardware,Router Max,29.0,3740.56,108476.24,SMB,Qualified,,121.0,14.03
+S00063,11/21/2024,Ian Thompson,South,Software,Cloud Office,49.0,2988.27,146425.23,Enterprise,Closed Lost,02/12/2025,83.0,10.57
+S00627,09/14/2024,Alice Johnson,South,Services,IT Support Plan,1.0,3071.37,3071.37,Mid-Market,Closed Lost,10/23/2024,39.0,8.03
+S00652,04/18/2025,Hannah Wilson,West,Software,Cloud Office,20.0,2650.04,53000.8,SMB,Proposal,,98.0,7.18
+S00394,09/20/2024,Bob Smith,South,Consulting,Cloud Readiness,21.0,547.0,11487.0,Mid-Market,Negotiation,,43.0,9.34
+S00242,02/22/2025,Hannah Wilson,North,Consulting,Cybersecurity Audit,32.0,2145.01,68640.32,Enterprise,Closed Won,05/19/2025,86.0,12.65
+S00475,12/09/2024,Ethan Brown,North,Services,Training Program,12.0,2469.39,29632.68,Enterprise,Qualified,,111.0,7.7
+S00200,03/04/2025,Ian Thompson,West,Software,Analytics Pro,46.0,3169.26,145785.96,Mid-Market,Proposal,,110.0,7.9
+S00469,04/03/2025,George Miller,West,Services,Network Audit,41.0,4399.3,180371.3,Mid-Market,Closed Won,06/13/2025,71.0,12.74
+S00325,05/26/2025,Fiona Clark,West,Software,ERP Suite,28.0,2298.67,64362.76,Mid-Market,Proposal,,64.0,10.59
+S00058,04/07/2025,Charlie Davis,East,Software,ERP Suite,18.0,1605.75,28903.5,Mid-Market,Proposal,,54.0,10.23
+S00388,09/12/2024,Diana Lee,West,Services,Cloud Migration,28.0,326.86,9152.08,Mid-Market,Proposal,,70.0,6.56
+S00585,02/02/2025,Bob Smith,East,Hardware,Laptop Pro 15,39.0,3987.52,155513.28,Mid-Market,Negotiation,,141.0,13.57
+S00223,09/08/2024,Alice Johnson,South,Services,Network Audit,13.0,3589.33,46661.29,SMB,Proposal,,52.0,14.18
+S00624,10/07/2024,Alice Johnson,South,Hardware,PrinterJet 5000,33.0,3754.98,123914.34,Mid-Market,Closed Lost,01/16/2025,101.0,7.47
+S00265,10/28/2024,Fiona Clark,West,Software,Analytics Pro,21.0,496.27,10421.67,Mid-Market,Negotiation,,101.0,11.82
+S00664,11/20/2024,Diana Lee,West,Consulting,AI Roadmap,30.0,807.22,24216.6,SMB,Closed Lost,02/26/2025,98.0,11.8
+S00025,03/26/2025,Julia White,East,Software,Cloud Office,20.0,2367.93,47358.6,Enterprise,Proposal,,75.0,10.55
+S00072,10/04/2024,Charlie Davis,West,Software,Analytics Pro,38.0,884.04,33593.52,SMB,Qualified,,99.0,7.9
+S00095,2025-04-06,Fiona Clark,North,Hardware,Workstation Elite,41.0,466.62,19131.42,Enterprise,Closed Lost,09/15/2025,162.0,14.71
+S00643,01/14/2025,Julia White,North,Hardware,Server X100,1.0,984.81,984.81,Enterprise,Qualified,,167.0,12.24
+S00014,05/10/2025,Alice Johnson,West,Software,Analytics Pro,45.0,2784.92,125321.4,Mid-Market,Qualified,,132.0,5.93
+S00213,07/05/2025,Ian Thompson,West,Services,IT Support Plan,18.0,4166.13,74990.34,Enterprise,Closed Won,09/10/2025,67.0,13.11
+S00729,11/07/2024,Bob Smith,West,Hardware,Laptop Pro 15,2.0,254.74,509.48,Mid-Market,Qualified,,79.0,10.27
+S00449,12/27/2024,Julia White,West,Consulting,Business Strategy,,4518.7,167191.9,Enterprise,,,86.0,8.06
+S00464,02/09/2025,George Miller,South,Hardware,PrinterJet 5000,1.0,4647.89,4647.89,Mid-Market,Closed Lost,05/08/2025,88.0,11.35
+S00717,07/13/2025,Hannah Wilson,East,Software,ERP Suite,4.0,3825.42,15301.68,Enterprise,Qualified,,85.0,6.94
+S00333,08/14/2024,Hannah Wilson,South,Consulting,Cybersecurity Audit,19.0,4572.09,86869.71,Mid-Market,Negotiation,,91.0,6.84
+S00485,11/08/2024,George Miller,North,Consulting,Cybersecurity Audit,16.0,4484.35,71749.6,Enterprise,Qualified,,162.0,11.0
+S00154,03/14/2025,Ian Thompson,West,Services,IT Support Plan,23.0,3193.71,73455.33,Enterprise,Negotiation,,71.0,9.71
+S00111,09/18/2024,Fiona Clark,East,Consulting,Cybersecurity Audit,5.0,2707.04,13535.2,Enterprise,Negotiation,,135.0,13.27
+S00405,09/04/2024,Julia White,South,Consulting,Cloud Readiness,31.0,375.97,11655.07,Mid-Market,Closed Won,02/09/2025,158.0,11.87
+S00163,06/06/2025,Bob Smith,East,Software,CRM Pro,45.0,1483.77,66769.65,Mid-Market,Proposal,,148.0,11.52
+S00313,01/07/2025,Ian Thompson,West,Services,IT Support Plan,39.0,284.81,,SMB,Negotiation,,81.0,12.42
+S00075,01/15/2025,Julia White,East,Consulting,Cloud Readiness,20.0,4933.62,98672.4,Enterprise,Negotiation,,149.0,7.87
+S00472,08/08/2025,Charlie Davis,East,Software,Cloud Office,20.0,1239.36,24787.2,Mid-Market,Closed Lost,01/22/2026,167.0,6.38
+S00415,12/13/2024,Hannah Wilson,West,Hardware,Laptop Pro 15,3.0,3684.05,11052.15,Enterprise,Closed Won,02/21/2025,70.0,5.63
+S00221,11/14/2024,Hannah Wilson,North,Hardware,Server X100,34.0,4803.71,163326.14,Enterprise,Closed Lost,01/12/2025,59.0,9.88
+S00429,08/02/2025,Julia White,West,Hardware,Router Max,19.0,2222.18,42221.42,SMB,Closed Lost,12/27/2025,147.0,7.93
+S00126,10/25/2024,George Miller,South,Services,Data Backup Service,14.0,403.21,5644.94,SMB,Closed Lost,04/08/2025,165.0,10.18
+S00370,04/06/2025,George Miller,West,Services,Network Audit,8.0,1752.25,14018.0,Mid-Market,Negotiation,,79.0,14.77
+S00524,03/01/2025,Julia White,North,Consulting,AI Roadmap,1.0,4258.64,4258.64,Enterprise,Proposal,,175.0,7.37
+S00588,10/11/2024,Ethan Brown,East,Software,Security Shield,28.0,3167.27,88683.56,Mid-Market,Closed Won,02/16/2025,128.0,8.74
+S00364,2025-02-18,Bob Smith,East,Consulting,AI Roadmap,47.0,202.19,9502.93,Enterprise,Negotiation,,175.0,12.24
+S00499,03/18/2025,Charlie Davis,East,Services,Cloud Migration,29.0,4107.73,119124.17,SMB,Proposal,,138.0,10.58
+S00183,11/04/2024,Alice Johnson,East,Hardware,Server X100,46.0,4106.95,188919.7,SMB,Proposal,,111.0,12.05
+S00283,11/23/2024,Diana Lee,North,Services,IT Support Plan,26.0,1976.21,51381.46,Mid-Market,Qualified,,90.0,5.64
+,2025-03-18,Charlie Davis,South,Software,ERP Suite,13.0,4746.63,61706.19,Enterprise,Closed Won,07/26/2025,130.0,13.97
+S00082,08/03/2025,George Miller,South,Consulting,Cybersecurity Audit,50.0,926.06,46303.0,Enterprise,Qualified,,74.0,11.64
+S00476,03/24/2025,Ethan Brown,West,Software,Cloud Office,29.0,1748.39,50703.31,Enterprise,Negotiation,,120.0,14.64
+S00238,10/05/2024,Alice Johnson,North,Consulting,Cloud Readiness,7.0,4684.08,32788.56,SMB,Qualified,,51.0,7.19
+S00517,01/22/2025,Diana Lee,North,Hardware,Workstation Elite,15.0,2406.65,36099.75,SMB,Proposal,,35.0,13.7
+S00603,12/30/2024,Ethan Brown,East,Services,Data Backup Service,35.0,1860.0,65100.0,SMB,Closed Lost,03/31/2025,91.0,7.83
+S00096,2025-06-24,Ethan Brown,South,Consulting,Cloud Readiness,15.0,4944.76,74171.4,Mid-Market,Closed Won,12/18/2025,177.0,13.44
+S00620,2025-03-07,Ian Thompson,East,Hardware,Server X100,38.0,1950.57,74121.66,SMB,Closed Lost,07/05/2025,120.0,5.71
+S00481,08/25/2024,Julia White,East,Services,Training Program,10.0,333.62,3336.2,Enterprise,Qualified,,155.0,12.88
+S00646,12/09/2024,Ian Thompson,East,Services,Cloud Migration,34.0,3958.79,134598.86,Enterprise,Closed Won,02/01/2025,54.0,6.86
+S00456,10/23/2024,Ian Thompson,South,Hardware,Router Max,36.0,1009.91,36356.76,SMB,Negotiation,,103.0,8.76
+S00071,04/05/2025,Ethan Brown,West,Software,ERP Suite,5.0,3909.73,19548.65,Mid-Market,Negotiation,,47.0,8.35
+S00053,05/14/2025,Julia White,West,Services,IT Support Plan,29.0,2930.63,84988.27,Mid-Market,Proposal,,55.0,11.88
+S00689,08/29/2024,Diana Lee,North,Consulting,Process Optimization,45.0,4956.88,223059.6,Mid-Market,Closed Lost,12/13/2024,106.0,5.6
+S00393,05/12/2025,Bob Smith,East,Hardware,Server X100,38.0,3885.88,147663.44,SMB,Closed Won,08/23/2025,103.0,6.06
+S00293,10/14/2024,Fiona Clark,North,Services,Training Program,46.0,1597.8,73498.8,SMB,Closed Lost,01/28/2025,106.0,8.92
+S00505,09/18/2024,Diana Lee,South,Hardware,Workstation Elite,48.0,4003.97,192190.56,SMB,Closed Won,03/01/2025,164.0,7.26
+S00366,02/21/2025,Ian Thompson,North,Software,Security Shield,39.0,4731.41,184524.99,SMB,Qualified,,167.0,13.29
+S00667,10/08/2024,Julia White,North,Services,Cloud Migration,41.0,1074.82,44067.62,Enterprise,Qualified,,72.0,5.7
+S00710,06/09/2025,George Miller,North,Software,Cloud Office,4.0,1140.26,4561.04,SMB,Proposal,,178.0,14.01
+S00274,06/08/2025,Ian Thompson,West,Consulting,Process Optimization,39.0,2766.79,107904.81,Enterprise,Closed Won,07/29/2025,51.0,8.48
+S00004,01/04/2025,Alice Johnson,East,Software,Security Shield,33.0,3792.86,125164.38,Mid-Market,Closed Won,02/06/2025,33.0,9.07
+S00117,11/09/2024,George Miller,East,Consulting,Business Strategy,34.0,3973.64,135103.76,Mid-Market,Qualified,,134.0,11.51
+S00458,05/19/2025,George Miller,West,Consulting,Cloud Readiness,41.0,2622.12,107506.92,SMB,Proposal,,38.0,10.38
+S00422,03/10/2025,Ian Thompson,North,Hardware,Laptop Pro 15,50.0,1972.58,98629.0,SMB,Proposal,,46.0,11.37
+S00663,08/27/2024,Alice Johnson,South,Hardware,Laptop Pro 15,37.0,587.1,21722.7,SMB,Closed Lost,02/12/2025,169.0,9.6
+S00034,07/16/2025,Hannah Wilson,West,Consulting,AI Roadmap,48.0,425.7,20433.6,Enterprise,Negotiation,,34.0,13.4
+S00297,11/10/2024,Diana Lee,North,Hardware,Server X100,24.0,2698.68,64768.32,SMB,Qualified,,144.0,12.83
+S00602,08/06/2025,Julia White,South,Hardware,Router Max,47.0,1316.85,61891.95,Mid-Market,Closed Lost,01/14/2026,161.0,5.99
+S00673,06/05/2025,Alice Johnson,North,Software,Cloud Office,41.0,1729.58,70912.78,Enterprise,Closed Won,09/08/2025,95.0,13.46
+S00097,11/06/2024,Ethan Brown,South,Services,Cloud Migration,17.0,3103.45,52758.65,Mid-Market,Closed Lost,02/06/2025,92.0,10.46
+S00424,02/24/2025,Ian Thompson,North,Services,IT Support Plan,31.0,4506.28,139694.68,Enterprise,Qualified,,98.0,12.62
+S00266,09/24/2024,Julia White,North,Hardware,Workstation Elite,43.0,4786.94,205838.42,Enterprise,Closed Lost,01/30/2025,128.0,12.17
+S00389,09/26/2024,Hannah Wilson,North,Hardware,Laptop Pro 15,43.0,4671.67,200881.81,Mid-Market,Proposal,,148.0,9.18
+S00054,10/11/2024,Charlie Davis,West,Consulting,AI Roadmap,32.0,2427.68,77685.76,Enterprise,Closed Won,01/22/2025,103.0,11.65
+S00050,09/18/2024,Diana Lee,North,Hardware,Workstation Elite,49.0,3917.69,191966.81,SMB,Qualified,,114.0,10.75
+S00508,09/07/2024,Alice Johnson,North,Hardware,Server X100,1.0,2411.84,2411.84,Enterprise,Negotiation,,156.0,8.78
+S00578,07/16/2025,Fiona Clark,West,Services,Data Backup Service,1.0,3787.42,3787.42,SMB,Proposal,,145.0,9.15
+S00240,10/03/2024,Fiona Clark,North,Consulting,Cloud Readiness,30.0,3993.75,119812.5,SMB,Qualified,,131.0,10.93
+S00404,05/26/2025,Ethan Brown,West,Hardware,Laptop Pro 15,30.0,3025.88,90776.4,Mid-Market,Negotiation,,32.0,9.71
+S00095,2025-04-06,Fiona Clark,North,Hardware,Workstation Elite,41.0,466.62,19131.42,Enterprise,Closed Lost,09/15/2025,162.0,14.71
+S00028,11/25/2024,Bob Smith,East,Hardware,Server X100,42.0,4277.25,179644.5,Enterprise,Proposal,,134.0,14.68
+S00672,10/12/2024,George Miller,North,Consulting,Cloud Readiness,10.0,3618.15,36181.5,Enterprise,Qualified,,45.0,11.06
+S00184,07/26/2025,George Miller,North,Software,Analytics Pro,15.0,3226.91,48403.65,SMB,,,70.0,11.28
+S00703,10/03/2024,Hannah Wilson,North,Software,Security Shield,37.0,3456.98,127908.26,SMB,Qualified,,163.0,10.11
+S00593,07/23/2025,Fiona Clark,East,Hardware,Laptop Pro 15,5.0,4029.26,20146.3,SMB,Proposal,,173.0,11.15
+S00160,04/01/2025,Fiona Clark,East,Software,Analytics Pro,27.0,915.62,24721.74,SMB,Negotiation,,77.0,12.77
+S00535,,Bob Smith,North,Software,Cloud Office,14.0,4527.83,63389.62,SMB,Closed Won,06/30/2025,149.0,10.58
+S00037,10/17/2024,Alice Johnson,North,Software,Cloud Office,27.0,2055.47,55497.69,Mid-Market,Qualified,,158.0,8.83
+S00298,01/04/2025,Diana Lee,East,Services,Training Program,9.0,3762.07,33858.63,Mid-Market,Closed Lost,02/13/2025,40.0,11.61
+S00128,10/21/2024,Ian Thompson,North,Hardware,Laptop Pro 15,34.0,2440.47,82975.98,Mid-Market,Closed Lost,11/29/2024,39.0,13.45
+S00148,03/01/2025,Charlie Davis,West,Hardware,Router Max,48.0,2783.54,133609.92,SMB,Proposal,,151.0,9.49
+S00657,11/07/2024,Alice Johnson,West,Consulting,Cybersecurity Audit,47.0,645.48,30337.56,SMB,Qualified,,48.0,11.46
+S00228,04/19/2025,Charlie Davis,North,Consulting,Business Strategy,2.0,3891.29,7782.58,Enterprise,Negotiation,,63.0,6.82
+S00269,11/04/2024,Ian Thompson,East,Hardware,Server X100,2.0,2522.88,5045.76,SMB,Negotiation,,110.0,5.19
+S00609,03/06/2025,Ian Thompson,East,Services,Training Program,21.0,2308.46,48477.66,Enterprise,Negotiation,,68.0,5.78
+S00052,09/12/2024,Hannah Wilson,North,Hardware,Workstation Elite,39.0,1481.51,57778.89,Enterprise,Negotiation,,120.0,12.27
+S00323,06/10/2025,Julia White,East,Hardware,PrinterJet 5000,35.0,3582.97,125403.95,Mid-Market,Closed Won,08/30/2025,81.0,5.23
+S00094,10/06/2024,Ethan Brown,East,Software,Analytics Pro,36.0,2841.51,102294.36,SMB,Closed Won,03/02/2025,147.0,14.01
+S00727,06/28/2025,George Miller,West,Consulting,Business Strategy,16.0,4768.06,76288.96,Enterprise,Closed Won,08/10/2025,43.0,8.57
+S00438,01/14/2025,Ian Thompson,West,Software,CRM Pro,27.0,778.66,21023.82,Enterprise,Closed Won,05/24/2025,130.0,14.52
+S00330,07/05/2025,George Miller,North,Software,ERP Suite,27.0,4868.82,131458.14,Mid-Market,Proposal,,157.0,11.02
+S00427,04/13/2025,Diana Lee,North,Consulting,AI Roadmap,27.0,4297.49,116032.23,Mid-Market,Proposal,,90.0,8.61
+S00614,10/31/2024,Fiona Clark,South,Consulting,Cloud Readiness,6.0,2083.8,12502.8,Mid-Market,Qualified,,133.0,11.86
+S00625,05/22/2025,Fiona Clark,South,Services,Training Program,16.0,1624.83,25997.28,Enterprise,Closed Won,11/14/2025,176.0,13.53
+S00179,09/01/2024,Ethan Brown,West,Hardware,Workstation Elite,6.0,1219.63,7317.78,Mid-Market,Proposal,,155.0,10.28
+S00669,08/26/2024,George Miller,West,Consulting,Process Optimization,37.0,1101.62,40759.94,Mid-Market,Negotiation,,33.0,8.77
+S00197,03/20/2025,Diana Lee,West,Hardware,PrinterJet 5000,18.0,4607.63,82937.34,SMB,Closed Lost,08/02/2025,135.0,6.09
+S00477,09/11/2024,Diana Lee,North,Consulting,Cloud Readiness,9.0,525.41,4728.69,SMB,Proposal,,87.0,9.1
+S00142,07/29/2025,Diana Lee,South,Hardware,Workstation Elite,9.0,3772.78,33955.02,Enterprise,Proposal,,168.0,6.33
+S00361,05/23/2025,Charlie Davis,West,Services,IT Support Plan,36.0,4788.75,172395.0,SMB,Negotiation,,139.0,6.91
+S00012,05/04/2025,Julia White,West,Consulting,Process Optimization,50.0,1355.81,67790.5,Enterprise,Closed Lost,10/07/2025,156.0,11.37
+S00278,02/24/2025,Hannah Wilson,West,Consulting,Cloud Readiness,47.0,2255.22,105995.34,Enterprise,Closed Won,07/05/2025,131.0,11.36
+S00041,07/09/2025,Julia White,East,Consulting,AI Roadmap,35.0,4432.85,155149.75,SMB,Closed Lost,11/06/2025,,9.85
+S00537,11/07/2024,Bob Smith,North,Services,IT Support Plan,41.0,3573.31,146505.71,Enterprise,Proposal,,168.0,6.91
+S00558,,Diana Lee,South,Services,Network Audit,28.0,3495.1,97862.8,Mid-Market,Closed Lost,11/03/2024,68.0,12.47
+S00133,04/24/2025,Bob Smith,North,Services,Data Backup Service,27.0,4451.63,120194.01,SMB,Negotiation,,43.0,10.92
+S00486,05/13/2025,Julia White,North,Consulting,Cloud Readiness,18.0,328.51,5913.18,SMB,Closed Won,08/08/2025,87.0,7.16
+S00073,05/09/2025,Bob Smith,East,Services,IT Support Plan,41.0,4740.84,194374.44,Mid-Market,Negotiation,,92.0,9.95
+S00171,05/24/2025,Bob Smith,East,Software,Analytics Pro,32.0,2193.73,70199.36,Enterprise,Closed Won,09/06/2025,105.0,9.42
+S00392,08/06/2025,Ethan Brown,West,Software,ERP Suite,42.0,2875.56,120773.52,Mid-Market,Proposal,,119.0,12.18
+S00453,11/14/2024,Hannah Wilson,West,Consulting,AI Roadmap,14.0,1708.18,23914.52,Mid-Market,Qualified,,84.0,14.12
+S00417,07/15/2025,Julia White,North,Hardware,Workstation Elite,12.0,1982.12,23785.44,Mid-Market,Negotiation,,177.0,11.54
+S00222,09/08/2024,Bob Smith,South,Hardware,Workstation Elite,11.0,289.41,3183.51,Enterprise,Negotiation,,125.0,5.43
+S00694,11/14/2024,Diana Lee,North,Software,Analytics Pro,13.0,3441.36,44737.68,Mid-Market,Closed Won,04/12/2025,149.0,11.35
+S00403,02/14/2025,Ian Thompson,South,Software,Analytics Pro,50.0,1929.68,96484.0,Mid-Market,Qualified,,154.0,5.34
+S00225,07/22/2025,Alice Johnson,East,Services,Training Program,3.0,1978.96,5936.88,Mid-Market,Negotiation,,34.0,5.82
+S00578,07/16/2025,Fiona Clark,West,Services,Data Backup Service,1.0,3787.42,3787.42,SMB,Proposal,,145.0,9.15
+S00496,06/12/2025,Bob Smith,North,Services,Data Backup Service,41.0,1607.19,65894.79,Mid-Market,Proposal,,168.0,10.2
+S00101,10/25/2024,Ethan Brown,West,Software,ERP Suite,39.0,799.2,31168.8,Mid-Market,Closed Won,02/13/2025,111.0,10.56
+S00592,04/22/2025,Fiona Clark,North,Consulting,AI Roadmap,33.0,,46544.19,Mid-Market,Qualified,,119.0,9.65
+S00577,2024-11-13,Julia White,West,Hardware,Server X100,46.0,501.26,23057.96,Mid-Market,Proposal,,98.0,5.03
+S00516,07/08/2025,Fiona Clark,South,Hardware,Laptop Pro 15,17.0,1921.54,32666.18,Mid-Market,Closed Won,12/21/2025,166.0,5.89
+S00571,11/10/2024,Bob Smith,North,Software,ERP Suite,17.0,543.35,9236.95,Enterprise,Negotiation,,126.0,7.97
+S00562,01/20/2025,Ethan Brown,South,Consulting,Business Strategy,10.0,2842.66,28426.6,Mid-Market,Closed Won,03/15/2025,54.0,14.05
+S00698,07/05/2025,Bob Smith,North,Services,Network Audit,22.0,1017.09,22375.98,Enterprise,Closed Won,12/19/2025,167.0,8.45
+S00634,02/02/2025,Ethan Brown,East,Software,Analytics Pro,38.0,2903.96,110350.48,Mid-Market,Negotiation,,171.0,14.51
+S00086,07/11/2025,Diana Lee,East,Consulting,Cybersecurity Audit,44.0,3903.19,171740.36,SMB,Negotiation,,94.0,13.68
+S00400,08/05/2025,Bob Smith,North,Services,Cloud Migration,28.0,3437.05,96237.4,SMB,Negotiation,,86.0,7.23
+S00286,01/05/2025,Ian Thompson,South,Hardware,PrinterJet 5000,28.0,821.97,23015.16,Mid-Market,Closed Lost,04/24/2025,109.0,8.13
+S00543,08/24/2024,Ethan Brown,South,Software,ERP Suite,49.0,4531.19,222028.31,Enterprise,Qualified,,46.0,12.02
+S00623,07/09/2025,Charlie Davis,West,Hardware,PrinterJet 5000,20.0,2105.8,42116.0,Enterprise,Closed Won,08/09/2025,31.0,5.87
+S00364,2025-02-18,Bob Smith,East,Consulting,AI Roadmap,47.0,202.19,9502.93,Enterprise,Negotiation,,175.0,12.24
+S00697,10/23/2024,Julia White,East,Software,Cloud Office,43.0,3377.93,145250.99,SMB,Qualified,,58.0,12.03
+S00376,03/24/2025,Hannah Wilson,East,Services,Training Program,35.0,108.46,3796.1,SMB,Negotiation,,160.0,10.92
+S00092,06/16/2025,Charlie Davis,East,Software,Analytics Pro,9.0,481.55,4333.95,Mid-Market,Qualified,,132.0,12.31
+S00533,10/16/2024,Ian Thompson,North,Services,IT Support Plan,4.0,3869.95,15479.8,Mid-Market,Closed Won,01/01/2025,77.0,7.28
+S00254,08/05/2025,Bob Smith,East,Software,CRM Pro,36.0,877.11,31575.96,SMB,Proposal,,115.0,14.81
+S00264,09/05/2024,Fiona Clark,South,Hardware,Workstation Elite,41.0,4566.17,187212.97,Enterprise,Closed Won,12/03/2024,89.0,8.04
+S00066,11/14/2024,Charlie Davis,South,Services,Cloud Migration,26.0,1965.43,51101.18,SMB,Proposal,,111.0,10.39
+S00310,10/11/2024,Charlie Davis,North,Consulting,Business Strategy,23.0,568.56,13076.88,Enterprise,Closed Won,03/05/2025,145.0,8.67
+S00077,09/29/2024,Alice Johnson,West,Software,Analytics Pro,47.0,1396.21,65621.87,SMB,Closed Won,02/09/2025,133.0,14.55
+S00353,02/16/2025,Ethan Brown,South,Consulting,AI Roadmap,28.0,848.14,23747.92,SMB,Qualified,,50.0,9.0
+S00628,01/17/2025,Charlie Davis,North,Services,Training Program,33.0,189.45,6251.85,Enterprise,Proposal,,63.0,9.61
+S00088,06/22/2025,George Miller,South,Services,Data Backup Service,19.0,887.01,16853.19,Enterprise,Qualified,,127.0,8.49
+S00617,2025-08-09,Alice Johnson,West,Services,Training Program,25.0,1836.17,45904.25,Mid-Market,Qualified,,164.0,8.89
+S00056,10/11/2024,Hannah Wilson,West,Software,ERP Suite,36.0,4576.37,164749.32,SMB,Qualified,,170.0,13.07
+S00359,11/29/2024,Ethan Brown,West,Software,Security Shield,10.0,4187.36,41873.6,SMB,Closed Won,01/29/2025,61.0,11.86
+S00435,01/01/2025,Ethan Brown,North,Hardware,Server X100,30.0,4323.52,129705.6,SMB,Closed Won,06/26/2025,176.0,8.93
+S00453,11/14/2024,Hannah Wilson,West,Consulting,AI Roadmap,14.0,1708.18,23914.52,Mid-Market,Qualified,,84.0,14.12
+S00270,01/03/2025,Fiona Clark,North,Services,Cloud Migration,11.0,875.52,9630.72,Mid-Market,Closed Lost,06/24/2025,172.0,6.59
+S00292,08/13/2025,Julia White,West,Services,Training Program,47.0,4033.01,189551.47,Enterprise,Proposal,,136.0,10.46
+S00294,2025-04-04,George Miller,South,Hardware,Laptop Pro 15,41.0,3293.5,135033.5,Mid-Market,Closed Lost,09/05/2025,154.0,13.45
+S00737,04/24/2025,Hannah Wilson,South,Services,IT Support Plan,4.0,3252.72,13010.88,Mid-Market,Closed Won,09/06/2025,135.0,12.81
+S00630,2025-03-22,Ethan Brown,East,Consulting,Business Strategy,3.0,781.6,2344.8,SMB,Qualified,,125.0,8.06
+S00636,04/24/2025,Charlie Davis,East,Services,Training Program,24.0,890.05,21361.2,Mid-Market,Negotiation,,52.0,13.94
+S00209,07/09/2025,Charlie Davis,West,Software,Analytics Pro,39.0,2889.45,112688.55,SMB,Closed Lost,09/21/2025,74.0,12.19
+S00696,01/16/2025,Ian Thompson,East,Consulting,Cybersecurity Audit,3.0,3324.32,9972.96,Enterprise,Qualified,,48.0,11.99
+S00541,02/02/2025,Ethan Brown,West,Consulting,AI Roadmap,32.0,251.91,8061.12,Enterprise,Negotiation,,85.0,14.75
+S00038,11/11/2024,Fiona Clark,East,Consulting,Cloud Readiness,48.0,3990.58,191547.84,Enterprise,Negotiation,,49.0,5.24
+S00632,12/30/2024,Alice Johnson,South,Consulting,Cybersecurity Audit,49.0,3415.89,167378.61,Mid-Market,Closed Won,05/16/2025,137.0,13.18
+S00236,02/28/2025,Julia White,East,Consulting,Process Optimization,24.0,1079.83,25915.92,SMB,Proposal,,50.0,14.34
+S00527,01/06/2025,George Miller,North,Services,IT Support Plan,15.0,1482.17,22232.55,Mid-Market,Closed Lost,05/12/2025,126.0,13.93
+S00580,07/04/2025,Julia White,South,Hardware,Router Max,14.0,2370.18,33182.52,,Negotiation,,167.0,12.99
+S00090,2024-10-11,Ethan Brown,West,Software,Cloud Office,46.0,1011.24,46517.04,SMB,Closed Lost,02/22/2025,134.0,11.8
+S00202,09/22/2024,Fiona Clark,North,Services,Cloud Migration,22.0,2745.7,60405.4,Mid-Market,Negotiation,,64.0,6.75
+S00281,05/27/2025,Alice Johnson,East,Services,Cloud Migration,28.0,1314.89,36816.92,Mid-Market,Qualified,,97.0,7.26
+S00442,06/03/2025,Julia White,West,Services,IT Support Plan,23.0,1946.93,44779.39,SMB,Closed Lost,10/07/2025,126.0,5.4
+S00168,02/09/2025,Fiona Clark,East,Software,CRM Pro,12.0,532.77,6393.24,SMB,Negotiation,,117.0,13.77
+S00644,06/12/2025,Alice Johnson,North,Hardware,Router Max,24.0,217.19,5212.56,Enterprise,Negotiation,,134.0,8.84
+S00123,08/04/2025,George Miller,South,Software,ERP Suite,30.0,3839.61,115188.3,Enterprise,Qualified,,87.0,10.69
+S00007,01/14/2025,Charlie Davis,East,Consulting,Business Strategy,36.0,855.29,30790.44,Mid-Market,Qualified,,139.0,13.67
+S00338,06/25/2025,Diana Lee,South,Software,Cloud Office,8.0,3892.63,31141.04,Mid-Market,Qualified,,55.0,8.92
+S00648,06/07/2025,Ian Thompson,South,Consulting,AI Roadmap,39.0,774.25,30195.75,Mid-Market,Closed Lost,08/25/2025,79.0,9.18
+S00285,06/24/2025,Fiona Clark,North,Services,Data Backup Service,23.0,3564.65,81986.95,Enterprise,Negotiation,,56.0,14.96
+S00091,04/15/2025,Ethan Brown,South,Services,IT Support Plan,8.0,2893.92,23151.36,Enterprise,Closed Lost,07/18/2025,94.0,11.29
+S00385,09/20/2024,Diana Lee,West,Services,Data Backup Service,49.0,1195.88,58598.12,SMB,Qualified,,101.0,7.8
+S00203,06/02/2025,Fiona Clark,North,Software,Security Shield,38.0,2918.36,110897.68,SMB,Qualified,,74.0,13.53
+S00525,06/18/2025,Alice Johnson,North,Hardware,Router Max,15.0,4424.91,66373.65,Enterprise,Closed Won,10/07/2025,111.0,11.49
+S00662,10/02/2024,George Miller,East,Hardware,Router Max,1.0,1822.2,1822.2,SMB,Qualified,,52.0,9.39
+S00156,12/28/2024,Fiona Clark,South,Software,Analytics Pro,36.0,3569.01,128484.36,SMB,Negotiation,,170.0,6.67
+S00646,12/09/2024,Ian Thompson,East,Services,Cloud Migration,34.0,3958.79,134598.86,Enterprise,Closed Won,02/01/2025,54.0,6.86
+S00068,10/21/2024,George Miller,East,Hardware,Router Max,39.0,3957.25,154332.75,SMB,Closed Won,12/19/2024,59.0,9.6
+S00720,2024-09-12,Fiona Clark,South,Services,Data Backup Service,27.0,2987.3,80657.1,Enterprise,Closed Won,03/04/2025,173.0,10.75
+S00705,05/17/2025,Alice Johnson,West,Hardware,Laptop Pro 15,40.0,613.21,24528.4,Mid-Market,Negotiation,,36.0,9.33
+S00182,11/16/2024,Fiona Clark,South,Consulting,Business Strategy,22.0,4808.11,105778.42,SMB,Closed Won,01/11/2025,56.0,8.4
+S00518,03/27/2025,Julia White,North,Services,Data Backup Service,29.0,1366.51,39628.79,Mid-Market,Proposal,,75.0,5.23
+S00245,03/14/2025,Hannah Wilson,West,Services,Training Program,38.0,450.52,17119.76,Enterprise,Closed Lost,05/14/2025,61.0,9.12
+S00631,06/13/2025,Charlie Davis,East,Consulting,Process Optimization,15.0,4690.82,70362.3,SMB,Qualified,,66.0,9.76
+S00719,07/02/2025,Fiona Clark,North,Services,Training Program,47.0,4354.38,204655.86,Enterprise,Closed Lost,08/29/2025,58.0,8.57
+S00446,10/24/2024,Diana Lee,West,Consulting,Process Optimization,19.0,3084.96,58614.24,SMB,Closed Lost,03/21/2025,148.0,6.46
+S00613,06/16/2025,George Miller,South,Consulting,Process Optimization,10.0,,38981.8,SMB,Qualified,,160.0,9.05
+S00461,07/09/2025,Hannah Wilson,West,Software,Cloud Office,14.0,1457.88,20410.32,Mid-Market,Closed Lost,09/25/2025,78.0,14.14
+S00220,07/17/2025,Ian Thompson,West,Hardware,Workstation Elite,36.0,2137.06,76934.16,Enterprise,Negotiation,,47.0,6.51
+S00115,12/16/2024,Hannah Wilson,West,Hardware,Server X100,43.0,376.63,16195.09,SMB,Closed Lost,02/06/2025,52.0,5.13
+S00568,09/10/2024,Fiona Clark,South,Hardware,Router Max,4.0,1179.19,4716.76,Enterprise,Closed Lost,12/12/2024,93.0,10.96
+S00368,10/05/2024,Hannah Wilson,North,Hardware,Router Max,39.0,833.6,32510.4,SMB,Closed Won,03/26/2025,172.0,11.41
+S00329,01/12/2025,Alice Johnson,South,Software,Security Shield,3.0,2916.22,8748.66,SMB,Closed Won,02/13/2025,32.0,8.54
+S00650,05/26/2025,George Miller,East,Hardware,PrinterJet 5000,38.0,3815.99,145007.62,SMB,Negotiation,,92.0,7.43
+S00520,04/14/2025,Charlie Davis,West,Software,Analytics Pro,46.0,4324.04,198905.84,Mid-Market,Negotiation,,80.0,6.75
+S00380,08/08/2025,Julia White,West,Services,IT Support Plan,50.0,2637.59,131879.5,Enterprise,Proposal,,134.0,13.96
+S00591,04/15/2025,Julia White,South,Consulting,Business Strategy,24.0,740.81,17779.44,Enterprise,Closed Won,09/24/2025,162.0,9.1
+S00410,12/02/2024,Ian Thompson,East,Software,Cloud Office,30.0,1381.32,41439.6,SMB,Negotiation,,80.0,10.36
+S00120,10/28/2024,George Miller,West,Services,Data Backup Service,32.0,4205.39,134572.48,Enterprise,Closed Lost,,89.0,7.67
+S00655,02/03/2025,Charlie Davis,South,Hardware,Workstation Elite,36.0,2816.79,101404.44,Mid-Market,Negotiation,,33.0,6.87
+S00688,11/29/2024,Diana Lee,East,Hardware,Laptop Pro 15,23.0,3080.81,70858.63,Enterprise,Qualified,,94.0,9.67
+S00152,04/04/2025,Ethan Brown,North,Software,Analytics Pro,36.0,2975.84,107130.24,Enterprise,Closed Won,08/22/2025,140.0,5.23
+S00109,03/13/2025,Alice Johnson,South,Hardware,Workstation Elite,45.0,489.39,22022.55,Enterprise,Closed Won,07/16/2025,125.0,12.64
+S00139,03/14/2025,Charlie Davis,East,Consulting,Cloud Readiness,36.0,1335.36,48072.96,SMB,Proposal,,132.0,14.49
+S00497,03/01/2025,Diana Lee,North,Software,ERP Suite,32.0,4308.65,137876.8,Enterprise,Qualified,,50.0,5.92
+S00304,11/20/2024,Bob Smith,East,Software,Analytics Pro,9.0,4414.85,39733.65,Enterprise,Proposal,,166.0,13.16
+S00529,02/11/2025,Fiona Clark,West,Hardware,Router Max,33.0,353.31,11659.23,SMB,Qualified,,108.0,14.33
+S00539,05/11/2025,George Miller,West,Hardware,Workstation Elite,36.0,2451.81,88265.16,Enterprise,Closed Lost,11/07/2025,180.0,14.77
+S00134,05/27/2025,,West,Software,Cloud Office,50.0,3775.85,188792.5,Mid-Market,Negotiation,,78.0,5.57
+S00051,06/03/2025,Julia White,West,Hardware,Workstation Elite,45.0,1159.14,52161.3,SMB,Qualified,,48.0,8.81
+S00614,10/31/2024,Fiona Clark,South,Consulting,Cloud Readiness,6.0,2083.8,12502.8,Mid-Market,Qualified,,133.0,11.86
+S00172,2025-02-15,Alice Johnson,South,Hardware,PrinterJet 5000,46.0,336.07,15459.22,Enterprise,Closed Won,05/21/2025,95.0,13.22
+S00735,02/01/2025,Charlie Davis,South,Hardware,Router Max,16.0,1038.19,16611.04,Mid-Market,Closed Lost,03/10/2025,37.0,10.54
+S00504,09/29/2024,Fiona Clark,South,Consulting,Cloud Readiness,35.0,1504.91,52671.85,Mid-Market,Closed Lost,01/04/2025,97.0,9.51
+S00593,07/23/2025,Fiona Clark,East,Hardware,Laptop Pro 15,5.0,4029.26,20146.3,SMB,Proposal,,173.0,11.15
+S00309,05/11/2025,George Miller,West,Hardware,Laptop Pro 15,26.0,2470.75,64239.5,Mid-Market,Closed Won,10/30/2025,172.0,6.69
+S00001,12/21/2024,Ian Thompson,East,Services,Training Program,32.0,3319.54,106225.28,Enterprise,Qualified,,169.0,8.36
+S00169,06/04/2025,Bob Smith,West,Consulting,Business Strategy,3.0,890.13,2670.39,Enterprise,Negotiation,,140.0,12.77
+S00638,12/08/2024,Julia White,East,Services,Cloud Migration,28.0,3921.94,109814.32,SMB,Closed Lost,03/12/2025,94.0,8.31
+S00210,2025-04-27,Bob Smith,East,Hardware,Laptop Pro 15,17.0,1498.77,25479.09,Enterprise,Qualified,,57.0,9.84
+S00115,12/16/2024,Hannah Wilson,West,Hardware,Server X100,43.0,376.63,16195.09,SMB,Closed Lost,02/06/2025,52.0,5.13
+S00584,04/01/2025,Hannah Wilson,South,Consulting,AI Roadmap,20.0,2274.82,45496.4,Enterprise,Closed Lost,07/13/2025,103.0,8.91
+S00707,09/07/2024,Hannah Wilson,West,Services,IT Support Plan,38.0,840.83,31951.54,Mid-Market,Negotiation,,93.0,10.62
+S00740,07/31/2025,Julia White,East,Consulting,Process Optimization,46.0,4094.29,188337.34,Mid-Market,Negotiation,,81.0,6.01
+S00324,09/23/2024,Hannah Wilson,South,Services,IT Support Plan,2.0,2867.77,5735.54,Enterprise,Closed Lost,11/11/2024,49.0,5.09
+S00233,05/26/2025,Julia White,North,Consulting,Cloud Readiness,27.0,2034.82,54940.14,Enterprise,Closed Lost,09/04/2025,101.0,14.49
+S00665,07/05/2025,Charlie Davis,North,Consulting,AI Roadmap,43.0,2313.47,99479.21,SMB,Negotiation,,154.0,8.15
+S00208,01/19/2025,Charlie Davis,North,Hardware,Laptop Pro 15,41.0,949.22,38918.02,Enterprise,Closed Won,02/19/2025,31.0,8.09
+S00408,03/29/2025,Ethan Brown,North,Consulting,AI Roadmap,44.0,504.09,22179.96,Mid-Market,Closed Lost,07/08/2025,101.0,9.56
+S00545,11/13/2024,Fiona Clark,South,Consulting,AI Roadmap,6.0,226.28,1357.68,SMB,Closed Lost,02/16/2025,95.0,14.85
+S00641,06/04/2025,Fiona Clark,North,Hardware,Server X100,9.0,3433.7,30903.3,Mid-Market,Closed Lost,08/07/2025,64.0,9.07
+S00122,02/04/2025,Alice Johnson,West,Services,Cloud Migration,15.0,3839.06,57585.9,SMB,Negotiation,,118.0,7.56
+S00206,02/01/2025,Alice Johnson,South,Hardware,Laptop Pro 15,21.0,2364.76,49659.96,SMB,Closed Lost,06/04/2025,123.0,6.79
+S00248,10/13/2024,Julia White,West,Services,Network Audit,34.0,1129.78,38412.52,SMB,Proposal,,111.0,9.13
+S00722,01/16/2025,Julia White,South,Hardware,Laptop Pro 15,19.0,1754.91,33343.29,SMB,Proposal,,107.0,11.46
+S00512,01/04/2025,Alice Johnson,West,Software,Security Shield,43.0,4067.85,174917.55,SMB,Qualified,,73.0,5.68
+S00515,07/23/2025,George Miller,South,Hardware,PrinterJet 5000,41.0,4980.49,204200.09,SMB,Closed Won,11/10/2025,110.0,7.66
+S00674,06/13/2025,Ian Thompson,East,Hardware,PrinterJet 5000,13.0,1191.94,15495.22,SMB,Negotiation,,88.0,11.57
+S00598,05/11/2025,Charlie Davis,West,Software,ERP Suite,39.0,2007.79,78303.81,Enterprise,Proposal,,93.0,12.38
+S00189,08/19/2024,Ethan Brown,North,Services,Network Audit,23.0,2786.35,64086.05,SMB,Negotiation,,147.0,10.28
+S00500,01/14/2025,Hannah Wilson,West,Software,Security Shield,43.0,2489.05,107029.15,Mid-Market,Qualified,,84.0,12.69
+S00413,08/23/2024,Alice Johnson,North,Services,Network Audit,44.0,488.86,21509.84,Enterprise,Qualified,,134.0,12.49
+S00275,03/05/2025,Ian Thompson,East,Consulting,Process Optimization,29.0,1757.48,50966.92,Enterprise,Proposal,,84.0,5.7
+S00553,02/14/2025,Ian Thompson,North,Software,Security Shield,38.0,1075.01,40850.38,SMB,Closed Lost,05/23/2025,98.0,11.81
+S00441,07/06/2025,George Miller,South,Services,Cloud Migration,44.0,2530.81,111355.64,Mid-Market,Proposal,,94.0,13.07
+S00516,07/08/2025,Fiona Clark,South,Hardware,Laptop Pro 15,17.0,1921.54,32666.18,Mid-Market,Closed Won,12/21/2025,166.0,5.89
+S00226,09/20/2024,George Miller,North,Software,Cloud Office,37.0,3646.17,134908.29,SMB,Negotiation,,130.0,8.43
+S00341,07/24/2025,George Miller,East,Consulting,Cybersecurity Audit,2.0,1331.04,2662.08,Enterprise,Negotiation,,37.0,5.39
+S00302,03/03/2025,Julia White,South,Services,Network Audit,26.0,3928.54,102142.04,Mid-Market,Closed Lost,06/15/2025,104.0,8.25
+S00354,05/27/2025,George Miller,North,Services,Data Backup Service,14.0,2072.77,29018.78,Enterprise,Closed Won,10/29/2025,155.0,13.77
+S00407,04/19/2025,George Miller,East,Software,ERP Suite,23.0,3678.79,84612.17,Enterprise,Negotiation,,136.0,13.94
+S00611,03/17/2025,Ethan Brown,East,Consulting,Cloud Readiness,19.0,2862.86,54394.34,Mid-Market,Closed Lost,08/02/2025,138.0,12.13
+S00526,02/19/2025,Julia White,West,Consulting,Business Strategy,5.0,1030.7,5153.5,SMB,Closed Won,04/16/2025,56.0,7.71
+S00267,11/23/2024,Hannah Wilson,West,Hardware,PrinterJet 5000,20.0,3883.44,77668.8,SMB,Closed Won,04/29/2025,157.0,8.8
+S00009,02/19/2025,Julia White,North,Software,ERP Suite,19.0,282.13,5360.47,SMB,Proposal,,125.0,10.88
+S00576,02/27/2025,Diana Lee,North,Hardware,Router Max,20.0,1987.84,39756.8,Mid-Market,Closed Lost,07/10/2025,133.0,14.73
+S00280,05/16/2025,Charlie Davis,North,Consulting,Business Strategy,33.0,2583.57,85257.81,Enterprise,Qualified,,127.0,13.2
+S00378,03/31/2025,Ian Thompson,West,Hardware,Workstation Elite,6.0,4562.8,27376.8,SMB,Closed Lost,05/23/2025,53.0,13.19
+S00237,01/28/2025,Julia White,South,Consulting,Business Strategy,3.0,758.0,2274.0,Mid-Market,Closed Lost,05/04/2025,96.0,8.64
+S00017,07/11/2025,Charlie Davis,West,Consulting,AI Roadmap,47.0,2026.27,95234.69,Mid-Market,Proposal,,41.0,5.29
+S00264,09/05/2024,Fiona Clark,South,Hardware,Workstation Elite,41.0,4566.17,187212.97,Enterprise,Closed Won,12/03/2024,89.0,8.04
+S00651,03/25/2025,Julia White,North,Consulting,Business Strategy,4.0,4117.49,16469.96,SMB,Negotiation,,64.0,7.71
+S00552,07/19/2025,Fiona Clark,West,Consulting,Process Optimization,39.0,2428.06,94694.34,Enterprise,Closed Lost,08/31/2025,43.0,8.48
+S00039,07/26/2025,Diana Lee,East,Consulting,Process Optimization,27.0,1835.42,49556.34,Enterprise,Closed Lost,12/28/2025,155.0,9.94
+S00461,07/09/2025,Hannah Wilson,West,Software,Cloud Office,14.0,1457.88,20410.32,Mid-Market,Closed Lost,09/25/2025,78.0,14.14
+S00575,01/24/2025,Hannah Wilson,East,Software,Cloud Office,38.0,1708.66,64929.08,Enterprise,Closed Won,03/11/2025,46.0,12.29
+S00076,01/13/2025,Bob Smith,North,Software,Cloud Office,41.0,2815.05,115417.05,SMB,Closed Lost,04/29/2025,106.0,11.67
+S00599,09/17/2024,Hannah Wilson,West,Consulting,Process Optimization,46.0,2125.19,97758.74,Mid-Market,Qualified,,111.0,14.55
+S00252,11/27/2024,Ian Thompson,East,Software,Analytics Pro,16.0,3358.26,53732.16,Enterprise,Closed Won,01/14/2025,48.0,8.37
+S00301,09/05/2024,Ethan Brown,North,Services,Training Program,15.0,3673.34,55100.1,Enterprise,Proposal,,147.0,9.56
+S00668,12/06/2024,Ian Thompson,East,Services,Data Backup Service,15.0,3981.91,59728.65,Enterprise,Closed Lost,04/22/2025,137.0,14.52
+S00259,06/07/2025,George Miller,East,Services,Training Program,24.0,3336.25,80070.0,SMB,Proposal,,152.0,9.34
+S00048,10/10/2024,Bob Smith,South,Services,Data Backup Service,2.0,4292.23,8584.46,Mid-Market,Qualified,,78.0,11.8
+S00249,07/18/2025,Bob Smith,East,Hardware,Server X100,6.0,2465.38,14792.28,SMB,Closed Lost,09/23/2025,,12.4
+S00081,11/14/2024,Ian Thompson,South,Software,Analytics Pro,37.0,326.46,12079.02,Mid-Market,Qualified,,94.0,5.7
+S00211,01/26/2025,Julia White,South,Software,Security Shield,44.0,422.51,18590.44,SMB,Proposal,,42.0,10.06
+S00726,05/18/2025,Ethan Brown,South,Services,Network Audit,43.0,3668.97,157765.71,SMB,Proposal,,31.0,11.73
+S00291,08/16/2024,Charlie Davis,East,Consulting,Cybersecurity Audit,22.0,1231.34,27089.48,SMB,Negotiation,,96.0,7.63
+S00692,08/11/2025,Ian Thompson,North,Services,Network Audit,18.0,2451.93,44134.74,Mid-Market,Proposal,,110.0,11.37
+S00049,11/19/2024,Bob Smith,West,Software,Analytics Pro,45.0,217.59,9791.55,Enterprise,Proposal,,159.0,5.74
+S00583,11/02/2024,Hannah Wilson,North,Consulting,Process Optimization,19.0,899.52,17090.88,Enterprise,Proposal,,167.0,5.64
+S00659,04/03/2025,Fiona Clark,East,Consulting,AI Roadmap,12.0,356.51,4278.12,Enterprise,Closed Won,05/10/2025,37.0,6.29
+S00362,04/14/2025,Ethan Brown,East,Hardware,Router Max,40.0,3305.48,132219.2,Enterprise,Qualified,,62.0,11.16
+S00487,2024-10-31,Alice Johnson,North,Software,ERP Suite,36.0,1976.38,71149.68,Mid-Market,Closed Lost,03/31/2025,151.0,12.91
+S00180,2024-11-10,George Miller,East,Services,Cloud Migration,46.0,1972.83,90750.18,Enterprise,Closed Lost,02/21/2025,103.0,9.26
+S00105,06/27/2025,Bob Smith,East,Consulting,Cloud Readiness,7.0,1837.37,12861.59,SMB,Proposal,,153.0,13.71
+S00483,02/24/2025,Ian Thompson,South,Services,Training Program,9.0,3101.46,27913.14,Mid-Market,Closed Won,04/29/2025,64.0,9.1
+S00010,03/06/2025,Charlie Davis,South,Software,Security Shield,5.0,2010.65,10053.25,SMB,Proposal,,100.0,11.39
+S00204,12/23/2024,Julia White,South,Consulting,Cybersecurity Audit,45.0,2598.69,116941.05,Mid-Market,Proposal,,73.0,9.34
+S00619,08/21/2024,Diana Lee,East,Software,ERP Suite,35.0,2952.57,103339.95,Mid-Market,Closed Lost,11/11/2024,82.0,7.48
+S00678,03/19/2025,George Miller,East,Software,Security Shield,7.0,777.28,5440.96,Enterprise,Negotiation,,94.0,7.08
+S00574,10/19/2024,Charlie Davis,East,Software,Analytics Pro,18.0,2943.22,52977.96,SMB,Closed Lost,03/18/2025,150.0,6.21
+S00018,11/10/2024,Charlie Davis,West,Software,ERP Suite,2.0,1741.86,3483.72,Mid-Market,Negotiation,,54.0,5.82
+S00208,01/19/2025,Charlie Davis,North,Hardware,Laptop Pro 15,41.0,949.22,38918.02,Enterprise,Closed Won,02/19/2025,31.0,8.09
+S00227,05/22/2025,Ian Thompson,East,Software,Security Shield,12.0,2877.92,34535.04,SMB,Proposal,,120.0,6.5
+S00470,09/26/2024,Hannah Wilson,North,Consulting,Business Strategy,41.0,2567.58,105270.78,SMB,Negotiation,,77.0,9.47
+S00419,05/21/2025,Alice Johnson,South,Hardware,PrinterJet 5000,8.0,4155.3,33242.4,Mid-Market,Proposal,,176.0,12.74
+S00258,06/27/2025,Ethan Brown,North,Hardware,Laptop Pro 15,43.0,3113.55,133882.65,Enterprise,Closed Won,10/11/2025,106.0,5.08
+S00106,09/03/2024,Ian Thompson,South,Consulting,Process Optimization,2.0,3947.73,7895.46,Enterprise,Qualified,,143.0,7.63
+S00549,2025-04-20,Charlie Davis,North,Hardware,Laptop Pro 15,17.0,232.9,3959.3,SMB,Proposal,,122.0,6.61
+S00731,10/30/2024,Alice Johnson,North,Software,CRM Pro,40.0,2733.94,109357.6,Mid-Market,Qualified,,138.0,10.66
+S00190,08/04/2025,Ethan Brown,North,Hardware,Workstation Elite,27.0,4741.34,128016.18,Enterprise,Negotiation,,61.0,12.54
+S00060,10/06/2024,Ian Thompson,West,Services,Data Backup Service,35.0,3650.64,127772.4,,Proposal,,102.0,10.97
+S00289,07/29/2025,Bob Smith,West,Services,Data Backup Service,21.0,4245.88,89163.48,SMB,Closed Won,12/18/2025,142.0,5.1
+S00594,10/20/2024,Fiona Clark,South,Services,Cloud Migration,33.0,765.8,25271.4,Mid-Market,Qualified,,173.0,7.51
+S00670,07/03/2025,Julia White,West,Consulting,Process Optimization,46.0,827.09,38046.14,SMB,Closed Lost,09/01/2025,60.0,7.86
+S00465,10/12/2024,Ethan Brown,West,Hardware,Router Max,46.0,1461.99,67251.54,SMB,Closed Lost,12/19/2024,68.0,12.54
+S00685,05/16/2025,Fiona Clark,North,Software,Security Shield,34.0,2322.07,78950.38,Mid-Market,Closed Won,06/19/2025,34.0,14.71
+S00193,02/20/2025,Charlie Davis,North,Consulting,Process Optimization,14.0,2367.73,33148.22,Enterprise,Qualified,,51.0,10.74
+S00030,01/04/2025,Alice Johnson,West,Software,Security Shield,22.0,3651.44,80331.68,Enterprise,Qualified,,116.0,8.41
+S00185,12/01/2024,Alice Johnson,East,Consulting,Cloud Readiness,16.0,390.41,6246.56,SMB,Negotiation,,141.0,10.65
+S00347,12/10/2024,Charlie Davis,South,Consulting,Cybersecurity Audit,50.0,4996.42,249821.0,SMB,Negotiation,,83.0,7.93
+S00739,04/06/2025,Hannah Wilson,West,Services,IT Support Plan,6.0,4925.45,29552.7,Enterprise,Qualified,,177.0,12.67
+S00011,06/21/2025,Charlie Davis,South,Software,Security Shield,5.0,1487.47,7437.35,Mid-Market,Proposal,,49.0,11.88
+S00103,05/26/2025,Hannah Wilson,North,Software,Security Shield,50.0,1687.6,84380.0,Mid-Market,Proposal,,43.0,10.23
+S00104,04/25/2025,George Miller,North,Consulting,AI Roadmap,2.0,4868.5,9737.0,Mid-Market,Negotiation,,132.0,7.01
+S00199,03/18/2025,Charlie Davis,East,Consulting,Process Optimization,1.0,4321.41,4321.41,Enterprise,Closed Lost,07/28/2025,132.0,9.87
+S00040,03/13/2025,Fiona Clark,East,Services,IT Support Plan,20.0,3922.8,78456.0,Mid-Market,Negotiation,,97.0,14.56
+S00590,10/18/2024,Alice Johnson,East,Software,Security Shield,33.0,3327.32,109801.56,SMB,Qualified,,139.0,13.77
+S00145,04/05/2025,George Miller,South,Consulting,Business Strategy,36.0,4208.26,151497.36,SMB,Closed Won,06/09/2025,65.0,6.88
+S00257,03/06/2025,George Miller,North,Services,IT Support Plan,3.0,3430.74,10292.22,Enterprise,Closed Lost,04/07/2025,32.0,14.18
+S00276,11/26/2024,George Miller,West,Hardware,PrinterJet 5000,31.0,1810.63,56129.53,Mid-Market,Closed Lost,01/20/2025,55.0,11.49
+S00418,03/10/2025,Bob Smith,West,Consulting,Process Optimization,23.0,2225.65,51189.95,Enterprise,Negotiation,,139.0,7.68
+S00485,11/08/2024,George Miller,North,Consulting,Cybersecurity Audit,16.0,4484.35,71749.6,Enterprise,Qualified,,162.0,11.0
+S00494,01/26/2025,Fiona Clark,South,Consulting,Cybersecurity Audit,6.0,2117.86,12707.16,SMB,Closed Lost,02/28/2025,33.0,5.26
+S00390,12/10/2024,Charlie Davis,South,Hardware,Router Max,34.0,2976.25,101192.5,Mid-Market,Qualified,,104.0,14.45
+S00443,09/22/2024,Fiona Clark,North,Software,Security Shield,49.0,1342.57,65785.93,Mid-Market,Qualified,,48.0,6.88
+S00158,08/29/2024,Charlie Davis,West,Hardware,Laptop Pro 15,21.0,758.43,15927.03,Mid-Market,Negotiation,,141.0,5.65
+S00069,02/23/2025,Diana Lee,West,Consulting,Cybersecurity Audit,47.0,4199.92,197396.24,Enterprise,Closed Lost,08/10/2025,168.0,12.28
+S00434,11/19/2024,Julia White,West,Hardware,Workstation Elite,18.0,2480.31,44645.58,Mid-Market,Qualified,,72.0,14.7
+S00595,08/14/2025,Ethan Brown,South,Hardware,Workstation Elite,2.0,3746.18,7492.36,SMB,Qualified,,176.0,13.98
+S00557,08/18/2024,Julia White,West,Hardware,Router Max,35.0,3341.84,116964.4,Enterprise,Qualified,,31.0,7.08
+S00367,12/20/2024,Alice Johnson,West,Hardware,Laptop Pro 15,31.0,310.49,9625.19,Mid-Market,Closed Won,05/27/2025,158.0,8.52
+S00089,02/10/2025,Alice Johnson,North,Hardware,Router Max,15.0,2268.83,34032.45,Enterprise,Closed Lost,06/12/2025,122.0,7.27
+S00174,09/13/2024,Bob Smith,South,Consulting,Process Optimization,45.0,2079.83,93592.35,Enterprise,Negotiation,,150.0,9.57
+S00450,09/14/2024,Ian Thompson,East,Software,CRM Pro,36.0,4506.29,162226.44,Mid-Market,Qualified,,139.0,7.19
+S00546,01/23/2025,Diana Lee,East,Software,Cloud Office,15.0,1611.53,24172.95,Mid-Market,Qualified,,126.0,9.38
+S00381,02/17/2025,Fiona Clark,West,Consulting,AI Roadmap,22.0,3639.13,80060.86,Mid-Market,Qualified,,56.0,6.01
+S00303,10/22/2024,Ethan Brown,West,Consulting,Business Strategy,13.0,2642.49,34352.37,SMB,Proposal,,158.0,10.14
+S00385,09/20/2024,Diana Lee,West,Services,Data Backup Service,49.0,1195.88,58598.12,SMB,Qualified,,101.0,7.8
+S00147,11/17/2024,Charlie Davis,West,Services,Network Audit,29.0,4343.47,125960.63,SMB,Proposal,,116.0,8.25
+S00079,04/02/2025,Hannah Wilson,West,Hardware,Laptop Pro 15,46.0,3699.58,170180.68,SMB,Negotiation,,131.0,14.33
+S00256,08/02/2025,Hannah Wilson,North,Software,CRM Pro,36.0,3427.3,123382.8,SMB,Qualified,,52.0,8.39
+S00398,02/08/2025,Ethan Brown,North,Software,Security Shield,4.0,3472.18,13888.72,SMB,Qualified,,69.0,7.94
+S00708,09/12/2024,Charlie Davis,West,Hardware,Router Max,15.0,1920.78,28811.7,SMB,Closed Lost,11/23/2024,72.0,10.49
+S00734,12/06/2024,Ethan Brown,East,Consulting,Cloud Readiness,27.0,3830.13,103413.51,Enterprise,Qualified,,77.0,12.13
+S00013,04/23/2025,George Miller,West,Services,Data Backup Service,41.0,3944.34,161717.94,Mid-Market,Closed Lost,07/27/2025,95.0,10.65
+S00107,03/25/2025,Fiona Clark,North,Software,Security Shield,27.0,2678.01,72306.27,SMB,Closed Won,07/17/2025,114.0,7.53
+S00560,09/25/2024,Fiona Clark,West,Services,Training Program,10.0,1863.63,18636.3,Mid-Market,Negotiation,,68.0,8.88
+S00715,06/16/2025,Fiona Clark,East,Services,Cloud Migration,9.0,2337.95,21041.55,Enterprise,Proposal,,103.0,8.79
+S00317,05/18/2025,George Miller,East,Hardware,Server X100,18.0,3922.74,70609.32,Mid-Market,Closed Lost,10/18/2025,153.0,11.95
+S00484,08/01/2025,Charlie Davis,East,Services,Cloud Migration,2.0,375.77,751.54,Enterprise,Negotiation,,165.0,9.51
+S00290,07/26/2025,Bob Smith,East,Services,IT Support Plan,16.0,1698.14,27170.24,Enterprise,Qualified,,66.0,5.57
+S00618,07/18/2025,Ethan Brown,North,Services,Training Program,18.0,3275.61,58960.98,Enterprise,Closed Lost,11/17/2025,122.0,8.69
+S00167,10/02/2024,Fiona Clark,North,Hardware,Workstation Elite,43.0,3731.1,160437.3,Mid-Market,Qualified,,117.0,9.42
+S00639,05/08/2025,Diana Lee,West,Software,Cloud Office,16.0,4249.01,67984.16,Enterprise,Closed Lost,10/10/2025,155.0,13.29
+S00334,05/10/2025,Fiona Clark,West,Consulting,Cybersecurity Audit,43.0,791.51,34034.93,SMB,Proposal,,81.0,6.41
+S00421,2025-06-20,George Miller,East,Hardware,Server X100,37.0,394.62,14600.94,Enterprise,Negotiation,,46.0,11.24
+S00463,05/10/2025,Hannah Wilson,South,Hardware,Server X100,18.0,3273.38,58920.84,Mid-Market,Closed Lost,08/18/2025,100.0,6.24
+S00451,08/25/2024,Hannah Wilson,East,Hardware,Workstation Elite,33.0,148.1,4887.3,Mid-Market,Closed Won,01/04/2025,132.0,11.65
+S00335,04/03/2025,Julia White,North,Hardware,Workstation Elite,6.0,2229.38,13376.28,Mid-Market,Proposal,,51.0,7.2
+S00336,05/02/2025,Ian Thompson,North,Consulting,AI Roadmap,13.0,1481.76,,SMB,Proposal,,106.0,5.5
+S00654,10/11/2024,Alice Johnson,South,Hardware,PrinterJet 5000,3.0,4867.34,14602.02,SMB,Proposal,,56.0,13.39
+S00391,05/12/2025,Ethan Brown,East,Hardware,Router Max,25.0,1618.85,40471.25,Mid-Market,Proposal,,94.0,12.13
+S00157,09/19/2024,Alice Johnson,East,Hardware,Laptop Pro 15,45.0,4071.86,183233.7,SMB,Closed Won,01/04/2025,107.0,6.68
+S00003,02/09/2025,Diana Lee,West,Services,Training Program,48.0,204.03,9793.44,Enterprise,Closed Lost,05/05/2025,85.0,6.59
+S00198,10/21/2024,Alice Johnson,West,Consulting,Cybersecurity Audit,30.0,1485.52,44565.6,Enterprise,Proposal,,88.0,13.31
+S00690,01/05/2025,Ian Thompson,West,Software,CRM Pro,5.0,3775.08,18875.4,Mid-Market,Proposal,,139.0,6.85
+S00177,08/08/2025,Ethan Brown,South,Consulting,AI Roadmap,11.0,3544.53,38989.83,Enterprise,Closed Lost,11/13/2025,97.0,12.8
+S00506,08/21/2024,Julia White,South,Services,Network Audit,9.0,756.43,6807.87,Enterprise,Closed Won,12/30/2024,131.0,7.39
+S00480,11/06/2024,George Miller,East,Hardware,Workstation Elite,13.0,930.8,12100.4,Mid-Market,Proposal,,39.0,8.23
+S00548,04/16/2025,Ian Thompson,North,Consulting,AI Roadmap,39.0,1992.7,77715.3,Enterprise,Proposal,,57.0,13.39
+S00566,08/02/2025,Diana Lee,West,Services,Data Backup Service,26.0,2758.66,71725.16,SMB,Negotiation,,64.0,10.78
+S00055,2025-07-09,Fiona Clark,East,Services,Cloud Migration,29.0,4920.59,142697.11,Mid-Market,Closed Won,09/09/2025,62.0,7.72
+S00319,12/22/2024,Charlie Davis,East,Software,Analytics Pro,1.0,1899.7,1899.7,Mid-Market,Negotiation,,31.0,10.93
+S00492,09/08/2024,George Miller,North,Consulting,Cybersecurity Audit,25.0,4807.31,120182.75,Mid-Market,Closed Lost,02/17/2025,162.0,10.97
+S00253,08/03/2025,Julia White,North,Hardware,Router Max,48.0,1642.62,78845.76,Mid-Market,Proposal,,135.0,8.94
+S00163,06/06/2025,Bob Smith,East,Software,CRM Pro,45.0,1483.77,66769.65,Mid-Market,Proposal,,148.0,11.52
+S00702,2025-07-04,Diana Lee,East,Services,Network Audit,48.0,3174.54,152377.92,Mid-Market,Proposal,,81.0,10.18
+S00065,04/28/2025,Charlie Davis,East,Software,Security Shield,26.0,892.82,23213.32,Enterprise,Qualified,,52.0,9.63
+S00268,04/07/2025,Bob Smith,North,Software,Analytics Pro,1.0,2289.93,2289.93,Mid-Market,Negotiation,,115.0,13.37
+S00396,12/23/2024,Diana Lee,North,Software,Analytics Pro,25.0,2914.07,72851.75,SMB,Closed Lost,02/22/2025,61.0,9.52
+S00701,08/31/2024,Julia White,East,Services,Data Backup Service,28.0,3663.26,102571.28,Enterprise,Negotiation,,71.0,13.72
+S00656,06/25/2025,Bob Smith,North,Services,Training Program,27.0,682.63,18431.01,SMB,Qualified,,30.0,5.7
+S00610,11/02/2024,Diana Lee,East,Consulting,Process Optimization,13.0,3545.85,46096.05,Enterprise,Closed Won,01/02/2025,61.0,10.4
+S00066,11/14/2024,Charlie Davis,South,Services,Cloud Migration,26.0,1965.43,51101.18,SMB,Proposal,,111.0,10.39
+S00741,02/27/2025,Julia White,West,Hardware,Router Max,35.0,3582.37,125382.95,Enterprise,Closed Lost,08/01/2025,155.0,10.29
+S00489,02/09/2025,Julia White,North,Hardware,Workstation Elite,39.0,2489.13,97076.07,SMB,Proposal,,54.0,9.67
+S00473,08/17/2024,George Miller,East,Hardware,PrinterJet 5000,17.0,2533.77,43074.09,SMB,Negotiation,,115.0,7.39
+S00299,2024-12-03,Alice Johnson,West,Hardware,PrinterJet 5000,30.0,3747.57,112427.1,Enterprise,Closed Won,01/08/2025,36.0,11.84
+S00547,10/26/2024,Alice Johnson,East,Hardware,PrinterJet 5000,45.0,2391.19,107603.55,SMB,Negotiation,,68.0,14.3
+S00600,02/12/2025,Ethan Brown,North,Services,IT Support Plan,8.0,213.05,1704.4,Enterprise,Qualified,,87.0,10.12
+S00384,11/14/2024,Alice Johnson,East,Consulting,Process Optimization,39.0,4906.49,191353.11,Mid-Market,Qualified,,69.0,5.75
+S00709,03/30/2025,Julia White,South,Software,Analytics Pro,8.0,1598.58,12788.64,SMB,Negotiation,,145.0,6.97
+S00372,03/20/2025,Julia White,East,Services,Training Program,4.0,1372.54,5490.16,SMB,Proposal,,125.0,5.69
+S00318,09/22/2024,George Miller,East,Hardware,Laptop Pro 15,49.0,3656.28,179157.72,SMB,Closed Lost,03/11/2025,170.0,8.61
+S00684,10/20/2024,Bob Smith,East,Hardware,Workstation Elite,33.0,346.25,11426.25,Mid-Market,Proposal,,179.0,11.72
+S00166,01/31/2025,Fiona Clark,South,Consulting,AI Roadmap,26.0,3822.77,99392.02,Mid-Market,Proposal,,179.0,12.95
+S00572,01/16/2025,Julia White,South,Services,Data Backup Service,32.0,2691.43,86125.76,Enterprise,Qualified,,136.0,13.92
+S00438,01/14/2025,Ian Thompson,West,Software,CRM Pro,27.0,778.66,21023.82,Enterprise,Closed Won,05/24/2025,130.0,14.52
+S00397,08/07/2025,Ian Thompson,West,Software,Cloud Office,13.0,4751.71,61772.23,Enterprise,Negotiation,,89.0,10.35
+S00194,02/15/2025,Bob Smith,North,Hardware,PrinterJet 5000,19.0,1015.27,19290.13,SMB,Closed Lost,04/05/2025,49.0,14.89
+,07/17/2025,Diana Lee,South,Services,Data Backup Service,19.0,3061.74,58173.06,Mid-Market,Proposal,,126.0,14.39
+S00604,11/01/2024,Julia White,West,Consulting,Cloud Readiness,44.0,1157.67,50937.48,SMB,Qualified,,80.0,13.99
+S00207,02/17/2025,Julia White,East,Consulting,Cybersecurity Audit,8.0,3609.14,28873.12,Enterprise,Closed Lost,06/05/2025,108.0,8.97
+S00262,10/21/2024,Hannah Wilson,East,Hardware,Router Max,7.0,2998.64,20990.48,Mid-Market,Closed Won,02/05/2025,107.0,9.84
+S00369,07/16/2025,Hannah Wilson,North,Services,Training Program,46.0,3619.71,166506.66,Mid-Market,Qualified,,49.0,13.66
+S00168,02/09/2025,Fiona Clark,East,Software,CRM Pro,12.0,532.77,6393.24,SMB,Negotiation,,117.0,13.77
+S00650,05/26/2025,George Miller,East,Hardware,PrinterJet 5000,38.0,3815.99,145007.62,SMB,Negotiation,,92.0,7.43
+S00127,07/02/2025,Ian Thompson,East,Software,CRM Pro,18.0,4292.18,77259.24,Enterprise,Closed Won,08/18/2025,47.0,7.66
+S00216,12/26/2024,Alice Johnson,West,Software,CRM Pro,6.0,347.5,2085.0,SMB,Closed Lost,05/21/2025,146.0,6.27
+S00114,12/14/2024,Fiona Clark,South,Services,Network Audit,11.0,955.85,10514.35,Mid-Market,Proposal,,160.0,13.88
+S00523,01/01/2025,Ian Thompson,West,Software,Security Shield,11.0,3640.73,40048.03,SMB,Proposal,,75.0,5.72
+S00187,07/13/2025,Fiona Clark,North,Services,Data Backup Service,26.0,4946.93,128620.18,Enterprise,Proposal,,33.0,14.87
+S00452,09/28/2024,Diana Lee,North,Consulting,AI Roadmap,5.0,3836.07,19180.35,Enterprise,Closed Lost,11/26/2024,59.0,13.18
+S00732,11/20/2024,Alice Johnson,North,Consulting,Cloud Readiness,32.0,4848.13,155140.16,SMB,Negotiation,,148.0,12.24
+S00015,12/19/2024,George Miller,East,Hardware,PrinterJet 5000,30.0,115.37,3461.1,Mid-Market,Qualified,,173.0,14.2
+S00121,01/09/2025,Ethan Brown,East,Hardware,PrinterJet 5000,21.0,1053.95,22132.95,Mid-Market,Negotiation,,174.0,7.8
+S00521,05/13/2025,Fiona Clark,West,Software,Analytics Pro,3.0,2668.07,8004.21,Enterprise,Proposal,,78.0,5.01
+S00247,12/13/2024,Ethan Brown,West,Consulting,Cloud Readiness,26.0,3041.5,79079.0,Enterprise,Proposal,,179.0,7.24
+S00565,10/15/2024,George Miller,West,Software,ERP Suite,4.0,224.31,897.24,SMB,Negotiation,,168.0,6.65
+S00510,07/21/2025,Hannah Wilson,East,Hardware,PrinterJet 5000,1.0,1123.59,,Mid-Market,Proposal,,145.0,7.81
+S00420,02/25/2025,Diana Lee,South,Consulting,Cloud Readiness,13.0,961.84,12503.92,SMB,Closed Won,04/26/2025,60.0,11.54
+S00468,12/24/2024,Diana Lee,North,Hardware,Router Max,1.0,752.92,752.92,Mid-Market,Proposal,,69.0,11.14
+S00326,12/16/2024,Diana Lee,East,Software,ERP Suite,10.0,4248.15,42481.5,Enterprise,Qualified,,72.0,13.8
+S00513,08/21/2024,Charlie Davis,North,Software,Cloud Office,23.0,2148.03,49404.69,Mid-Market,Qualified,,170.0,10.78
+S00545,11/13/2024,Fiona Clark,South,Consulting,AI Roadmap,6.0,226.28,1357.68,SMB,Closed Lost,02/16/2025,95.0,14.85
+S00514,2025-08-10,Charlie Davis,South,Consulting,Business Strategy,35.0,729.98,25549.3,SMB,Closed Won,12/13/2025,125.0,14.21
+S00459,04/11/2025,Bob Smith,North,Consulting,Process Optimization,5.0,2852.59,14262.95,Mid-Market,Negotiation,,44.0,7.55
+S00360,06/07/2025,Bob Smith,North,Consulting,Cloud Readiness,3.0,1898.91,5696.73,SMB,Negotiation,,92.0,5.4
+S00411,07/18/2025,Hannah Wilson,South,Software,ERP Suite,46.0,1903.26,87549.96,Mid-Market,Proposal,,156.0,9.13
+S00358,12/04/2024,Diana Lee,East,Software,CRM Pro,28.0,631.26,17675.28,Enterprise,Closed Won,05/20/2025,167.0,12.65
+S00706,11/01/2024,Diana Lee,South,Services,Training Program,38.0,4623.28,175684.64,Mid-Market,Proposal,,42.0,6.83
+S00395,07/31/2025,Ethan Brown,West,Services,Network Audit,33.0,911.56,30081.48,SMB,Closed Won,01/27/2026,180.0,8.88
+S00439,07/05/2025,Julia White,North,Consulting,Cybersecurity Audit,28.0,2472.5,69230.0,Mid-Market,Proposal,,167.0,9.49
+S00534,01/23/2025,Ian Thompson,East,Services,Network Audit,5.0,695.16,3475.8,Mid-Market,Negotiation,,72.0,13.92
+S00714,11/28/2024,Bob Smith,South,Consulting,Process Optimization,15.0,3589.31,53839.65,Mid-Market,Qualified,,117.0,6.25
+S00094,10/06/2024,Ethan Brown,East,Software,Analytics Pro,36.0,2841.51,102294.36,SMB,Closed Won,03/02/2025,147.0,14.01
+S00363,02/28/2025,Julia White,South,Services,Data Backup Service,32.0,939.58,30066.56,Mid-Market,Negotiation,,114.0,8.74
+S00192,03/09/2025,Ethan Brown,North,Services,Training Program,35.0,1620.44,56715.4,Enterprise,Closed Won,05/01/2025,53.0,10.2
+S00143,03/15/2025,Ian Thompson,South,Consulting,Business Strategy,2.0,905.6,1811.2,Mid-Market,Closed Lost,07/21/2025,128.0,12.72
+S00528,05/30/2025,Ethan Brown,East,Services,Cloud Migration,16.0,1184.62,18953.92,SMB,Negotiation,,87.0,5.58
+S00616,12/24/2024,Charlie Davis,West,Services,Cloud Migration,35.0,4628.81,162008.35,SMB,Proposal,,136.0,14.92
+S00232,08/19/2024,Bob Smith,West,Hardware,Server X100,11.0,2877.44,31651.84,Enterprise,Negotiation,,73.0,13.72
+S00445,01/21/2025,Bob Smith,West,Hardware,PrinterJet 5000,14.0,3610.08,50541.12,SMB,Negotiation,,144.0,11.3
+S00162,04/25/2025,Ethan Brown,East,Services,Training Program,48.0,2191.02,105168.96,Enterprise,Closed Won,07/07/2025,73.0,7.39
+S00721,2024-09-24,George Miller,East,Hardware,Workstation Elite,1.0,2223.41,2223.41,Enterprise,Negotiation,,42.0,13.89
+S00196,01/19/2025,Julia White,East,Software,Analytics Pro,15.0,2250.03,33750.45,Mid-Market,Negotiation,,146.0,10.81
+S00683,01/14/2025,Alice Johnson,South,Hardware,Server X100,39.0,3960.65,154465.35,Enterprise,,,174.0,14.17
+S00330,07/05/2025,George Miller,North,Software,ERP Suite,27.0,4868.82,131458.14,Mid-Market,Proposal,,157.0,11.02
+S00047,11/30/2024,George Miller,East,Services,Data Backup Service,34.0,1851.65,62956.1,SMB,Proposal,,154.0,14.5
+S00479,2024-11-26,Hannah Wilson,East,Services,Training Program,6.0,2837.66,17025.96,Mid-Market,Qualified,,36.0,9.09
+S00567,04/16/2025,George Miller,East,Consulting,Business Strategy,35.0,1288.73,45105.55,Enterprise,Closed Won,06/10/2025,55.0,14.68
+S00119,11/14/2024,Diana Lee,East,Consulting,Business Strategy,17.0,2973.56,50550.52,SMB,Qualified,,107.0,11.03
+S00416,12/19/2024,George Miller,South,Hardware,Laptop Pro 15,9.0,1832.13,16489.17,SMB,Closed Won,04/30/2025,132.0,14.87
+S00460,03/19/2025,Ethan Brown,East,Hardware,PrinterJet 5000,33.0,4314.38,142374.54,Mid-Market,Negotiation,,118.0,12.21
+S00696,01/16/2025,Ian Thompson,East,Consulting,Cybersecurity Audit,3.0,3324.32,9972.96,Enterprise,Qualified,,48.0,11.99
+S00471,01/02/2025,Fiona Clark,North,Software,CRM Pro,44.0,886.38,39000.72,Enterprise,Negotiation,,110.0,10.1
+S00711,01/15/2025,Alice Johnson,East,Services,Data Backup Service,11.0,2498.27,27480.97,Enterprise,Qualified,,87.0,5.29
+S00661,04/28/2025,Hannah Wilson,North,Hardware,Workstation Elite,8.0,3752.87,30022.96,SMB,Negotiation,,66.0,7.32
+,07/20/2025,Charlie Davis,East,Hardware,Laptop Pro 15,39.0,3257.04,127024.56,Enterprise,Closed Lost,08/25/2025,36.0,7.94
+S00124,09/09/2024,Ian Thompson,North,Software,Security Shield,31.0,3785.86,117361.66,Mid-Market,Proposal,,160.0,14.81
+S00607,12/17/2024,Julia White,West,Hardware,PrinterJet 5000,48.0,3238.64,155454.72,Mid-Market,Closed Won,02/17/2025,62.0,6.36
+S00425,11/03/2024,Ethan Brown,North,Hardware,Laptop Pro 15,7.0,111.0,777.0,Enterprise,Closed Lost,02/06/2025,95.0,7.23
+S00488,02/23/2025,Diana Lee,West,Consulting,Cybersecurity Audit,22.0,1983.33,43633.26,Mid-Market,Closed Won,04/26/2025,62.0,14.53
+S00382,12/24/2024,Bob Smith,North,Services,Data Backup Service,13.0,4744.56,61679.28,Enterprise,Closed Lost,04/20/2025,117.0,14.91
+S00433,05/16/2025,George Miller,South,Consulting,Cybersecurity Audit,37.0,2620.33,96952.21,SMB,Closed Lost,08/15/2025,91.0,5.02
+S00300,06/26/2025,Charlie Davis,East,Software,Cloud Office,35.0,4725.57,165394.95,Mid-Market,Closed Won,11/26/2025,153.0,7.06
+S00201,2025-01-21,Ian Thompson,South,Consulting,AI Roadmap,37.0,430.73,15937.01,SMB,Negotiation,,130.0,5.39
+S00622,01/15/2025,Ethan Brown,North,Software,ERP Suite,12.0,750.67,9008.04,Mid-Market,Closed Won,03/13/2025,57.0,12.06
+S00556,2025-04-05,Fiona Clark,East,Consulting,Process Optimization,18.0,2523.99,45431.82,Enterprise,Closed Lost,08/02/2025,119.0,11.83
+S00406,,Fiona Clark,South,Software,ERP Suite,46.0,3180.88,146320.48,SMB,Proposal,,71.0,9.37
+S00621,07/06/2025,Hannah Wilson,West,Hardware,Router Max,2.0,4297.04,8594.08,Enterprise,Qualified,,140.0,12.81
+S00551,11/03/2024,Bob Smith,North,Services,IT Support Plan,39.0,2532.14,98753.46,SMB,Negotiation,,125.0,10.85
+S00509,02/25/2025,Hannah Wilson,East,Consulting,AI Roadmap,44.0,4058.38,178568.72,Mid-Market,Negotiation,,136.0,8.01
+S00155,07/14/2025,George Miller,West,Software,CRM Pro,16.0,519.81,8316.96,Enterprise,Closed Lost,12/15/2025,154.0,13.28
+S00312,2025-07-06,Julia White,South,Hardware,Server X100,26.0,3915.35,101799.1,SMB,Proposal,,131.0,5.21
+S00136,05/19/2025,Alice Johnson,North,Hardware,Laptop Pro 15,50.0,928.59,46429.5,SMB,Negotiation,,70.0,12.26
+S00219,02/09/2025,Julia White,West,Services,Data Backup Service,40.0,4847.92,193916.8,SMB,Closed Lost,04/03/2025,53.0,13.45
+S00178,02/20/2025,Ethan Brown,South,Hardware,Server X100,21.0,4226.36,88753.56,SMB,Closed Won,08/03/2025,164.0,5.9
+S00718,01/26/2025,Charlie Davis,South,Software,Security Shield,13.0,1453.28,18892.64,Mid-Market,Closed Lost,04/21/2025,85.0,14.6
+S00403,02/14/2025,Ian Thompson,South,Software,Analytics Pro,50.0,1929.68,96484.0,Mid-Market,Qualified,,154.0,5.34
+S00701,08/31/2024,Julia White,East,Services,Data Backup Service,28.0,3663.26,102571.28,Enterprise,Negotiation,,71.0,13.72
+S00035,11/29/2024,Ian Thompson,West,Software,Cloud Office,5.0,2683.36,13416.8,Mid-Market,Closed Won,03/08/2025,99.0,14.88
+S00564,05/05/2025,Julia White,East,Software,Analytics Pro,36.0,3506.39,126230.04,SMB,Negotiation,,69.0,14.92
+S00712,07/25/2025,George Miller,East,Software,Security Shield,24.0,4291.13,102987.12,Enterprise,Proposal,,112.0,14.34
+S00629,11/10/2024,Bob Smith,East,Services,IT Support Plan,46.0,1287.49,59224.54,Mid-Market,Closed Won,01/20/2025,71.0,8.39
+S00436,05/11/2025,Ian Thompson,West,Software,Security Shield,48.0,2002.62,96125.76,Enterprise,Proposal,,180.0,7.05
+S00440,12/11/2024,Bob Smith,South,Services,IT Support Plan,28.0,2396.86,67112.08,Mid-Market,Proposal,,171.0,11.33
+S00677,11/27/2024,Ethan Brown,North,Consulting,Cybersecurity Audit,4.0,4969.77,19879.08,Enterprise,Closed Won,01/03/2025,37.0,12.54
+S00723,04/27/2025,Hannah Wilson,West,Hardware,Server X100,2.0,1794.67,3589.34,SMB,Closed Lost,07/02/2025,66.0,13.95
+S00640,10/17/2024,Hannah Wilson,East,Services,Cloud Migration,36.0,2890.07,104042.52,SMB,Proposal,,165.0,7.39
+S00538,01/11/2025,George Miller,West,Services,IT Support Plan,18.0,4864.28,87557.04,SMB,Closed Won,06/30/2025,170.0,8.21
+S00675,02/24/2025,Hannah Wilson,West,Consulting,Cybersecurity Audit,10.0,3467.66,34676.6,SMB,Qualified,,119.0,11.52
+S00026,11/01/2024,Ian Thompson,East,Hardware,Laptop Pro 15,16.0,4819.5,77112.0,Mid-Market,Proposal,,115.0,13.19
+S00428,05/27/2025,Charlie Davis,North,Services,Training Program,30.0,4501.39,135041.7,Enterprise,Qualified,,90.0,11.86
+S00738,12/22/2024,George Miller,North,Hardware,Server X100,47.0,4406.33,207097.51,SMB,Closed Won,05/12/2025,141.0,8.48
+S00725,06/30/2025,Alice Johnson,North,Software,Analytics Pro,3.0,758.41,2275.23,Mid-Market,Qualified,,133.0,8.1
+S00318,09/22/2024,George Miller,East,Hardware,Laptop Pro 15,49.0,3656.28,179157.72,SMB,Closed Lost,03/11/2025,170.0,8.61
+S00348,01/13/2025,Hannah Wilson,South,Services,Cloud Migration,4.0,3157.84,12631.36,Enterprise,Closed Won,07/04/2025,172.0,9.47
+S00260,07/17/2025,Ian Thompson,South,Services,Training Program,8.0,1331.45,10651.6,SMB,Closed Lost,09/06/2025,51.0,5.18
+S00279,04/19/2025,Ethan Brown,West,Hardware,Workstation Elite,14.0,3181.35,44538.9,Enterprise,Closed Won,08/09/2025,112.0,12.7
+S00019,01/21/2025,Fiona Clark,East,Services,Training Program,33.0,163.84,5406.72,Enterprise,Qualified,,54.0,12.4
+S00306,08/02/2025,Alice Johnson,West,Services,Cloud Migration,50.0,585.55,,SMB,Qualified,,151.0,8.82
+S00224,08/31/2024,Ethan Brown,South,Hardware,Router Max,34.0,3109.86,105735.24,Mid-Market,Proposal,,153.0,13.76
+S00680,12/06/2024,Charlie Davis,West,Consulting,Process Optimization,5.0,3332.81,16664.05,Enterprise,Negotiation,,51.0,6.85
+S00365,02/06/2025,Fiona Clark,East,Hardware,PrinterJet 5000,36.0,663.94,23901.84,Enterprise,Negotiation,,123.0,12.3
+S00587,09/26/2024,Fiona Clark,East,Hardware,Router Max,1.0,4799.64,4799.64,SMB,Closed Lost,12/31/2024,96.0,6.19
+S00186,04/02/2025,Julia White,East,Consulting,Cloud Readiness,39.0,3538.77,138012.03,Mid-Market,Closed Won,06/10/2025,69.0,11.61
+S00386,01/26/2025,Diana Lee,North,Software,ERP Suite,13.0,1955.6,25422.8,SMB,Closed Lost,04/11/2025,75.0,7.73
+S00346,08/28/2024,Julia White,North,Software,ERP Suite,24.0,3245.4,77889.6,Enterprise,Qualified,,113.0,9.06
+S00064,12/29/2024,Hannah Wilson,East,Software,Analytics Pro,3.0,1597.02,4791.06,Enterprise,Closed Won,03/26/2025,87.0,10.25
+S00693,02/14/2025,Ian Thompson,East,Services,Data Backup Service,22.0,382.35,8411.7,SMB,Proposal,,31.0,7.13
+S00423,03/26/2025,Fiona Clark,North,Consulting,Process Optimization,6.0,2973.4,17840.4,SMB,Closed Lost,09/17/2025,175.0,11.37
+S00146,06/19/2025,Ethan Brown,East,Services,Network Audit,25.0,1976.22,49405.5,Mid-Market,Closed Won,08/08/2025,50.0,12.72
+S00357,09/24/2024,Ian Thompson,South,Hardware,Laptop Pro 15,6.0,2852.54,17115.24,Enterprise,Negotiation,,86.0,11.95
+S00615,09/02/2024,Diana Lee,North,Hardware,PrinterJet 5000,48.0,1961.8,94166.4,Enterprise,Closed Lost,10/13/2024,41.0,6.68
+S00635,04/08/2025,Alice Johnson,North,Consulting,Cloud Readiness,7.0,1657.57,11602.99,SMB,Closed Won,08/30/2025,144.0,11.27
+S00554,06/13/2025,Charlie Davis,North,Hardware,Laptop Pro 15,30.0,1191.28,35738.4,SMB,Closed Lost,08/26/2025,74.0,8.55
+S00083,01/31/2025,Fiona Clark,North,Hardware,Workstation Elite,7.0,847.53,5932.71,Enterprise,Proposal,,44.0,6.49
+S00080,01/17/2025,Alice Johnson,East,Hardware,Laptop Pro 15,38.0,631.69,24004.22,Enterprise,Closed Won,05/11/2025,114.0,7.8
+S00141,04/13/2025,Alice Johnson,North,Consulting,Business Strategy,4.0,4770.95,19083.8,Mid-Market,Closed Lost,07/18/2025,96.0,13.45
+S00454,09/02/2024,Bob Smith,West,Hardware,Server X100,45.0,4515.0,203175.0,SMB,Negotiation,,154.0,12.77
+S00263,11/28/2024,Ian Thompson,East,Hardware,,16.0,2791.12,44657.92,Mid-Market,Qualified,,173.0,12.01
+S00387,02/03/2025,Alice Johnson,East,Services,Data Backup Service,41.0,4430.66,181657.06,SMB,Closed Lost,05/25/2025,111.0,8.08
+S00087,08/26/2024,George Miller,West,Hardware,Router Max,13.0,4091.54,53190.02,SMB,Closed Won,10/04/2024,39.0,8.78
+S00149,01/05/2025,Alice Johnson,East,Software,Cloud Office,8.0,687.6,5500.8,SMB,Closed Lost,02/22/2025,48.0,6.0
+S00023,02/04/2025,George Miller,East,Software,Cloud Office,21.0,2717.3,57063.3,Mid-Market,Negotiation,,174.0,8.08
+S00522,01/04/2025,Hannah Wilson,South,Consulting,Process Optimization,4.0,1020.92,4083.68,Enterprise,Closed Won,02/11/2025,38.0,14.03
+S00658,10/03/2024,Bob Smith,East,Services,Cloud Migration,29.0,257.55,7468.95,SMB,Negotiation,,66.0,13.4
+S00491,03/06/2025,Fiona Clark,South,Software,Cloud Office,47.0,1707.83,80268.01,Enterprise,Negotiation,,144.0,14.14
+S00736,2024-10-20,Hannah Wilson,West,Hardware,PrinterJet 5000,23.0,2338.93,53795.39,Mid-Market,Closed Lost,01/23/2025,95.0,5.22
+S00252,11/27/2024,Ian Thompson,East,Software,Analytics Pro,16.0,3358.26,53732.16,Enterprise,Closed Won,01/14/2025,48.0,8.37
+S00536,01/16/2025,Alice Johnson,West,Consulting,Process Optimization,17.0,1134.52,19286.84,,Qualified,,166.0,6.98
+S00596,03/09/2025,Ethan Brown,East,Hardware,Laptop Pro 15,6.0,346.39,2078.34,Mid-Market,Proposal,,121.0,6.47
+S00070,01/29/2025,Diana Lee,South,Hardware,Workstation Elite,45.0,734.84,33067.8,SMB,Closed Lost,06/09/2025,131.0,8.83
+S00116,04/18/2025,Alice Johnson,South,Services,Data Backup Service,6.0,3047.53,18285.18,Mid-Market,Qualified,,158.0,12.63
+S00374,03/04/2025,Ian Thompson,East,Software,Analytics Pro,1.0,4159.2,4159.2,SMB,Closed Lost,07/02/2025,120.0,12.18
+S00093,07/19/2025,Ian Thompson,South,Software,ERP Suite,12.0,4644.01,55728.12,SMB,Proposal,,163.0,14.82
+S00402,09/08/2024,Alice Johnson,North,Software,ERP Suite,12.0,2338.99,28067.88,Mid-Market,Qualified,,98.0,9.46
+S00214,02/01/2025,Charlie Davis,West,Hardware,Workstation Elite,7.0,1725.51,12078.57,Enterprise,Closed Lost,05/28/2025,116.0,9.9
+S00250,08/24/2024,Alice Johnson,East,Hardware,Server X100,25.0,1783.93,44598.25,Mid-Market,Closed Lost,01/27/2025,156.0,13.31
+S00205,07/29/2025,Charlie Davis,North,Consulting,Cloud Readiness,15.0,3733.97,56009.55,Enterprise,Qualified,,56.0,11.41
+S00230,05/02/2025,Ian Thompson,South,Hardware,Laptop Pro 15,31.0,2290.64,71009.84,Enterprise,Negotiation,,110.0,12.87
+S00247,12/13/2024,Ethan Brown,West,Consulting,Cloud Readiness,26.0,3041.5,79079.0,Enterprise,Proposal,,179.0,7.24
+S00032,07/24/2025,Ian Thompson,East,Consulting,Cloud Readiness,46.0,2329.31,107148.26,Mid-Market,Closed Lost,10/29/2025,97.0,5.89
+S00582,11/03/2024,Bob Smith,South,Software,Analytics Pro,8.0,299.15,2393.2,Enterprise,Closed Lost,04/26/2025,174.0,5.14
+S00569,06/19/2025,Fiona Clark,South,Software,Analytics Pro,45.0,2041.89,91885.05,Enterprise,Negotiation,,58.0,12.7
+S00555,04/18/2025,Ethan Brown,West,Services,Data Backup Service,37.0,1025.06,37927.22,Mid-Market,Closed Lost,07/14/2025,87.0,5.01
+S00332,03/13/2025,Ian Thompson,West,Consulting,Process Optimization,25.0,4385.06,109626.5,Enterprise,Proposal,,149.0,13.28
+S00217,07/19/2025,Fiona Clark,West,Consulting,Business Strategy,32.0,1090.71,34902.72,Mid-Market,Closed Won,09/08/2025,51.0,12.29
+S00426,06/03/2025,Ethan Brown,North,Consulting,Process Optimization,38.0,1030.74,39168.12,SMB,Closed Lost,10/26/2025,145.0,10.01
+S00482,09/12/2024,Alice Johnson,North,Software,Analytics Pro,27.0,3124.3,84356.1,SMB,Negotiation,,101.0,14.41
+S00296,04/24/2025,Bob Smith,South,Services,IT Support Plan,25.0,562.49,14062.25,Enterprise,Closed Won,05/24/2025,30.0,8.33
+S00085,03/31/2025,Charlie Davis,South,Consulting,Process Optimization,20.0,435.64,8712.8,Enterprise,Closed Won,09/06/2025,159.0,8.38
+S00181,08/31/2024,Diana Lee,West,Hardware,Server X100,42.0,2832.4,118960.8,Mid-Market,Proposal,,174.0,11.26
+S00636,04/24/2025,Charlie Davis,East,Services,Training Program,24.0,890.05,21361.2,Mid-Market,Negotiation,,52.0,13.94
+S00271,06/24/2025,Fiona Clark,South,Hardware,Router Max,39.0,4389.07,171173.73,Enterprise,Closed Won,09/16/2025,84.0,6.17
+S00282,10/05/2024,Ethan Brown,East,Software,CRM Pro,17.0,299.36,5089.12,SMB,Closed Lost,03/16/2025,162.0,5.28
+S00653,07/17/2025,Alice Johnson,South,Services,Data Backup Service,2.0,3594.35,7188.7,Enterprise,Negotiation,,60.0,6.0
+S00191,08/14/2024,Ian Thompson,South,Services,Network Audit,48.0,4294.32,206127.36,Mid-Market,Closed Won,02/02/2025,172.0,13.07
+S00307,10/12/2024,Charlie Davis,North,Consulting,AI Roadmap,41.0,2901.02,118941.82,SMB,Qualified,,95.0,13.87
+S00573,07/20/2025,Diana Lee,East,Hardware,Server X100,41.0,639.97,26238.77,Mid-Market,Closed Won,09/11/2025,53.0,6.22
+S00339,05/18/2025,Julia White,East,Services,Network Audit,11.0,2407.66,26484.26,Mid-Market,Closed Lost,07/14/2025,57.0,13.84
+S00321,12/07/2024,Diana Lee,North,Services,Data Backup Service,48.0,226.45,10869.6,SMB,Proposal,,151.0,5.08
+S00444,10/02/2024,Hannah Wilson,North,Software,Security Shield,42.0,3686.16,154818.72,Mid-Market,Negotiation,,164.0,5.58
+S00074,05/23/2025,Ethan Brown,South,Services,Network Audit,49.0,4356.26,213456.74,SMB,Negotiation,,129.0,10.66
+S00457,03/09/2025,George Miller,East,Software,Security Shield,42.0,4956.48,208172.16,Mid-Market,Closed Won,04/15/2025,37.0,11.94
+S00327,06/09/2025,George Miller,North,Consulting,Process Optimization,47.0,1034.86,48638.42,Enterprise,Closed Lost,11/23/2025,167.0,13.36
+S00140,07/23/2025,George Miller,West,Hardware,Laptop Pro 15,4.0,574.37,,SMB,Qualified,,48.0,7.7
+S00108,04/29/2025,Fiona Clark,East,Software,Analytics Pro,37.0,627.04,23200.48,Mid-Market,Closed Lost,06/15/2025,47.0,12.37
+S00542,03/15/2025,Alice Johnson,East,Hardware,Laptop Pro 15,23.0,4208.83,96803.09,Enterprise,Proposal,,163.0,11.96
+S00730,12/23/2024,Alice Johnson,North,Services,Data Backup Service,49.0,902.87,44240.63,Mid-Market,Qualified,,110.0,6.85
+S00742,08/06/2025,Diana Lee,West,Software,Analytics Pro,38.0,1982.4,75331.2,Enterprise,Closed Lost,10/07/2025,62.0,10.41
+S00269,11/04/2024,Ian Thompson,East,Hardware,Server X100,2.0,2522.88,5045.76,SMB,Negotiation,,110.0,5.19
+S00519,11/01/2024,Bob Smith,North,Hardware,Workstation Elite,31.0,4478.0,138818.0,SMB,Closed Lost,04/19/2025,169.0,12.83

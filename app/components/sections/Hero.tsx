@@ -130,7 +130,7 @@ export default function Hero() {
             <span className="font-semibold text-blue-600"> Tableau</span> in minutes, not hours.
           </motion.p>
           
-          {/* Modern CTA Button */}
+          {/* Modern CTA Button 
           <motion.div
             variants={itemVariants}
             whileHover={{ scale: 1.05 }}
@@ -154,6 +154,91 @@ export default function Hero() {
                 <ArrowRight className="w-5 h-5" />
               </motion.div>
             </Button>
+          </motion.div>
+          */}
+
+          {/* Fascinating Demo Button */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-6"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <a 
+              href="/demo"
+              className="inline-flex items-center px-8 py-4 rounded-full font-semibold text-lg transition-all duration-500 group relative overflow-hidden bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 hover:from-cyan-400 hover:via-blue-400 hover:to-purple-500 text-white shadow-xl hover:shadow-2xl hover:shadow-cyan-500/30 transform hover:-translate-y-1"
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+              />
+              <motion.div
+                className="relative z-10 flex items-center space-x-3"
+                whileHover={{ scale: 1.05 }}
+              >
+                <motion.div
+                  className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center"
+                  animate={{ 
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 180, 360]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <Sparkles className="w-4 h-4 text-white" />
+                </motion.div>
+                <span className="font-bold">Take me to the Demo</span>
+                <motion.div
+                  className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center"
+                  animate={{ 
+                    x: [0, 3, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ 
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </motion.div>
+              </motion.div>
+            </a>
+            
+            {/* Floating sparkles around the button */}
+            <div className="absolute -top-2 -left-2 opacity-60">
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.5, 1],
+                  opacity: [0.6, 1, 0.6]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Sparkles className="w-4 h-4 text-cyan-400" />
+              </motion.div>
+            </div>
+            <div className="absolute -top-2 -right-2 opacity-60">
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.5, 1],
+                  opacity: [0.6, 1, 0.6]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+              >
+                <Sparkles className="w-4 h-4 text-purple-400" />
+              </motion.div>
+            </div>
           </motion.div>
 
           {/* Stats/Social Proof */}

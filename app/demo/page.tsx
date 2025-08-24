@@ -200,6 +200,33 @@ export default function DemoWelcome() {
         <CinematicIntro />
       </div>
 
+      {/* Main Continue Button - Appears after cinematic intro */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 16, duration: 0.8 }}
+        className="absolute bottom-32 left-1/2 transform -translate-x-1/2 z-30"
+      >
+        <Link href="/demo/guided">
+          <motion.button
+            className="group bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-500 hover:via-purple-500 hover:to-pink-500 text-white px-12 py-6 rounded-full font-bold text-2xl shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 relative overflow-hidden"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="relative z-10 flex items-center space-x-4">
+              <span>Continue to Guided Demo</span>
+              <ChevronRight className="w-8 h-8 group-hover:translate-x-2 transition-transform duration-300" />
+            </div>
+            
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+            
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300" />
+          </motion.button>
+        </Link>
+      </motion.div>
+
       {/* Bottom Progress Bar */}
       <div className="absolute bottom-0 left-0 right-0 z-20 bg-black/20 backdrop-blur-sm p-4">
         <div className="w-full bg-white/20 rounded-full h-1">

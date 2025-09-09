@@ -195,7 +195,7 @@ export default function AuthModal({ isOpen, onClose, defaultMode = 'signin', onS
             <Checkbox
               id="rememberMe"
               checked={rememberMe}
-              onCheckedChange={setRememberMe}
+              onCheckedChange={(checked) => setRememberMe(checked === true)}
               disabled={isLoading}
             />
             <Label htmlFor="rememberMe" className="text-sm text-gray-300">

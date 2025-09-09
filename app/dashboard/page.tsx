@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Plus, Settings, User, Home, BarChart3, Workflow, Copy, Trash2, Edit3, LogOut, LogIn, Sparkles, Zap, ArrowRight, FileText, Database, CheckCircle } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import AuthModal from '../components/auth/AuthModal';
 
 interface WorkflowType {
   id: string;
@@ -19,14 +21,15 @@ export default function Dashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentSection, setCurrentSection] = useState<DashboardSection>('home');
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
-  const [userName, setUserName] = useState('Alex Johnson');
-  const [userEmail, setUserEmail] = useState('alex@example.com');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showAuthOverlay, setShowAuthOverlay] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<'signin' | 'signup'>('signin');
   const [showWorkflowModal, setShowWorkflowModal] = useState(false);
   const [workflowStep, setWorkflowStep] = useState(0); // 0: type selection, 1: upload, 2: processing
   const [workflowType, setWorkflowType] = useState<'real' | 'mock' | null>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+
+  // Use our new auth system
+  const { user, isAuthenticated, signout, isLoading } = useAuth();
 
   // Mock workflows data with varied statuses
   const [workflows, setWorkflows] = useState<WorkflowType[]>([
@@ -39,133 +42,115 @@ export default function Dashboard() {
   ]);
 
   useEffect(() => {
-    // Check if user is authenticated (for now, check if they came from trial)
-    const isTrialUser = sessionStorage.getItem('rawbify_trial_user');
-    if (isTrialUser) {
-      setIsAuthenticated(true);
-    } else {
-      // Show auth overlay if not authenticated
-      setShowAuthOverlay(true);
-    }
-
     // Set initial time on client side only
     setCurrentTime(new Date());
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const handleAuthOption = (option: 'signin' | 'signup' | 'trial') => {
-    setShowAuthOverlay(false);
-    
+  const handleAuthOption = (option: 'signin' | 'signup' | 'trial') => {    
     if (option === 'trial') {
-      // Set trial user session
-      sessionStorage.setItem('rawbify_trial_user', 'true');
-      setIsAuthenticated(true);
+      // Set trial user session (only in browser)
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('rawbify_trial_user', 'true');
+        // Force page refresh to show trial access
+        window.location.reload();
+      }
     } else if (option === 'signin') {
-      // Show sign in form (to be implemented)
-      console.log('Show sign in form');
-      // For now, redirect to landing page
-      window.location.href = '/';
+      setAuthModalMode('signin');
+      setShowAuthModal(true);
     } else if (option === 'signup') {
-      // Show sign up form (to be implemented)
-      console.log('Show sign up form');
-      // For now, redirect to landing page
-      window.location.href = '/';
+      setAuthModalMode('signup');
+      setShowAuthModal(true);
     }
+  };
+
+  const handleAuthSuccess = () => {
+    setShowAuthModal(false);
+    // Dashboard will automatically update when auth context changes
   };
 
   const renderAuthOverlay = () => (
     <AnimatePresence>
-      {showAuthOverlay && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center"
+      >
+        {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        />
+        
+        {/* Overlay Content */}
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.9, opacity: 0, y: 20 }}
+          transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          className="relative bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl p-8 max-w-md w-full mx-4"
         >
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setShowAuthOverlay(false)}
-          />
-          
-          {/* Overlay Content */}
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl p-8 max-w-md w-full mx-4"
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setShowAuthOverlay(false)}
-              className="absolute top-4 right-4 w-8 h-8 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors duration-200"
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="w-8 h-8 text-white" />
+            </div>
+            <h2 className="text-2xl font-medium text-white mb-2">
+              Welcome to <span className="text-purple-400">Rawbify</span>
+            </h2>
+            <p className="text-white/60">
+              Choose how you'd like to access your dashboard
+            </p>
+          </div>
+
+          {/* Authentication Options */}
+          <div className="space-y-4">
+            {/* Sign In Option */}
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handleAuthOption('signin')}
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/20 flex items-center justify-center space-x-3"
             >
-              <span className="text-white text-lg">×</span>
-            </button>
+              <LogIn className="w-5 h-5" />
+              <span>Sign In</span>
+            </motion.button>
 
-            {/* Header */}
-            <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <User className="w-8 h-8 text-white" />
-              </div>
-              <h2 className="text-2xl font-medium text-white mb-2">
-                Welcome to <span className="text-purple-400">Rawbify</span>
-              </h2>
-              <p className="text-white/60">
-                Choose how you'd like to access your dashboard
-              </p>
-            </div>
+            {/* Use Trial Option */}
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handleAuthOption('trial')}
+              className="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white p-4 rounded-xl font-medium transition-all duration-200 hover:bg-white/20 flex items-center justify-center space-x-3"
+            >
+              <Sparkles className="w-5 h-5" />
+              <span>Use Trial as Alex Johnson</span>
+            </motion.button>
 
-            {/* Authentication Options */}
-            <div className="space-y-4">
-              {/* Sign In Option */}
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleAuthOption('signin')}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:shadow-purple-500/20 flex items-center justify-center space-x-3"
-              >
-                <LogIn className="w-5 h-5" />
-                <span>Sign In</span>
-              </motion.button>
+            {/* Sign Up Option */}
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handleAuthOption('signup')}
+              className="w-full bg-white/5 backdrop-blur-md border border-white/10 text-white/70 p-4 rounded-xl font-medium transition-all duration-200 hover:bg-white/10 hover:text-white flex items-center justify-center space-x-3"
+            >
+              <LogOut className="w-5 h-5" />
+              <span>Sign Up</span>
+            </motion.button>
+          </div>
 
-              {/* Use Trial Option */}
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleAuthOption('trial')}
-                className="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white p-4 rounded-xl font-medium transition-all duration-200 hover:bg-white/20 flex items-center justify-center space-x-3"
-              >
-                <Sparkles className="w-5 h-5" />
-                <span>Use Trial as Alex Johnson</span>
-              </motion.button>
-
-              {/* Sign Up Option */}
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleAuthOption('signup')}
-                className="w-full bg-white/5 backdrop-blur-md border border-white/10 text-white/70 p-4 rounded-xl font-medium transition-all duration-200 hover:bg-white/10 hover:text-white flex items-center justify-center space-x-3"
-              >
-                <LogOut className="w-5 h-5" />
-                <span>Sign Up</span>
-              </motion.button>
-            </div>
-
-            {/* Footer */}
-            <div className="mt-6 text-center">
-              <p className="text-white/40 text-sm">
-                Already have an account? <span className="text-purple-400 cursor-pointer hover:underline">Sign in</span>
-              </p>
-            </div>
-          </motion.div>
+          {/* Footer */}
+          <div className="mt-6 text-center">
+            <p className="text-white/40 text-sm">
+              Create an account to access all features
+            </p>
+          </div>
         </motion.div>
-      )}
+      </motion.div>
     </AnimatePresence>
   )
 
@@ -208,8 +193,11 @@ export default function Dashboard() {
   };
 
   const handleSignOut = () => {
-    // Clear session and redirect to home
-    sessionStorage.removeItem('rawbify_trial_user');
+    // Clear trial session and use auth signout (only in browser)
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('rawbify_trial_user');
+    }
+    signout();
     window.location.href = '/';
   };
 
@@ -251,8 +239,30 @@ export default function Dashboard() {
     setUploadedFile(null);
   };
 
-  // If not authenticated, show auth overlay
-  if (!isAuthenticated) {
+  // Check for trial user or authenticated user (only in browser)
+  const isTrialUser = typeof window !== 'undefined' ? sessionStorage.getItem('rawbify_trial_user') : null;
+  const hasAccess = isAuthenticated || isTrialUser;
+  
+  // Show loading state while auth is initializing
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <Workflow className="w-8 h-8 text-white" />
+          </motion.div>
+          <h2 className="text-xl font-medium text-white">Loading Rawbify Dashboard...</h2>
+        </div>
+      </div>
+    );
+  }
+
+  // If not authenticated and not trial user, show auth overlay
+  if (!hasAccess) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
         {/* Animated background elements */}
@@ -265,6 +275,14 @@ export default function Dashboard() {
         {/* Authentication Overlay */}
         {renderAuthOverlay()}
 
+        {/* New Authentication Modal */}
+        <AuthModal
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+          defaultMode={authModalMode}
+          onSuccess={handleAuthSuccess}
+        />
+
         {/* Ambient Light Effect */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-radial from-purple-500/10 to-transparent rounded-full pointer-events-none"></div>
       </div>
@@ -275,7 +293,9 @@ export default function Dashboard() {
     <div className="text-center space-y-8">
       <div>
                  <h1 className="text-6xl font-light text-white mb-4">
-           Welcome back, <span className="font-medium bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{userName}</span>
+           Welcome back, <span className="font-medium bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+             {user?.username || 'Alex Johnson'}
+           </span>
          </h1>
          <p className="text-white/60 text-xl">
            Your <span className="font-semibold text-purple-400">Rawbify</span> workspace awaits
@@ -514,24 +534,26 @@ export default function Dashboard() {
           
           <div className="space-y-4">
             <div>
-              <label className="block text-white/70 text-sm mb-2">Full Name</label>
+              <label className="block text-white/70 text-sm mb-2">Username</label>
               <input
                 type="text"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                placeholder="Enter your full name"
+                value={user?.username || 'Alex Johnson'}
+                readOnly
+                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white/70 placeholder-white/50 cursor-not-allowed"
+                placeholder="Username (read-only)"
               />
+              <p className="text-white/40 text-xs mt-1">Username cannot be changed</p>
             </div>
             <div>
               <label className="block text-white/70 text-sm mb-2">Email Address</label>
               <input
                 type="email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
+                value=""
                 className="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-                placeholder="Enter your email"
+                placeholder="Email feature coming soon..."
+                disabled
               />
+              <p className="text-white/40 text-xs mt-1">Email management will be available in a future update</p>
             </div>
             <div>
               <label className="block text-white/70 text-sm mb-2">Company</label>
@@ -544,8 +566,11 @@ export default function Dashboard() {
           </div>
 
           <div className="mt-6">
-            <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 font-medium">
-              Save Profile
+            <button 
+              className="w-full bg-white/10 border border-white/20 text-white/50 px-6 py-3 rounded-lg cursor-not-allowed font-medium"
+              disabled
+            >
+              Profile management coming soon
             </button>
           </div>
         </div>
@@ -697,7 +722,7 @@ export default function Dashboard() {
               <User className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="text-white text-sm font-medium">{userName}</p>
+              <p className="text-white text-sm font-medium">{user?.username || 'Alex Johnson'}</p>
               <p className="text-white/50 text-xs">{currentTime ? currentTime.toLocaleTimeString() : '--:--:--'}</p>
             </div>
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>

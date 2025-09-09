@@ -3,16 +3,30 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Sparkles, Zap, Target, Workflow, Info, Play, Users, LogIn, LogOut, User } from 'lucide-react'
+import { useAuth } from './contexts/AuthContext'
+import AuthModal from './components/auth/AuthModal'
+import UserProfile from './components/auth/UserProfile'
 
 type LandingSection = 'hero' | 'why' | 'how' | 'waitlist'
 
 export default function Home() {
   const [currentSection, setCurrentSection] = useState<LandingSection>('hero')
   const [showAuthOverlay, setShowAuthOverlay] = useState(false)
+  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [showUserProfile, setShowUserProfile] = useState(false)
+  const [authModalMode, setAuthModalMode] = useState<'signin' | 'signup'>('signin')
+  
+  const { user, isAuthenticated, signout } = useAuth()
 
   const handleDashboardClick = (e: React.MouseEvent) => {
     e.preventDefault()
-    setShowAuthOverlay(true)
+    if (isAuthenticated) {
+      // User is logged in, go to dashboard
+      window.location.href = '/dashboard'
+    } else {
+      // Show auth options
+      setShowAuthOverlay(true)
+    }
   }
 
   const handleAuthOption = (option: 'signin' | 'signup' | 'trial') => {
@@ -23,12 +37,19 @@ export default function Home() {
       sessionStorage.setItem('rawbify_trial_user', 'true')
       window.location.href = '/dashboard'
     } else if (option === 'signin') {
-      // Show sign in form (to be implemented)
-      console.log('Show sign in form')
+      // Show new auth modal for signin
+      setAuthModalMode('signin')
+      setShowAuthModal(true)
     } else if (option === 'signup') {
-      // Show sign up form (to be implemented)
-      console.log('Show sign up form')
+      // Show new auth modal for signup
+      setAuthModalMode('signup')
+      setShowAuthModal(true)
     }
+  }
+
+  const handleAuthSuccess = () => {
+    // Redirect to dashboard after successful authentication
+    window.location.href = '/dashboard'
   }
 
   const renderAuthOverlay = () => (
@@ -386,13 +407,32 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex flex-col sm:flex-row w-full sm:w-auto items-center gap-2 sm:gap-6 justify-center sm:justify-end">
-                <a 
-                  href="#"
-                  onClick={handleDashboardClick}
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 w-full sm:w-auto text-center font-semibold hover:scale-105"
-                >
-                  Take me to my Rawbify Dashboard
-                </a>
+                {isAuthenticated ? (
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => setShowUserProfile(true)}
+                      className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-xl hover:bg-white/20 transition-all duration-200"
+                    >
+                      <User className="w-4 h-4" />
+                      <span className="text-sm">{user?.username}</span>
+                    </button>
+                    <a 
+                      href="#"
+                      onClick={handleDashboardClick}
+                      className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 font-semibold hover:scale-105"
+                    >
+                      Dashboard
+                    </a>
+                  </div>
+                ) : (
+                  <a 
+                    href="#"
+                    onClick={handleDashboardClick}
+                    className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl hover:shadow-lg hover:shadow-purple-500/20 transition-all duration-300 w-full sm:w-auto text-center font-semibold hover:scale-105"
+                  >
+                    Take me to my Rawbify Dashboard
+                  </a>
+                )}
               </div>
             </div>
           </div>
@@ -446,6 +486,20 @@ export default function Home() {
 
       {/* Ambient Light Effect - matching dashboard */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-radial from-purple-500/10 to-transparent rounded-full pointer-events-none"></div>
+
+      {/* New Authentication Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        defaultMode={authModalMode}
+        onSuccess={handleAuthSuccess}
+      />
+
+      {/* User Profile Modal */}
+      <UserProfile
+        isOpen={showUserProfile}
+        onClose={() => setShowUserProfile(false)}
+      />
     </div>
   )
 }

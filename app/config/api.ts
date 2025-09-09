@@ -1,7 +1,7 @@
 // API Configuration
 export const API_CONFIG = {
-  // Base URL for API calls
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://rawbify-backend-production.up.railway.app',
+  // Base URL for API calls - Updated to Vercel deployment
+  BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://rawbify-backend.vercel.app',
   //BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
   
   // API version
@@ -13,8 +13,13 @@ export const API_CONFIG = {
     WAITLIST_JOIN: '/api/waitlist/join',
     WAITLIST_STATS: '/api/waitlist/stats',
     
-    // User validation
+    // User validation (legacy)
     VALIDATE_USER: '/api/validate-user',
+    
+    // Authentication (new)
+    AUTH_SIGNUP: '/api/auth/signup',
+    AUTH_SIGNIN: '/api/auth/signin',
+    AUTH_ME: '/api/auth/me',
     
     // Data processing
     PROCESS_DATA: '/api/process-data',
